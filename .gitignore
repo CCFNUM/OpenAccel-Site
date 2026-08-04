@@ -24,3 +24,6 @@ pnpm-debug.log*
 .env
 .env.local
 .env.*.local
+
+# pnpm workspace build-approval stub (handled in package.json onlyBuiltDependencies)
+pnpm-workspace.yaml

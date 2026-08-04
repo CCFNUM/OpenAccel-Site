@@ -1,11 +1,10 @@
 /**
  * GetStarted — landing page for the User Guide section (/get-started).
- * PDF download card · Quick start commands · Chapter index cards.
+ * PDF download card · Chapter index cards.
  */
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { useDocumentTitle } from '@/hooks/use-document-title';
-import { CodeBlock } from '@/components/CodeBlock';
 import { FileText, ArrowRight, AlertTriangle } from 'lucide-react';
 import { CHAPTERS } from '@/pages/get-started/GsLayout';
 
@@ -63,34 +62,6 @@ export function GetStarted() {
             </div>
             <ArrowRight size={18} className="shrink-0 text-[var(--cold)] opacity-70 group-hover:opacity-100 transition-opacity" />
           </a>
-        </section>
-
-        {/* Quick start */}
-        <section>
-          <h2 className="font-display text-2xl font-semibold mb-2">Quick Start</h2>
-          <p className="text-[var(--text-dim)] mb-6">Three commands to clone, build, and run your first case.</p>
-
-          <div className="space-y-4">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-dim)] mb-2">1 · Clone</p>
-              <CodeBlock lang="bash" code={`git clone --recurse-submodules https://github.com/CCFNUM/OpenAccel\ncd OpenAccel`} />
-            </div>
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-dim)] mb-2">2 · Build</p>
-              <CodeBlock lang="bash" code={`spack env activate tools/spack/openaccel-env && spack install\ncmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DPETSC=ON\nninja -C build`} />
-            </div>
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-dim)] mb-2">3 · Run</p>
-              <CodeBlock lang="bash" code={`./build/OpenAccel examples/cavity/cavity.yaml`} />
-            </div>
-          </div>
-
-          <p className="text-sm text-[var(--text-dim)] mt-4">
-            For full details on each step see{' '}
-            <Link href="/get-started/installation" className="underline underline-offset-4" style={{ color: 'var(--cold)' }}>Chapter 2 — Installation</Link>
-            {' '}and{' '}
-            <Link href="/get-started/running" className="underline underline-offset-4" style={{ color: 'var(--cold)' }}>Chapter 3 — Running Cases</Link>.
-          </p>
         </section>
 
         {/* Chapter index */}

@@ -12,6 +12,7 @@ const queryClient = new QueryClient({
 // Route-level code splitting: each page is loaded only when first visited.
 const Home         = lazy(() => import('@/pages/Home').then(m => ({ default: m.Home })));
 const GetStarted   = lazy(() => import('@/pages/GetStarted').then(m => ({ default: m.GetStarted })));
+const GsHowTo = lazy(() => import('@/pages/get-started/HowToUse').then(m => ({ default: m.HowToUse })));
 const GsCh1  = lazy(() => import('@/pages/get-started/Ch1Introduction').then(m => ({ default: m.Ch1Introduction })));
 const GsCh2  = lazy(() => import('@/pages/get-started/Ch2Installation').then(m => ({ default: m.Ch2Installation })));
 const GsCh3  = lazy(() => import('@/pages/get-started/Ch3Running').then(m => ({ default: m.Ch3Running })));
@@ -26,6 +27,7 @@ const GsCh11 = lazy(() => import('@/pages/get-started/Ch11Suite').then(m => ({ d
 const GsCh12 = lazy(() => import('@/pages/get-started/Ch12WorkedExample').then(m => ({ default: m.Ch12WorkedExample })));
 const GsApp  = lazy(() => import('@/pages/get-started/AppTroubleshooting').then(m => ({ default: m.AppTroubleshooting })));
 const Theory       = lazy(() => import('@/pages/Theory').then(m => ({ default: m.Theory })));
+const TheoryHowToRead = lazy(() => import('@/pages/theory/TheoryHowToRead').then(m => ({ default: m.TheoryHowToRead })));
 const Tutorials    = lazy(() => import('@/pages/Tutorials').then(m => ({ default: m.Tutorials })));
 const TutorialDetail = lazy(() => import('@/pages/TutorialDetail').then(m => ({ default: m.TutorialDetail })));
 const Publications = lazy(() => import('@/pages/Publications').then(m => ({ default: m.Publications })));
@@ -68,6 +70,7 @@ function Router() {
         <Switch>
           <Route path="/"                        component={Home} />
           <Route path="/get-started"                        component={GetStarted} />
+          <Route path="/get-started/how-to-use"            component={GsHowTo} />
           <Route path="/get-started/introduction"         component={GsCh1} />
           <Route path="/get-started/installation"         component={GsCh2} />
           <Route path="/get-started/running"              component={GsCh3} />
@@ -82,6 +85,7 @@ function Router() {
           <Route path="/get-started/worked-example"       component={GsCh12} />
           <Route path="/get-started/troubleshooting"      component={GsApp} />
           <Route path="/theory"                           component={Theory} />
+          <Route path="/theory/how-to-read"               component={TheoryHowToRead} />
           {/* /docs and /docs/* permanently redirect to /theory */}
           <Route path="/docs">{() => <DocsRedirect />}</Route>
           <Route path="/docs/:rest*">{() => <DocsRedirect />}</Route>

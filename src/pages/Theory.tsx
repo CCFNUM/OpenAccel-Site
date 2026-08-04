@@ -1,6 +1,7 @@
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { SEO } from '@/components/SEO';
 import { HardHat } from 'lucide-react';
+import { Link } from 'wouter';
 
 export function Theory() {
   useDocumentTitle('Theory Manual');
@@ -31,6 +32,11 @@ export function Theory() {
         <p className="text-[var(--text-dim)] text-lg max-w-md">
           The Theory Manual is being prepared and will be available here soon.
         </p>
+        <Link href="/theory/how-to-read"
+          className="text-sm font-medium underline underline-offset-4"
+          style={{ color: 'var(--cold)' }}>
+          How to read this guide &rarr;
+        </Link>
       </div>
     </div>
   );

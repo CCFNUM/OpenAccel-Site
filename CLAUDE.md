@@ -48,18 +48,8 @@ Content rules:
   manual's figures folder — converted to PNG/SVG if it is a PDF.
 - If something in the .tex is genuinely unclear or missing, leave a visible TODO
   callout naming what is needed — never paper over it with a guess.
-- MANDATORY — captions. Every table, figure, and code listing (a full listing
-  like a complete input.i example, or a smaller \begin{lstlisting}/yamltree
-  snippet) that carries a \caption{...} (tables/figures) or a
-  caption={...} parameter (lstlisting) in the .tex MUST render that exact
-  caption text on the site — never drop it silently. Use CodeBlock's `caption`
-  prop, YamlTree's `caption` prop, or an equivalent small dim caption under a
-  table. Do NOT invent a caption for an element that has none in the source
-  (plain \begin{lstlisting}[language=bash] with no caption= is common and
-  correct — leave those uncaptioned, per the no-invention rule above). Do not
-  fabricate a "Table N."/"Figure N." number if the true compiled number isn't
-  knowable from source alone — render the caption text itself without a guessed
-  number rather than invent one.
+- MANDATORY — captions. See the dedicated "Captions are mandatory" section below
+  for the full rule (numbering, position, what to do when the source has none).
 
 ## Chapter -> page mapping
 
@@ -156,9 +146,13 @@ Requirements:
 
 ## Captions are mandatory (see DESIGN-BRIEF.md §15)
 
-Never output a table, figure, code listing (full input.i OR any snippet), or boxed
-list without a caption. Use the EXACT caption text from the source .tex, with
-chapter-based numbering (Figure N.M / Table N.M / Listing N.M). Figures and code
-blocks: caption BELOW. Tables: caption ABOVE. If the source has no caption for an
-element, write a faithful one from the surrounding text and flag it — do not leave
-it uncaptioned. This is a hard requirement checked on every chapter.
+Every table, figure, and code listing (full input.i OR any snippet) that carries a
+real \caption{...} (tables/figures) or lstlisting caption={...} in the source .tex
+MUST show that EXACT caption text, with chapter-based numbering (Figure N.M /
+Table N.M / Listing N.M, counted per type in source order within the chapter).
+Figures and code blocks: caption BELOW. Tables: caption ABOVE.
+Do NOT invent a caption for an element that has none in the source — a plain
+\begin{lstlisting}[language=bash] with no caption= is common and correct; leave
+those uncaptioned, per the no-invention rule at the top of this file. This is a
+hard requirement checked on every chapter: never drop a caption that DOES exist
+in the source, and never add one that doesn't.

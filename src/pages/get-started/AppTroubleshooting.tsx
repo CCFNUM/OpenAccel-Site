@@ -1,29 +1,34 @@
 import { SEO } from '@/components/SEO';
 import { useDocumentTitle } from '@/hooks/use-document-title';
-import { GsLayout, H2, H3, TodoBlock } from './GsLayout';
+import { Caption } from '@/components/Caption';
+import { GsLayout, H2 } from './GsLayout';
 
-function TroubleTable({ rows }: { rows: [string, string, string][] }) {
+const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
+const tdBorder = { borderBottom: '1px solid var(--table-border)' } as const;
+
+function SymptomCauseTable({ label, caption, rows }: { label: string; caption: string; rows: [React.ReactNode, React.ReactNode][] }) {
   return (
-    <div className="overflow-x-auto mt-4 mb-8">
-      <table className="w-full text-sm border-collapse">
-        <thead>
-          <tr style={{ borderBottom: '2px solid var(--hairline)' }}>
-            <th className="text-left py-2 pr-6 font-medium" style={{ color: 'var(--text)' }}>Symptom</th>
-            <th className="text-left py-2 pr-6 font-medium" style={{ color: 'var(--text)' }}>Likely cause</th>
-            <th className="text-left py-2 font-medium" style={{ color: 'var(--text)' }}>Remedy</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(([symptom, cause, remedy], i) => (
-            <tr key={i} style={{ borderBottom: '1px solid var(--hairline)' }}>
-              <td className="py-3 pr-6 align-top font-mono text-xs" style={{ color: 'var(--hot)' }}>{symptom}</td>
-              <td className="py-3 pr-6 align-top text-sm" style={{ color: 'var(--text-dim)' }}>{cause}</td>
-              <td className="py-3 align-top text-sm" style={{ color: 'var(--text-dim)' }}>{remedy}</td>
+    <figure className="my-4">
+      <Caption label={label} className="mb-2">{caption}</Caption>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr>
+              <th className="text-left py-2 px-3 font-medium" style={thStyle}>Symptom</th>
+              <th className="text-left py-2 px-3 font-medium" style={thStyle}>Cause</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {rows.map(([symptom, cause], i) => (
+              <tr key={i} style={tdBorder}>
+                <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{symptom}</td>
+                <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{cause}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </figure>
   );
 }
 
@@ -31,117 +36,115 @@ export function AppTroubleshooting() {
   useDocumentTitle('Troubleshooting — User Guide');
   return (
     <GsLayout chNum="A" title="Troubleshooting">
-      <SEO title="Troubleshooting — User Guide" description="OpenAccel troubleshooting: parse failures, parallel failures, convergence problems, unexpected results, and known defects." path="/get-started/troubleshooting" />
+      <SEO
+        title="Troubleshooting — User Guide"
+        description="Parse and start-up failures, parallel failures, convergence and divergence, unexpected results, and known source defects."
+        path="/get-started/troubleshooting"
+      />
 
-      <p style={{ color: 'var(--text-dim)' }} className="mb-10 text-lg">
-        This appendix covers the most common failure modes grouped by when they occur.
-        Tables A.1–A.5 follow the structure of the printed User Guide (Appendix A).
-      </p>
-
-      <H2 id="parse-failures">A.1 — Parse Failures</H2>
-      <p style={{ color: 'var(--text-dim)' }} className="mb-4">
-        Problems caught before the solver starts, during YAML parsing and validation.
-      </p>
-      <TroubleTable rows={[
-        ['Unknown key "…"', 'Typo in a YAML key, or key from an older input-file version.', 'Check spelling; see Chapter 4 for the current key list.'],
-        ['Required key "…" missing', 'A key with no default was omitted.', 'Add the key. Required keys are marked with "—" in option tables.'],
-        ['Type error: expected real, got string', 'A numeric field received a quoted string.', 'Remove quotes. YAML floats must be unquoted: 1.0, not "1.0".'],
-        ['Part "…" not found in mesh', 'Boundary condition references a part name that does not exist.', 'Run with --validate to list all part names in the mesh.'],
-        ['material_id "…" not defined', 'Domain references a material not in material_library.', 'Add the material to material_library or correct the name.'],
-      ]} />
-
-      <H2 id="parallel-failures">A.2 — Parallel Failures</H2>
-      <p style={{ color: 'var(--text-dim)' }} className="mb-4">
-        Problems that appear only in MPI runs, or that differ between serial and parallel.
-      </p>
-      <TroubleTable rows={[
-        ['Segfault on MPI rank > 0 at startup', 'MPI library mismatch between OpenAccel and Trilinos.', 'Rebuild both with the same MPI installation. Spack upstreams can cause this.'],
-        ['Residuals differ between 1 and N ranks', 'Non-reproducible floating-point summation order.', 'Expected behaviour for large N. Use --decompose-seed for reproducible decomposition.'],
-        ['Deadlock / hang after mesh partition', 'PnetCDF built with a different MPI than the solver.', 'Rebuild PnetCDF inside the Spack environment.'],
-        ['Out of memory on rank 0 for large mesh', 'Serial mesh read concentrates the full mesh on rank 0.', 'Enable parallel_read: true in the mesh block (requires PnetCDF).'],
-      ]} />
-
-      <H2 id="convergence">A.3 — Convergence Problems</H2>
-      <p style={{ color: 'var(--text-dim)' }} className="mb-4">
-        Problems where the solver starts but residuals stagnate or diverge.
-      </p>
-      <TroubleTable rows={[
-        ['Residuals plateau above 1e-3', 'CFL too high for the mesh or flow regime.', 'Reduce cfl in solver_control. Try starting at 1 and ramping up.'],
-        ['Residuals diverge in first 10 iterations', 'Poor initial conditions or extremely skewed elements.', 'Set velocity initialisation close to the expected flow field. Check mesh quality.'],
-        ['Pressure residual stuck, velocity converges', 'Pressure solver tolerance too loose, or wrong BC (no pressure reference).', 'Tighten pressure tolerance. Ensure at least one pressure outlet or reference point.'],
-        ['Oscillating residuals that never converge', 'Unsteady flow being solved as steady, or under-resolved mesh.', 'Switch solver_control.type to transient, or refine the mesh.'],
-        ['Linear solver fails to converge', 'Preconditioner not suitable for the problem size or condition number.', 'Switch backend to hypre (AMG) for pressure; increase max_iterations.'],
-      ]} />
-
-      <H2 id="unexpected-results">A.4 — Unexpected Results</H2>
-      <p style={{ color: 'var(--text-dim)' }} className="mb-4">
-        The solver converges but results are physically wrong.
-      </p>
-      <TroubleTable rows={[
-        ['Velocity magnitudes ~1000× too high', 'Units mismatch — kinematic_viscosity in cSt instead of m²/s.', 'All inputs are in SI. Convert: 1 cSt = 1e-6 m²/s.'],
-        ['Free surface flattens instead of evolving', 'VOF interface sharpening disabled or surface tension zero.', 'Check multiphase.flux_limiter and surface_tension settings.'],
-        ['FSI structure does not deform', 'Coupling set to one_way_fluid_to_solid but forces not transmitted.', 'Verify interface parts match between fluid and solid domain BCs.'],
-        ['Rotating domain not rotating', 'stationary_parts defect — see Known Defects below.', 'Apply the workaround in Table A.5.'],
-      ]} />
-
-      <H2 id="known-defects">A.5 — Known Defects (Release v1.0)</H2>
-      <p style={{ color: 'var(--text-dim)' }} className="mb-4">
-        These defects are documented as observed rather than as intended. They are present in
-        Release v1.0 and have not yet been patched.
-      </p>
-      <div className="overflow-x-auto mt-4 mb-8">
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr style={{ borderBottom: '2px solid var(--hairline)' }}>
-              <th className="text-left py-2 pr-4 font-medium" style={{ color: 'var(--text)' }}>Key</th>
-              <th className="text-left py-2 pr-4 font-medium" style={{ color: 'var(--text)' }}>Defect</th>
-              <th className="text-left py-2 font-medium" style={{ color: 'var(--text)' }}>Workaround</th>
-            </tr>
-          </thead>
-          <tbody>
-            {([
-              [
-                'sliding_mesh › stationary_parts',
-                'Read from the wrong path in the input tree — the key is silently ignored.',
-                'Specify the stationary parts under the boundary_conditions of the fluid domain instead.',
-              ],
-              [
-                'interfaces › displacement_interpolation_type',
-                'Dead key — accepted at parse time but has no effect. RBF interpolation is always used.',
-                'No workaround needed; RBF is the correct choice for most FSI cases.',
-              ],
-              [
-                'mesh › search_method',
-                'Not validated at parse time — an invalid value is accepted silently and the default is used.',
-                'Use only documented values: "kdtree" or "brute_force".',
-              ],
-              [
-                'interpolation_type: "linear_then_nearest" and "nearest_then_linear"',
-                'Both values are accepted by the parser but rejected at runtime when the interpolation is first invoked.',
-                'Use "linear" or "nearest" only.',
-              ],
-            ] as [string, string, string][]).map(([key, defect, workaround], i) => (
-              <tr key={i} style={{ borderBottom: '1px solid var(--hairline)' }}>
-                <td className="py-3 pr-4 align-top font-mono text-xs" style={{ color: 'var(--warm)' }}>{key}</td>
-                <td className="py-3 pr-4 align-top text-sm" style={{ color: 'var(--text-dim)' }}>{defect}</td>
-                <td className="py-3 align-top text-sm" style={{ color: 'var(--text-dim)' }}>{workaround}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <H3 id="reporting">Reporting New Issues</H3>
+      <H2 id="parse-failures" num="A.1">Parse and start-up failures</H2>
       <p style={{ color: 'var(--text-dim)' }}>
-        Report bugs and unexpected behaviour via{' '}
-        <a href="https://github.com/CCFNUM/OpenAccel/issues" target="_blank" rel="noopener noreferrer"
-          style={{ color: 'var(--cold)' }} className="underline underline-offset-4">
-          GitHub Issues
-        </a>. Include the input file, the full solver output, and the OpenAccel version
-        (<code>./build/OpenAccel --version</code>).
+        These failures occur while the input file and mesh are being read, before the first
+        iteration. In several cases the message text names the wrong key, so the table below gives
+        the actual cause alongside the reported symptom.
       </p>
+      <SymptomCauseTable
+        label="Table A.1"
+        caption="Failures occurring before the first iteration."
+        rows={[
+          [<>Mesh path reported missing although <code>mesh</code> is present</>, <><code>mesh</code> nested inside <code>simulation</code>. It is a sibling, not a child.</>],
+          ['Parse error on a transient run', <><code>transient_scheme</code> missing; required for transient analyses despite having a documented default.</>],
+          [<>Error names <code>convergence_controls</code> although that block is present</>, <>The missing block is actually <code>convergence_criteria</code>; the message text is wrong.</>],
+          [<>Error refers to a <code>boundary_conditions</code> key</>, <>The required key is <code>boundaries</code>; the hint text is stale.</>],
+          [<>Error names a missing reference <em>density</em> in a Boussinesq case</>, <>The missing key is <code>buoyancy_reference_temperature</code>; the message text is wrong.</>],
+          [<>Type error on <code>output_frequency</code></>, 'A map was given for a steady run, or a scalar for a transient run.'],
+        ]}
+      />
 
-      <TodoBlock label="Additional troubleshooting entries will be added here as new defects and failure modes are documented." />
+      <H2 id="parallel-failures" num="A.2">Parallel failures</H2>
+      <p style={{ color: 'var(--text-dim)' }}>
+        The failures in the table below affect parallel runs only; the same case run on a single
+        rank completes normally. That asymmetry is itself the clearest diagnostic, and points to
+        mesh decomposition rather than to the physics.
+      </p>
+      <SymptomCauseTable
+        label="Table A.2"
+        caption="Failures affecting parallel runs only."
+        rows={[
+          ['Every parallel case aborts at zero iterations; serial cases pass', 'Automatic decomposition unavailable. Either the mesh is already decomposed, or Trilinos was built against a serial netCDF.'],
+          [<>Exodus error naming a per-rank file such as <code>mesh.e.4.0</code></>, 'The solver fell back to looking for a pre-decomposed mesh because runtime decomposition was refused.'],
+          ['Scattered rather than contiguous partitions', 'A 64-bit mesh was decomposed without the 32-bit conversion.'],
+        ]}
+      />
+
+      <H2 id="convergence" num="A.3">Convergence and divergence</H2>
+      <p style={{ color: 'var(--text-dim)' }}>
+        The table below covers runs that start correctly but fail to reach a solution. Most such
+        failures trace back to a stability limit that was satisfied on the original configuration
+        and violated after a change of mesh or time step.
+      </p>
+      <SymptomCauseTable
+        label="Table A.3"
+        caption="Failures during the solve."
+        rows={[
+          ['Diverges within a few iterations', 'Relaxation factors omitted; every factor defaults to 1.0, which is no relaxation at all.'],
+          ['Diverges after mesh refinement', 'Pseudo-timescale or time step no longer matched to the cell size, or the pressure solve is now under-resolved.'],
+          [<>Run stops at exactly <code>max_iterations</code></>, 'Not converged; the iteration budget was exhausted. Check the final residual.'],
+          ['Free-surface case explodes after a violent event', 'Courant number exceeded the MULES stability limit. Use adaptive time stepping with a target of 0.3 or lower.'],
+          ['Instability never develops from a quiescent field', 'The motionless state is itself a valid fixed point. Seed the initial field with a small perturbation.'],
+        ]}
+      />
+
+      <H2 id="unexpected-results" num="A.4">Unexpected results</H2>
+      <p style={{ color: 'var(--text-dim)' }}>
+        The hardest failures are those that produce a converged but incorrect answer. The table
+        below lists the settings that most often change a result without any accompanying warning.
+      </p>
+      <SymptomCauseTable
+        label="Table A.4"
+        caption="Runs that complete but produce the wrong answer."
+        rows={[
+          ['Solution changed after an apparently unrelated edit', <>Check <code>advection_scheme</code> and <code>velocity_interpolation_type</code>. Both change the converged solution, not merely the path to it.</>],
+          ['Iteration count differs between identical runs', 'Expected behaviour. Decomposition, rank count and library version all perturb rounding. Compare results, not counts.'],
+          ['A setting appears to be ignored', <>Check for a silent fallback: <code>curvature_smoothing_method</code>, <code>belos_solver</code> and <code>preconditioner</code> all accept invalid values without complaint.</>],
+          ['Transition model produces no laminar region', <><code>transitional_turbulence</code> not set to <code>true</code>; the case is running fully turbulent SST.</>],
+          ['Interface option appears to have no effect', <>The option belongs to the inactive non-conformal method. Check <code>expert_parameters &gt; non_conformal_method</code>.</>],
+          ['Per-interface non-conformal setting ignored', 'The method is global and cannot be set per interface.'],
+        ]}
+      />
+
+      <H2 id="known-defects" num="A.5">Known source defects</H2>
+      <p style={{ color: 'var(--text-dim)' }}>
+        The table below records defects present in the current release, documented as observed
+        rather than as intended. Each has a workaround; all are expected to be corrected in a
+        future release.
+      </p>
+      <figure className="my-4">
+        <Caption label="Table A.5" className="mb-2">Defects present in the current release, documented as observed.</Caption>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left py-2 px-3 font-medium" style={thStyle}>Key</th>
+                <th className="text-left py-2 px-3 font-medium" style={thStyle}>Defect</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['stationary_parts', <>Presence is checked under <code>mesh_deformation</code> but the value is read from <code>domain_motion</code>. Declare it under <code>domain_motion</code>.</>],
+                ['displacement_interpolation_type', 'Dead key. The struct field and enum map exist but no parser ever reads it. Use the gradient variant.'],
+                ['search_method', 'Not validated at parse time. An unsupported value causes an abrupt exit during the solve.'],
+                ['interpolation_type', <><code>piecewise_linear</code> and <code>b_spline</code> are accepted by the string table but rejected at run time.</>],
+              ].map(([key, defect]) => (
+                <tr key={key as string} style={tdBorder}>
+                  <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{key}</td>
+                  <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{defect}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </figure>
     </GsLayout>
   );
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:wght@400;600&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -35,10 +35,10 @@
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
 
-  --font-sans: "IBM Plex Sans", sans-serif;
-  --font-serif: "IBM Plex Serif", serif;
+  --font-sans: "Source Serif 4", serif;
+  --font-serif: "Source Serif 4", serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --font-display: "Archivo", sans-serif;
+  --font-display: "Source Serif 4", serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -94,6 +94,53 @@
   /* Scroll-fade gradient colour (matches page bg) */
   --scroll-fade: #080B11;
 
+  /* Key-result box — deep teal, distinct from --signal/--flux */
+  --key:          #5DCAA5;
+  --key-frame:    #0F6E56;
+  --key-bg:       rgba(93,202,165,0.10);
+  --key-title-fg: #04231D;
+  --key-body-fg:  #9FE1CB;
+
+  /* Source / implementation box — quiet slate */
+  --src:    #7FA8D0;
+  --src-bg: rgba(59,130,246,0.06);
+  --src-fg: #C5D6EA;
+
+  /* Input-map highlight — maps to the site's existing --hot orange (the
+     hero/wordmark/"Get started" accent), per DESIGN-BRIEF.md §13d. */
+  --map-highlight:    var(--hot);
+  --map-highlight-bg: var(--hot-pill-bg);
+  /* Input-map tree connectors — near-white so elbow lines read clearly
+     against the dark panel (deliberately stronger than --hairline, which is
+     tuned to be a subtle border, not a legible structural line). */
+  --map-connector: #E2E8F0;
+
+  /* Dedicated code surface (§16) — a gently RAISED panel, lighter still than
+     the previous tuning, staying just below the Note background so it still
+     recedes calmly. Text (--text) on --code-bg ≈ 12:1. */
+  --code-bg:     #161C28;
+  --code-border: var(--hairline);
+  /* Bash/shell command-block header strip (§17) — 2 shades LIGHTER than
+     --code-bg in dark mode. */
+  --code-strip-bg: #202836;
+
+  /* YAML/input.i listing surface (§19, supersedes §16 for non-bash code) —
+     dark mode is UNCHANGED from the standard code surface (no blue). */
+  --listing-bg:      var(--code-bg);
+  --listing-strip-bg: var(--code-strip-bg);
+
+  /* YAML-tree indentation guide-lines (§21, corrects §16/§15b) — 2 shades
+     DARKER than --text-dim, softer than before. */
+  --yaml-guide: #7A879B;
+
+  /* Table header fill (§18) — HSLU slate, 3 shades lighter than light theme's
+     for legibility on the dark page. White header text in both themes. */
+  --table-header-bg: #3A5580;
+  --table-header-fg: #FFFFFF;
+  /* Table row divider lines — 2 shades LIGHTER than --hairline in dark mode,
+     so rows read clearly. */
+  --table-border: #353E4D;
+
   --radius: 0.25rem;
 }
 
@@ -144,6 +191,56 @@
 
   /* Scroll-fade gradient colour */
   --scroll-fade: #FBFCFD;
+
+  /* Key-result box — deep teal, distinct from --signal/--flux */
+  --key:          #0F6E56;
+  --key-frame:    #0F6E56;
+  --key-bg:       #E1F5EE;
+  --key-title-fg: #FFFFFF;
+  --key-body-fg:  #04342C;
+
+  /* Source / implementation box — quiet slate */
+  --src:    #1F3A5F;
+  --src-bg: #EAF0F6;
+  --src-fg: #1F3A5F;
+
+  /* Input-map highlight — maps to the site's existing --hot orange (the
+     hero/wordmark/"Get started" accent), per DESIGN-BRIEF.md §13d. */
+  --map-highlight:    var(--hot);
+  --map-highlight-bg: var(--hot-pill-bg);
+  /* Input-map tree connectors — dark grey so elbow lines read clearly
+     against the light panel (deliberately stronger than --hairline, which is
+     tuned to be a subtle border, not a legible structural line). */
+  --map-connector: #475569;
+
+  /* Dedicated code surface (§16) — light grey at 15% transparency over the
+     page — HIGHER contrast than the Note background (--dim-pill-bg #F1F4F8)
+     so code reads as a distinct framed surface. Text (--text) on the
+     effective blend ≈ 12.7:1. */
+  --code-bg:     rgba(71,85,105,0.15);
+  --code-border: var(--hairline);
+  /* Bash/shell command-block header strip (§17) — 2 shades DARKER than
+     --code-bg in light mode. */
+  --code-strip-bg: rgba(71,85,105,0.28);
+
+  /* YAML/input.i listing surface (§19, supersedes §16 for non-bash code) —
+     the shade of blue the Tip box used before §19 (same value as the old
+     --callout-cold-bg), so code reads as a distinct, calm blue panel. Head
+     row is 3 shades darker. Text (--text) on --listing-bg ≈ 17:1. */
+  --listing-bg:       #EFF6FF;
+  --listing-strip-bg: #D4DBE4;
+
+  /* YAML-tree indentation guide-lines (§21, corrects §16/§15b) — 2 shades
+     LIGHTER than --text-dim, softer than before. */
+  --yaml-guide: #6C788A;
+
+  /* Table header fill (§18) — the manuals' HSLU slate. White header text in
+     both themes. */
+  --table-header-bg: #1F3A5F;
+  --table-header-fg: #FFFFFF;
+  /* Table row divider lines — 2 shades DARKER than --hairline in light mode,
+     so rows read clearly. */
+  --table-border: #CBD1DA;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

@@ -4,32 +4,34 @@
  */
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { BookOpen, X, ArrowLeft, AlertTriangle } from 'lucide-react';
+import { BookOpen, X, ArrowLeft, AlertTriangle, Lightbulb, Info } from 'lucide-react';
 
 export interface ChapterMeta {
-  num: string;       // '1' – '12' or 'A'
+  num: string;       // '' (unnumbered front matter), '1' – '12', or 'A'
   slug: string;      // URL segment after /get-started/
   title: string;
   inProgress?: boolean;
 }
 
 export const CHAPTERS: ChapterMeta[] = [
+  { num: '',   slug: 'how-to-use',        title: 'How to Use This Guide' },
   { num: '1',  slug: 'introduction',      title: 'Introduction' },
-  { num: '2',  slug: 'installation',      title: 'Installation' },
-  { num: '3',  slug: 'running',           title: 'Running Cases' },
-  { num: '4',  slug: 'input-file',        title: 'Input File Reference' },
+  { num: '2',  slug: 'installation',      title: 'Installation and Build' },
+  { num: '3',  slug: 'running',           title: 'Running a Case' },
+  { num: '4',  slug: 'input-file',        title: 'Input File Structure' },
   { num: '5',  slug: 'mesh',              title: 'Mesh' },
   { num: '6',  slug: 'physical-analysis', title: 'Physical Analysis' },
-  { num: '7',  slug: 'interfaces',        title: 'Interfaces' },
-  { num: '8',  slug: 'numerics',          title: 'Numerics & Solver Control' },
+  { num: '7',  slug: 'interfaces',        title: 'Interfaces and Coupling' },
+  { num: '8',  slug: 'numerics',          title: 'Numerics and Solver Control' },
   { num: '9',  slug: 'materials',         title: 'Materials' },
-  { num: '10', slug: 'output',            title: 'Output, Monitors & Restart' },
+  { num: '10', slug: 'output',            title: 'Output, Monitors, and Restart' },
   { num: '11', slug: 'suite',             title: 'The OpenAccel Suite', inProgress: true },
-  { num: '12', slug: 'worked-example',    title: 'Worked Example' },
+  { num: '12', slug: 'worked-example',    title: 'A Complete Worked Example' },
   { num: 'A',  slug: 'troubleshooting',   title: 'Troubleshooting' },
 ];
 
 const GROUPS = [
+  { label: 'Start here',   nums: [''] },
   { label: 'Introduction', nums: ['1'] },
   { label: 'Setup',        nums: ['2', '3'] },
   { label: 'Input File',   nums: ['4', '5', '6', '7', '8', '9', '10'] },
@@ -94,7 +96,7 @@ export function GsLayout({ chNum, title, inProgress, children }: Props) {
     </nav>
   );
 
-  const chapNum = chNum === 'A' ? 'Appendix A' : `Chapter ${chNum}`;
+  const chapNum = chNum === 'A' ? 'Appendix A' : chNum === '' ? '' : `Chapter ${chNum}`;
 
   return (
     <div>
@@ -102,7 +104,7 @@ export function GsLayout({ chNum, title, inProgress, children }: Props) {
       <div className="border-b border-[var(--hairline)] bg-[var(--ink)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <p className="font-mono text-xs uppercase tracking-[0.1em] mb-1" style={{ color: 'var(--cold)' }}>
-            User Guide — {chapNum}
+            {chapNum ? `User Guide — ${chapNum}` : 'User Guide'}
           </p>
           <h1 className="font-display text-3xl lg:text-4xl font-bold mb-1">
             {title}{inProgress && <span className="text-[var(--warm)] font-normal"> (incomplete)</span>}
@@ -161,36 +163,37 @@ export function GsLayout({ chNum, title, inProgress, children }: Props) {
 
 /* ── Shared doc helpers ─────────────────────────────────────────────────── */
 
-export function H2({ id, children }: { id: string; children: React.ReactNode }) {
+/** num: section number matching the source .tex, e.g. "5.1" (secnumdepth 3, per DESIGN-BRIEF.md §20) */
+export function H2({ id, num, children }: { id: string; num?: string; children: React.ReactNode }) {
   return (
     <h2 id={id} className="text-2xl font-display font-semibold scroll-mt-24 mb-5 mt-10"
       style={{ paddingBottom: '.4rem', borderBottom: '1px solid var(--hairline)' }}>
-      <a href={`#${id}`} className="anchor-link">#</a>{children}
+      <a href={`#${id}`} className="anchor-link">#</a>{num && <span style={{ color: 'var(--text-dim)' }}>{num}&ensp;</span>}{children}
     </h2>
   );
 }
 
-export function H3({ id, children }: { id: string; children: React.ReactNode }) {
+export function H3({ id, num, children }: { id: string; num?: string; children: React.ReactNode }) {
   return (
     <h3 id={id} className="text-lg font-medium scroll-mt-24 mt-8 mb-3" style={{ color: 'var(--text)' }}>
-      <a href={`#${id}`} className="anchor-link">#</a>{children}
+      <a href={`#${id}`} className="anchor-link">#</a>{num && <span style={{ color: 'var(--text-dim)' }}>{num}&ensp;</span>}{children}
     </h3>
   );
 }
 
 type CType = 'note' | 'tip' | 'warning' | 'danger';
-const CCFG: Record<CType, { color: string; bg: string; label: string; icon: string }> = {
-  note:    { color: 'var(--cold)',   bg: 'var(--callout-cold-bg)',   label: 'Note',      icon: 'ℹ' },
-  tip:     { color: 'var(--signal)', bg: 'var(--callout-signal-bg)', label: 'Tip',       icon: '💡' },
-  warning: { color: 'var(--warm)',   bg: 'var(--callout-warm-bg)',   label: 'Warning',   icon: '⚠' },
-  danger:  { color: 'var(--hot)',    bg: 'var(--callout-hot-bg)',    label: 'Important', icon: '!' },
+const CCFG: Record<CType, { color: string; bg: string; label: string; Icon: typeof Info }> = {
+  warning: { color: 'var(--warm)',     bg: 'var(--callout-warm-bg)', label: 'Warning',   Icon: AlertTriangle },
+  tip:     { color: 'var(--key-frame)', bg: 'var(--key-bg)',        label: 'Tip',       Icon: Lightbulb },
+  note:    { color: 'var(--text-dim)', bg: 'var(--dim-pill-bg)',    label: 'Note',      Icon: Info },
+  danger:  { color: 'var(--hot)',      bg: 'var(--callout-hot-bg)', label: 'Important', Icon: AlertTriangle },
 };
 export function Callout({ type, children }: { type: CType; children: React.ReactNode }) {
   const c = CCFG[type];
   return (
-    <div className="my-6 pl-4 py-4 pr-4 rounded-r-md" style={{ borderLeft: `3px solid ${c.color}`, background: c.bg }}>
+    <div className="my-6 rounded-md p-4" style={{ border: `1px solid ${c.color}`, background: c.bg }}>
       <p className="font-semibold text-sm mb-2 flex items-center gap-2" style={{ color: c.color }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}>{c.icon}</span> {c.label}
+        <c.Icon size={14} /> {c.label}
       </p>
       <div className="text-sm leading-relaxed" style={{ color: 'var(--text-dim)' }}>{children}</div>
     </div>
