@@ -418,3 +418,103 @@ which is wrong. Correct rule:
 
 In both themes: code panel clearly different from Note, code text WCAG-AA legible.
 The intent is a calm raised code well in dark mode, a framed inset in light mode.
+
+## 15. Code surface + YAML-tree guide-lines — FURTHER TUNING (amends §14/§12b)
+
+### 15a. --code-bg values (current, authoritative)
+- LIGHT theme: light grey at 15% transparency over the page:
+  --code-bg: rgba(71,85,105,0.15); --code-border: var(--hairline).
+- DARK theme: a bit lighter than plain --surface, still short of the Note
+  background so it stays quieter than a Note:
+  --code-bg: #131921; --code-border: var(--hairline).
+Applies to CodeBlock and YamlTree, both themes, per §12a/§14.
+
+### 15b. YAML-tree indentation guide-lines — colour (supersedes the
+--hairline + opacity approach in §12b)
+--hairline was too close to --code-bg to read clearly. Guide-lines now use
+--text-dim (no opacity reduction) — the SAME colour as the "# comment" text
+inside the block, in both themes:
+- LIGHT theme: --text-dim reads as a dark grey line, clearly visible against
+  the light --code-bg panel.
+- DARK theme: --text-dim reads as a light grey line (matching comment colour
+  exactly), clearly visible against the dark --code-bg panel.
+Still one line per indentation level, aligned to the indent, YamlTree only
+(not plain CodeBlock listings).
+
+## 16. Captions are mandatory (see CLAUDE.md for the full rule)
+
+Every table, figure, and code listing transcribed from a manual's .tex that
+carries a real \caption{...} (tables/figures) or lstlisting caption={...} MUST
+show that exact caption text on the site. Do not invent a caption where the
+source has none, and do not invent a "Table N."/"Figure N." number that can't
+be verified from source alone — render the caption prose itself, unnumbered,
+rather than guess a number.
+
+## 15. Captions, numbering & figure/table/code conventions (authoritative)
+
+EVERY table, figure, code listing (full input.i or any snippet), and boxed list
+taken from the manuals MUST carry a caption. No exceptions. Use the EXACT caption
+text from the source .tex file. Do not invent, shorten, or paraphrase captions.
+
+Numbering — follow the manual's scheme (chapter-based): "Figure N.M", "Table N.M",
+"Listing N.M" where N is the chapter number and M increments within the chapter.
+Examples: Figure 1.1, Figure 1.2, Table 4.1, Listing 2.3. Number in source order.
+
+Position (matches LaTeX convention):
+- FIGURES and CODE BLOCKS/LISTINGS (including full input.i and snippets): caption
+  goes BELOW the figure/code. Code blocks are treated as figures for captioning.
+- TABLES and LISTINGS-as-tables: caption goes ABOVE the table.
+- The caption LABEL ("Figure 1.2.", "Table 4.1.") is bold, sentence-case, followed
+  by a period, then the caption text in --text-dim, small. (Matches manual's
+  labelfont=bf, labelsep=period.)
+
+## 16. Code block styling — boldness, indentation, surface, guide-lines (authoritative)
+
+BOLDNESS: keywords in code blocks must be only GENTLY bold — a relaxed medium
+weight like the manual, never heavy/black. Match the manual's listing weight
+(restrained, easy on the eye). Furthermore, ONLY bold the tokens the manual bolds:
+some keys are lightly emphasised, others are not bold at all. Follow the source
+exactly — do not blanket-bold all keys.
+
+INDENTATION (input.i correctness): YAML children must indent correctly. In
+particular, all children of a list item under `- name: X` (e.g. type, location,
+materials) align under the WORD "name", i.e. the same indentation as "name", NOT
+under the dash "-". Reproduce the source file's indentation faithfully.
+
+CODE SURFACE COLOUR:
+- LIGHT theme: code panel is light grey at ~15% opacity tint over the page — a
+  soft, distinct inset, more pronounced than a Note but gentle.
+- DARK theme: code panel is a raised panel LIGHTER than the page background — and
+  a bit lighter than the earlier attempt; clearly a lifted surface, still quieter
+  than a Note, never darker than the page.
+
+YAML-TREE / CODE INDENT GUIDE-LINES (visibility fix): the vertical indentation
+guide-lines must be clearly visible:
+- LIGHT theme: guide lines are DARK grey.
+- DARK theme: guide lines are LIGHT grey — the SAME colour as the code comments
+  (# ...) in dark mode.
+Visible but not loud, in both themes.
+
+## 17. BASH command block strip
+
+Bash/shell command blocks have a top strip (the bar holding the "BASH" label and
+copy icon). That strip must differ from the command body:
+- LIGHT theme: strip is 2 shades DARKER than the command-body background.
+- DARK theme: strip is 2 shades LIGHTER than the command-body background.
+This applies to all shell/bash command blocks site-wide.
+
+## 18. Tables — header fill & fonts (authoritative; supersedes §4 colours)
+
+Header row is COLOUR-FILLED (not just a surface tint):
+- LIGHT theme: header fill = the HSLU slate colour used in the manuals
+  (hsluslate #1F3A5F family); header text = WHITE.
+- DARK theme: header fill = that same HSLU slate but 3 SHADES LIGHTER so it reads
+  on the dark page; header text = WHITE.
+Header row only — still NO zebra striping on body rows (per §4).
+
+FONTS in tables: cell text uses the site body font (Source Serif 4). EXCEPTION:
+any cell whose content is an input.i keyword/option/value uses the code font
+(--font-mono, IBM Plex Mono) — exactly as the manuals render keys in \ttfamily
+inside tables. So: prose in body font, keywords/values in mono.
+
+These table rules apply to ALL chapters and ALL pages.

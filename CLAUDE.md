@@ -48,6 +48,18 @@ Content rules:
   manual's figures folder — converted to PNG/SVG if it is a PDF.
 - If something in the .tex is genuinely unclear or missing, leave a visible TODO
   callout naming what is needed — never paper over it with a guess.
+- MANDATORY — captions. Every table, figure, and code listing (a full listing
+  like a complete input.i example, or a smaller \begin{lstlisting}/yamltree
+  snippet) that carries a \caption{...} (tables/figures) or a
+  caption={...} parameter (lstlisting) in the .tex MUST render that exact
+  caption text on the site — never drop it silently. Use CodeBlock's `caption`
+  prop, YamlTree's `caption` prop, or an equivalent small dim caption under a
+  table. Do NOT invent a caption for an element that has none in the source
+  (plain \begin{lstlisting}[language=bash] with no caption= is common and
+  correct — leave those uncaptioned, per the no-invention rule above). Do not
+  fabricate a "Table N."/"Figure N." number if the true compiled number isn't
+  knowable from source alone — render the caption text itself without a guessed
+  number rather than invent one.
 
 ## Chapter -> page mapping
 
@@ -141,3 +153,12 @@ Requirements:
    label. Each box's definition/label follows the manual it appears in.
 3. Colours may be shared across manuals (per DESIGN-BRIEF.md tokens), but the
    LABEL and MEANING are per-manual. Keep them distinguishable and documented.
+
+## Captions are mandatory (see DESIGN-BRIEF.md §15)
+
+Never output a table, figure, code listing (full input.i OR any snippet), or boxed
+list without a caption. Use the EXACT caption text from the source .tex, with
+chapter-based numbering (Figure N.M / Table N.M / Listing N.M). Figures and code
+blocks: caption BELOW. Tables: caption ABOVE. If the source has no caption for an
+element, write a faithful one from the surrounding text and flag it — do not leave
+it uncaptioned. This is a hard requirement checked on every chapter.
