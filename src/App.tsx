@@ -28,6 +28,7 @@ const GsCh12 = lazy(() => import('@/pages/get-started/Ch12WorkedExample').then(m
 const GsApp  = lazy(() => import('@/pages/get-started/AppTroubleshooting').then(m => ({ default: m.AppTroubleshooting })));
 const Theory       = lazy(() => import('@/pages/Theory').then(m => ({ default: m.Theory })));
 const TheoryHowToRead = lazy(() => import('@/pages/theory/TheoryHowToRead').then(m => ({ default: m.TheoryHowToRead })));
+const ThCh1  = lazy(() => import('@/pages/theory/Ch1Overview').then(m => ({ default: m.Ch1Overview })));
 const Tutorials    = lazy(() => import('@/pages/Tutorials').then(m => ({ default: m.Tutorials })));
 const TutorialDetail = lazy(() => import('@/pages/TutorialDetail').then(m => ({ default: m.TutorialDetail })));
 const Publications = lazy(() => import('@/pages/Publications').then(m => ({ default: m.Publications })));
@@ -86,6 +87,7 @@ function Router() {
           <Route path="/get-started/troubleshooting"      component={GsApp} />
           <Route path="/theory"                           component={Theory} />
           <Route path="/theory/how-to-read"               component={TheoryHowToRead} />
+          <Route path="/theory/overview"                  component={ThCh1} />
           {/* /docs and /docs/* permanently redirect to /theory */}
           <Route path="/docs">{() => <DocsRedirect />}</Route>
           <Route path="/docs/:rest*">{() => <DocsRedirect />}</Route>
