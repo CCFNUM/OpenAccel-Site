@@ -270,3 +270,135 @@ YamlTree component MUST render these:
 ### 12c. YAML syntax accents (unchanged)
 Keys bold in --cold/--violet; # comments in --text-dim italic; "..." continuation
 dimmed; strings a quiet accent. Restrained — documentation, not a rainbow.
+
+## 13. Input-file location map — AMENDED / AUTHORITATIVE (supersedes §10)
+
+The first attempt was wrong: it lacked real tree connectors, the indentation was
+too shallow to show hierarchy, and the highlight colour was wrong. This section is
+authoritative. The target is the LaTeX \inputmap tree exactly: clear elbow
+connectors and generous horizontal indentation so parent/child relationships are
+obvious at a glance.
+
+### 13a. Structure and hierarchy (indentation depths)
+depth 0: input.i
+  depth 1: mesh
+  depth 1: simulation
+    depth 2: physical_analysis
+      depth 3: analysis_type
+      depth 3: domains[]
+      depth 3: rigid_bodies[]
+      depth 3: interfaces[]
+    depth 2: solver
+      depth 3: solver_control
+      depth 3: output_control
+      depth 3: restart_control
+    depth 2: material_library
+
+### 13b. Connectors (REQUIRED — this was missing)
+Draw a real TREE with elbow (L-shaped) connectors, like a file-explorer or the
+LaTeX tree:
+- From each parent, a VERTICAL line runs down its left side spanning all its
+  children.
+- To each child, a short HORIZONTAL line branches off that vertical to meet the
+  child block's left edge (an elbow / "└─" and "├─" shape).
+- Lines are thin, colour --hairline, clearly visible in both themes.
+- The vertical for a parent stops at its LAST child (proper tree, not a full-height
+  rail).
+The reader must be able to trace, purely from the connector lines, that
+analysis_type / domains[] / rigid_bodies[] / interfaces[] are children of
+physical_analysis, etc.
+
+### 13c. Horizontal indentation (INCREASE per level)
+Each depth level indents notably MORE to the right than its parent — generous
+horizontal spacing so children sit clearly to the right of their parent, matching
+the User Guide PDF. Use a comfortable per-level indent (e.g. ~32-40px per depth
+level, not a few px). Vertical spacing between blocks stays compact/normal; it is
+only the HORIZONTAL indentation that increases. Children must never sit almost
+under their parent — the offset must read clearly.
+
+### 13d. Blocks
+- Default blocks: neutral surface (--surface), 1px --hairline border, monospace
+  label (--font-mono), small radius. Same neutral "white block" look in BOTH
+  themes (dark: --surface fill, --hairline border, --text label).
+- Highlighted block (the current chapter's): use the site's existing ORANGE
+  accent token --hot (the orange from the hero/wordmark). Highlight = --hot border
+  + faint --hot-tint fill + label colour that stays legible on that fill in BOTH
+  themes. Add --map-highlight / --map-highlight-bg token pair mapping to the --hot
+  family if needed for per-theme legibility. NOT pink, NOT teal, NOT maroon —
+  the site orange (--hot).
+
+### 13e. Interaction
+Each block is a clickable wouter link to that block's chapter/page. Hover gives a
+subtle affordance. The highlighted current block links to itself / does not
+navigate.
+
+### 13f. Component
+One reusable component (InputMap) taking a `highlight` prop naming which block is
+current, so every User Guide chapter drops it in with its own block highlighted.
+Both themes, legible, real tree connectors, generous indentation.
+
+## 13. Input-file location map — AMENDED / AUTHORITATIVE (supersedes §10)
+
+The first attempt was wrong: it lacked real tree connectors, the indentation was
+too shallow to show hierarchy, and the highlight colour was wrong. This section is
+authoritative. The target is the LaTeX \inputmap tree exactly: clear elbow
+connectors and generous horizontal indentation so parent/child relationships are
+obvious at a glance.
+
+### 13a. Structure and hierarchy (indentation depths)
+depth 0: input.i
+  depth 1: mesh
+  depth 1: simulation
+    depth 2: physical_analysis
+      depth 3: analysis_type
+      depth 3: domains[]
+      depth 3: rigid_bodies[]
+      depth 3: interfaces[]
+    depth 2: solver
+      depth 3: solver_control
+      depth 3: output_control
+      depth 3: restart_control
+    depth 2: material_library
+
+### 13b. Connectors (REQUIRED — this was missing)
+Draw a real TREE with elbow (L-shaped) connectors, like a file-explorer or the
+LaTeX tree:
+- From each parent, a VERTICAL line runs down its left side spanning all its
+  children.
+- To each child, a short HORIZONTAL line branches off that vertical to meet the
+  child block's left edge (an elbow / "└─" and "├─" shape).
+- Lines are thin, colour --hairline, clearly visible in both themes.
+- The vertical for a parent stops at its LAST child (proper tree, not a full-height
+  rail).
+The reader must be able to trace, purely from the connector lines, that
+analysis_type / domains[] / rigid_bodies[] / interfaces[] are children of
+physical_analysis, etc.
+
+### 13c. Horizontal indentation (INCREASE per level)
+Each depth level indents notably MORE to the right than its parent — generous
+horizontal spacing so children sit clearly to the right of their parent, matching
+the User Guide PDF. Use a comfortable per-level indent (e.g. ~32-40px per depth
+level, not a few px). Vertical spacing between blocks stays compact/normal; it is
+only the HORIZONTAL indentation that increases. Children must never sit almost
+under their parent — the offset must read clearly.
+
+### 13d. Blocks
+- Default blocks: neutral surface (--surface), 1px --hairline border, monospace
+  label (--font-mono), small radius. Same neutral "white block" look in BOTH
+  themes (dark: --surface fill, --hairline border, --text label).
+- Highlighted block (the current chapter's): use the site's existing ORANGE
+  accent token --hot (the orange from the hero/wordmark). Highlight = --hot border
+  + faint --hot-tint fill + label colour that stays legible on that fill in BOTH
+  themes. Add --map-highlight / --map-highlight-bg token pair mapping to the --hot
+  family if needed for per-theme legibility. NOT pink, NOT teal, NOT maroon —
+  the site orange (--hot).
+
+### 13e. Interaction
+Each block is a clickable wouter link to that block's chapter/page. Hover gives a
+subtle affordance. The highlighted current block links to itself / does not
+navigate.
+
+### 13f. Component
+One reusable component (InputMap) taking a `highlight` prop naming which block is
+current, so every User Guide chapter drops it in with its own block highlighted.
+Both themes, legible, real tree connectors, generous indentation.
