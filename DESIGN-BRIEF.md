@@ -402,3 +402,19 @@ navigate.
 One reusable component (InputMap) taking a `highlight` prop naming which block is
 current, so every User Guide chapter drops it in with its own block highlighted.
 Both themes, legible, real tree connectors, generous indentation.
+
+## 14. Code surface contrast — CORRECTION to §12a (authoritative)
+
+Earlier wording caused the dark-mode code panel to render DARKER than the page,
+which is wrong. Correct rule:
+
+- DARK theme: --code-bg must be slightly LIGHTER than the page background (--ink)
+  — a gently raised panel (use a value at or just above --surface). It must be
+  clearly distinct from the Note callout background but visually QUIETER / softer
+  than a Note (lower saturation/contrast), NOT darker than the page. Never sink
+  the code panel below the page background.
+- LIGHT theme: --code-bg is a slightly darker/greyer inset than the page and
+  MORE pronounced than the Note background (a distinct framed panel).
+
+In both themes: code panel clearly different from Note, code text WCAG-AA legible.
+The intent is a calm raised code well in dark mode, a framed inset in light mode.
