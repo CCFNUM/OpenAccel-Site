@@ -476,3 +476,30 @@ The vertical indentation guide-lines are currently too strong. Soften them:
 - LIGHT theme: 2 shades LIGHTER than their current dark-grey.
 - DARK theme: 2 shades DARKER than their current light-grey.
 Still faintly traceable, but subtle — they should not draw attention.
+
+## 22. Inline math / variables — MUST render as KaTeX everywhere (authoritative)
+
+Every mathematical variable or expression from the source .tex must be rendered
+with KaTeX, using the EXACT LaTeX from the source — not only display equations,
+but ALSO inline occurrences in prose, table cells, box/callout text, list items,
+figure/table captions, and headings. Currently display equations render correctly
+but inline variables were written as plain text (e.g. "alpha", "Kt", "v") — this
+is wrong and inconsistent.
+
+Rules:
+- Any token that is in math mode in the source ($...$, \( \), or a symbol like
+  \alpha, K_t, \mathbf{v}, Re, \rho, \nabla, \tau, subscripts/superscripts) must
+  be rendered as inline KaTeX, matching the source LaTeX exactly.
+- Preserve notation precisely: bold vectors \mathbf{v}, bold tensors
+  \boldsymbol{\tau}, \mathbf{S}_{ip}, subscripts/superscripts, Greek letters.
+- This applies inside tables (a cell containing a variable renders it as math,
+  NOT the mono code font — the mono font is only for input.i keywords/values, per
+  §18; physical/mathematical symbols use KaTeX math).
+- Inline math colour follows --text (theme-aware), never hardcoded.
+- Do not convert math to plain unicode approximations (e.g. never write "rho" for
+  ρ or "alpha" for α) — use KaTeX so it matches the display equations.
+
+Distinction to keep straight:
+- input.i keywords / option names / YAML values  -> mono code font (--font-mono).
+- physical/mathematical variables and expressions -> KaTeX math.
+These are different and must not be confused.
