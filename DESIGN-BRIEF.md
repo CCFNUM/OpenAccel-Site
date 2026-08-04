@@ -337,72 +337,6 @@ One reusable component (InputMap) taking a `highlight` prop naming which block i
 current, so every User Guide chapter drops it in with its own block highlighted.
 Both themes, legible, real tree connectors, generous indentation.
 
-## 13. Input-file location map — AMENDED / AUTHORITATIVE (supersedes §10)
-
-The first attempt was wrong: it lacked real tree connectors, the indentation was
-too shallow to show hierarchy, and the highlight colour was wrong. This section is
-authoritative. The target is the LaTeX \inputmap tree exactly: clear elbow
-connectors and generous horizontal indentation so parent/child relationships are
-obvious at a glance.
-
-### 13a. Structure and hierarchy (indentation depths)
-depth 0: input.i
-  depth 1: mesh
-  depth 1: simulation
-    depth 2: physical_analysis
-      depth 3: analysis_type
-      depth 3: domains[]
-      depth 3: rigid_bodies[]
-      depth 3: interfaces[]
-    depth 2: solver
-      depth 3: solver_control
-      depth 3: output_control
-      depth 3: restart_control
-    depth 2: material_library
-
-### 13b. Connectors (REQUIRED — this was missing)
-Draw a real TREE with elbow (L-shaped) connectors, like a file-explorer or the
-LaTeX tree:
-- From each parent, a VERTICAL line runs down its left side spanning all its
-  children.
-- To each child, a short HORIZONTAL line branches off that vertical to meet the
-  child block's left edge (an elbow / "└─" and "├─" shape).
-- Lines are thin, colour --hairline, clearly visible in both themes.
-- The vertical for a parent stops at its LAST child (proper tree, not a full-height
-  rail).
-The reader must be able to trace, purely from the connector lines, that
-analysis_type / domains[] / rigid_bodies[] / interfaces[] are children of
-physical_analysis, etc.
-
-### 13c. Horizontal indentation (INCREASE per level)
-Each depth level indents notably MORE to the right than its parent — generous
-horizontal spacing so children sit clearly to the right of their parent, matching
-the User Guide PDF. Use a comfortable per-level indent (e.g. ~32-40px per depth
-level, not a few px). Vertical spacing between blocks stays compact/normal; it is
-only the HORIZONTAL indentation that increases. Children must never sit almost
-under their parent — the offset must read clearly.
-
-### 13d. Blocks
-- Default blocks: neutral surface (--surface), 1px --hairline border, monospace
-  label (--font-mono), small radius. Same neutral "white block" look in BOTH
-  themes (dark: --surface fill, --hairline border, --text label).
-- Highlighted block (the current chapter's): use the site's existing ORANGE
-  accent token --hot (the orange from the hero/wordmark). Highlight = --hot border
-  + faint --hot-tint fill + label colour that stays legible on that fill in BOTH
-  themes. Add --map-highlight / --map-highlight-bg token pair mapping to the --hot
-  family if needed for per-theme legibility. NOT pink, NOT teal, NOT maroon —
-  the site orange (--hot).
-
-### 13e. Interaction
-Each block is a clickable wouter link to that block's chapter/page. Hover gives a
-subtle affordance. The highlighted current block links to itself / does not
-navigate.
-
-### 13f. Component
-One reusable component (InputMap) taking a `highlight` prop naming which block is
-current, so every User Guide chapter drops it in with its own block highlighted.
-Both themes, legible, real tree connectors, generous indentation.
-
 ## 14. Code surface contrast — CORRECTION to §12a (authoritative)
 
 Earlier wording caused the dark-mode code panel to render DARKER than the page,
@@ -418,37 +352,6 @@ which is wrong. Correct rule:
 
 In both themes: code panel clearly different from Note, code text WCAG-AA legible.
 The intent is a calm raised code well in dark mode, a framed inset in light mode.
-
-## 15. Code surface + YAML-tree guide-lines — FURTHER TUNING (amends §14/§12b)
-
-### 15a. --code-bg values (current, authoritative)
-- LIGHT theme: light grey at 15% transparency over the page:
-  --code-bg: rgba(71,85,105,0.15); --code-border: var(--hairline).
-- DARK theme: a bit lighter than plain --surface, still short of the Note
-  background so it stays quieter than a Note:
-  --code-bg: #131921; --code-border: var(--hairline).
-Applies to CodeBlock and YamlTree, both themes, per §12a/§14.
-
-### 15b. YAML-tree indentation guide-lines — colour (supersedes the
---hairline + opacity approach in §12b)
---hairline was too close to --code-bg to read clearly. Guide-lines now use
---text-dim (no opacity reduction) — the SAME colour as the "# comment" text
-inside the block, in both themes:
-- LIGHT theme: --text-dim reads as a dark grey line, clearly visible against
-  the light --code-bg panel.
-- DARK theme: --text-dim reads as a light grey line (matching comment colour
-  exactly), clearly visible against the dark --code-bg panel.
-Still one line per indentation level, aligned to the indent, YamlTree only
-(not plain CodeBlock listings).
-
-## 16. Captions are mandatory (see CLAUDE.md for the full rule)
-
-Every table, figure, and code listing transcribed from a manual's .tex that
-carries a real \caption{...} (tables/figures) or lstlisting caption={...} MUST
-show that exact caption text on the site. Do not invent a caption where the
-source has none, and do not invent a "Table N."/"Figure N." number that can't
-be verified from source alone — render the caption prose itself, unnumbered,
-rather than guess a number.
 
 ## 15. Captions, numbering & figure/table/code conventions (authoritative)
 
@@ -518,3 +421,58 @@ any cell whose content is an input.i keyword/option/value uses the code font
 inside tables. So: prose in body font, keywords/values in mono.
 
 These table rules apply to ALL chapters and ALL pages.
+
+## 19. Current token values (§§15–18 implementation record)
+
+Exact values as implemented in src/index.css — keep this in sync with the code:
+
+- YamlTree keys: font-weight 500 (not 600/700) — a gentle medium weight, and
+  ONLY on tokens the source wraps in \ykey{}; \ydash{} dashes are plain weight,
+  matching the source (\ydash never bolds the "-").
+- --code-bg: dark #161C28, light rgba(71,85,105,0.15).
+- --code-border: var(--hairline), both themes.
+- --code-strip-bg (bash/shell header strip, §17): dark #202836 (lighter than
+  --code-bg), light rgba(71,85,105,0.28) (darker than --code-bg).
+- --table-header-bg / --table-header-fg (§18): light #1F3A5F / #FFFFFF,
+  dark #3A5580 / #FFFFFF.
+- YAML-tree guide-lines: var(--text-dim), full opacity, both themes (matches
+  the "# comment" colour exactly).
+- Caption numbering (§15): chapter-based, per-type, in source order — see
+  src/components/Caption.tsx. yamltree counts as a FIGURE (the manual's
+  \begin{yamltree} wraps \begin{figure}); captioned \begin{lstlisting} counts
+  as a LISTING; \begin{table} counts as a TABLE. Elements with no \caption in
+  the source stay uncaptioned — never invented (per CLAUDE.md).
+
+## 19. Tip box → teal; code/listings → blue (authoritative; supersedes earlier Tip/code colours)
+
+TIP BOX now uses TEAL (the same teal as the Key-result box), NOT blue:
+- "Tip" label/heading colour = the dark teal used for the Key box title fill
+  (--key in light / the deep teal --key-frame family). 
+- Tip box body fill = the faint key-box teal fill (--key-bg family).
+- Same teal family in both light and dark themes, matching the Key box shades.
+This frees the blue for code blocks. (Warning stays gold, Note stays grey.)
+
+CODE BLOCKS & LISTINGS (input.i full files and snippets; NOT bash/shell blocks,
+NOT plain text):
+- LIGHT theme: background = the shade of blue the Tip box previously used
+  (the tip blue). The listing HEAD/header area (the row carrying the YAML keyword /
+  listing title) = 3 shades DARKER of that same blue.
+- DARK theme: UNCHANGED — keep the current raised-grey code panel (lighter than
+  page, quieter than a Note). Do not make code blue in dark mode.
+Code text and syntax accents must stay WCAG-AA legible on the blue in light mode.
+Bash/shell command blocks keep their own styling (§17) — this does not apply to them.
+
+## 20. Chapter heading numbers (authoritative)
+
+Every chapter's section/subsection headings MUST carry the SAME numbers as the
+User Guide source .tex (e.g. 1.1, 1.2, 1.2.1 ...), matching the manual exactly.
+Do not render headings unnumbered. Numbering follows the source structure to the
+depth the manual numbers (secnumdepth 3). This applies to all chapters and pages
+that correspond to a numbered manual chapter.
+
+## 21. Code indent guide-line visibility — CORRECTION to §16
+
+The vertical indentation guide-lines are currently too strong. Soften them:
+- LIGHT theme: 2 shades LIGHTER than their current dark-grey.
+- DARK theme: 2 shades DARKER than their current light-grey.
+Still faintly traceable, but subtle — they should not draw attention.
