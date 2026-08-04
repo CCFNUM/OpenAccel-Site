@@ -30,8 +30,10 @@ Physics-semantic accents (keep — these encode meaning, do not repurpose):
 --flux (cyan) multiphase/VOF/free surface; --hot (orange) FSI/ALE/moving mesh;
 --warm (yellow) heat transfer/CHT/buoyancy; --signal (green) solid mechanics.
 
-Fonts (keep): --font-sans IBM Plex Sans (body); --font-serif IBM Plex Serif;
---font-mono IBM Plex Mono (code/keys); --font-display Archivo (headings).
+Fonts: --font-sans Source Serif 4 (body); --font-serif Source Serif 4;
+--font-display Source Serif 4 (headings) — weights 400/600 only. --font-mono
+IBM Plex Mono (code/keys) is the one holdout: code blocks, YAML keys, and
+monospace labels stay IBM Plex Mono in both themes.
 
 ---
 
@@ -231,3 +233,40 @@ This Guide" page as the FIRST entry in that section, transcribed from that
 manual's main.tex, showing ONLY the boxes that manual actually uses with that
 manual's own labels/definitions. V&V/Tutorials does NOT get one. See CLAUDE.md
 for the box vocabularies and the exact content requirements.
+
+## 12. Code blocks & YAML-tree — AMENDED / AUTHORITATIVE (supersedes §5)
+
+Two distinct presentations. Both must be visually distinct from ALL callout and
+box backgrounds (Note grey, Tip blue, Warning gold, Key teal, Source slate) — code
+must never look like a note.
+
+### 12a. Dedicated code surface (both plain listings and YAML-tree)
+Add a token pair to BOTH theme blocks in src/index.css:
+- --code-bg  : the code panel background
+- --code-border : a subtle 1px border (may reuse --hairline)
+
+Contrast requirement (deliberate asymmetry between themes):
+- LIGHT theme: --code-bg is HIGHER contrast than the Note background — a slightly
+  darker / greyer inset panel, so code reads as a distinct framed surface.
+- DARK theme: --code-bg is LOWER contrast than the Note background — closer to the
+  page background (--ink), so the code well recedes calmly rather than competing
+  with notes.
+Code text and syntax accents must remain fully legible (WCAG AA) on --code-bg in
+both themes. Apply --code-bg + --code-border to the CodeBlock component and as the
+background of the YamlTree component. Do NOT alter callout/box colours.
+
+### 12b. YAML-tree indentation guide-lines (REQUIRED)
+The manual's yamltree (the \yguide macro in each main.tex) draws a faint VERTICAL
+rule at each indentation level so parent/child/sibling nesting is legible. The
+YamlTree component MUST render these:
+- One thin vertical guide line per indentation level, running down the left edge
+  of each nested level, aligned to the indent so a reader can trace which keys are
+  siblings and which are nested.
+- Colour: faint --hairline (low opacity) — visible but subtle, and legible in BOTH
+  themes (tune per-theme opacity so it never vanishes on white or on dark).
+- These guide-lines apply ONLY to the YamlTree (structure trees), NOT to plain
+  full-file CodeBlock listings.
+
+### 12c. YAML syntax accents (unchanged)
+Keys bold in --cold/--violet; # comments in --text-dim italic; "..." continuation
+dimmed; strings a quiet accent. Restrained — documentation, not a rainbow.
