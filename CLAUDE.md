@@ -111,3 +111,33 @@ existing case files are the format template — extend, do not fork). Case 25
 - Do not upgrade major dependency versions (React, Vite, Tailwind) — pinned
   deliberately.
 - Do not add a backend or any server-side feature.
+
+## "How to Read This Guide" pages + per-manual box vocabularies (IMPORTANT)
+
+Each manual defines its OWN box vocabulary and its own reader's guide, in its
+main.tex (the \chapter*{How to Use/Read This Guide} section). These differ
+between manuals and MUST be reproduced per section — a single global legend is
+WRONG.
+
+Known differences (verify against each main.tex before building):
+- USER GUIDE boxes: warning (gold), tip (blue), note (grey). No key/source box.
+  Its "How to Use This Guide" also contains a chapter->input-file-block mapping
+  TABLE (reproduce it, header-row-only per DESIGN-BRIEF.md).
+- THEORY GUIDE boxes: key-result (teal, "headline equation to remember"),
+  note ("modelling assumption / limit of validity"), caution (gold — same colour
+  as the User Guide warning but LABELLED "Caution" with a theory-specific
+  meaning), implementation/source (slate, "maps theory to the module").
+- V&V MANUAL boxes: read manuals-source/vv-manual/main.tex for its own "how to
+  read" section and box set; reproduce whatever it defines.
+
+Requirements:
+1. Create a "How to Read This Guide" page for EACH section (Get Started, Theory
+   Manual, Tutorials/V&V), transcribing that manual's real audience /
+   organisation / conventions text from its main.tex, including a legend that
+   shows every box that manual uses WITH that manual's own label and definition.
+   Add it as the first entry in that section's navigation.
+2. Box components must carry the correct label per context: the same gold box is
+   "Warning" in Get Started but "Caution" in Theory. Do not hardcode one global
+   label. Each box's definition/label follows the manual it appears in.
+3. Colours may be shared across manuals (per DESIGN-BRIEF.md tokens), but the
+   LABEL and MEANING are per-manual. Keep them distinguishable and documented.
