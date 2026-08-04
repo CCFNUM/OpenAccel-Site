@@ -3,6 +3,7 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
 import { YamlTree } from '@/components/YamlTree';
 import { InputMap } from '@/components/InputMap';
 import { Caption } from '@/components/Caption';
+import { M } from '@/components/tutorial/Equation';
 import { GsLayout, H2, H3, Callout } from './GsLayout';
 
 const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
@@ -171,13 +172,13 @@ export function Ch5Mesh() {
             </thead>
             <tbody>
               {[
-                ['Sx', '1.0', 'Scale factor in x. Read whenever the block is present.'],
-                ['Sy', '1.0', 'Scale factor in y. Read whenever the block is present.'],
-                ['Sz', '1.0', 'Scale factor in z. Read in three-dimensional builds only.'],
+                ['Sx', '1.0', <>Scale factor in <M math="x" />. Read whenever the block is present.</>],
+                ['Sy', '1.0', <>Scale factor in <M math="y" />. Read whenever the block is present.</>],
+                ['Sz', '1.0', <>Scale factor in <M math="z" />. Read in three-dimensional builds only.</>],
                 ['scale_origin', 'zeros', 'Fixed point of the scaling.'],
                 ['export_original', 'false', 'Also writes the unscaled mesh to disk.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt as string} style={{ borderBottom: '1px solid var(--table-border)' }}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid var(--table-border)' }}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -190,8 +191,8 @@ export function Ch5Mesh() {
 
       <Callout type="tip">
         Scaling is the cleanest way to reuse a mesh generated in one unit system for a case posed in
-        another &mdash; a mesh drawn in millimetres, for instance, scaled by 10&#8315;&sup3; for a
-        case in metres. Rescaling changes the Reynolds number of the case, so the inlet velocity or
+        another &mdash; a mesh drawn in millimetres, for instance, scaled by <M math="10^{-3}" /> for
+        a case in metres. Rescaling changes the Reynolds number of the case, so the inlet velocity or
         viscosity must be adjusted to match.
       </Callout>
 

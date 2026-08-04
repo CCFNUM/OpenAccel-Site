@@ -4,6 +4,7 @@ import { CodeBlock } from '@/components/CodeBlock';
 import { YamlTree } from '@/components/YamlTree';
 import { Caption } from '@/components/Caption';
 import { TutorialFigure } from '@/components/tutorial/TutorialFigure';
+import { M } from '@/components/tutorial/Equation';
 import { Link } from 'wouter';
 import { GsLayout, H2, H3, Callout } from './GsLayout';
 import { ArrowRight } from 'lucide-react';
@@ -76,13 +77,13 @@ export function Ch12WorkedExample() {
             <tbody>
               {[
                 ['Domain', '1 m square', 'Two-dimensional'],
-                ['Lid velocity U', '1 m/s', 'In +x, along the upper wall'],
-                ['Density ρ', '1 kg/m³', 'Synthetic; see the tip below'],
-                ['Dynamic viscosity μ', '0.01 Pa·s', 'Synthetic'],
-                ['Reynolds number', 'Re = ρUL/μ = 100', 'Laminar and steady'],
-                ['Analysis', 'Steady state', 'No time dependence at this Re'],
-              ].map(([q, v, n]) => (
-                <tr key={q} style={tdBorder}>
+                [<>Lid velocity <M math="U" /></>, '1 m/s', <>In <M math="+x" />, along the upper wall</>],
+                [<>Density <M math="\rho" /></>, '1 kg/m³', 'Synthetic; see the tip below'],
+                [<>Dynamic viscosity <M math="\mu" /></>, '0.01 Pa·s', 'Synthetic'],
+                ['Reynolds number', <M math="Re = \rho U L / \mu = 100" />, 'Laminar and steady'],
+                ['Analysis', 'Steady state', <>No time dependence at this <M math="Re" /></>],
+              ].map(([q, v, n], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{q}</td>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{v}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{n}</td>
@@ -94,9 +95,10 @@ export function Ch12WorkedExample() {
       </figure>
 
       <Callout type="tip">
-        The properties are deliberately synthetic. Choosing &rho; = 1 and &mu; = 0.01 with a unit box
-        and unit lid velocity makes Re exactly 100, which is one of the Reynolds numbers for which
-        reference data exists. Naming such a material <code>air</code> would be misleading;{' '}
+        The properties are deliberately synthetic. Choosing <M math="\rho = 1" /> and{' '}
+        <M math="\mu = 0.01" /> with a unit box and unit lid velocity makes <M math="Re" /> exactly{' '}
+        <M math="100" />, which is one of the Reynolds numbers for which reference data exists.
+        Naming such a material <code>air</code> would be misleading;{' '}
         <a href="/get-started/materials">Chapter 9</a> discusses why synthetic materials should be
         named for what they are.
       </Callout>
@@ -173,7 +175,7 @@ export function Ch12WorkedExample() {
 
       <H3 id="analysis-type" num="12.3.2">The analysis type</H3>
       <p style={{ color: 'var(--text-dim)' }}>
-        At Re&nbsp;=&nbsp;100 the cavity flow reaches a genuine steady state, so a steady analysis is
+        At <M math="Re = 100" /> the cavity flow reaches a genuine steady state, so a steady analysis is
         appropriate and no <code>time_steps</code> block is required. Declaring this as steady also
         determines which options are read later: it activates <code>physical_timescale</code> and
         suppresses <code>transient_scheme</code>. See <a href="/get-started/physical-analysis">Chapter 6</a>.
@@ -197,7 +199,7 @@ export function Ch12WorkedExample() {
         <code>multiphase</code> block is needed.
       </p>
       <p style={{ color: 'var(--text-dim)' }} className="mt-4">
-        At Re&nbsp;=&nbsp;100 the flow is laminar, so <code>fluid_models</code> carries only a
+        At <M math="Re = 100" /> the flow is laminar, so <code>fluid_models</code> carries only a
         turbulence block set to <code>laminar</code>. No heat transfer, no buoyancy, no domain
         motion. See <a href="/get-started/physical-analysis">Chapter 6</a>.
       </p>
@@ -292,13 +294,13 @@ export function Ch12WorkedExample() {
             <tbody>
               {[
                 ['advection_scheme', 'high_resolution', 'The flow is smooth and the result will be compared quantitatively, so second order is warranted.'],
-                ['physical_timescale', '1.0', 'The domain residence time L/U = 1/1 = 1 s.'],
-                ['velocity_relaxation_factor', '0.7', 'The default of 1.0 is no relaxation at all.'],
+                ['physical_timescale', '1.0', <>The domain residence time <M math="L/U = 1/1 = 1" />&nbsp;s.</>],
+                ['velocity_relaxation_factor', '0.7', <>The default of <M math="1.0" /> is no relaxation at all.</>],
                 ['pressure_relaxation_factor', '0.3', 'As above.'],
-                ['residual_target', '1e-8', 'The default of 10⁻⁴ is too loose to compare against reference data.'],
+                ['residual_target', '1e-8', <>The default of <M math="10^{-4}" /> is too loose to compare against reference data.</>],
                 ['max_iterations', '1000', 'The default of 100 will not converge this case.'],
-              ].map(([opt, val, reason]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, val, reason], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{val}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{reason}</td>
@@ -331,8 +333,8 @@ export function Ch12WorkedExample() {
       />
       <Callout type="warning">
         Omitting <code>relaxation_parameters</code> entirely is not the same as accepting sensible
-        defaults. Every relaxation factor defaults to 1.0, which means no relaxation, and a case run
-        that way will very likely diverge. See <a href="/get-started/numerics">Chapter 8</a>.
+        defaults. Every relaxation factor defaults to <M math="1.0" />, which means no relaxation, and
+        a case run that way will very likely diverge. See <a href="/get-started/numerics">Chapter 8</a>.
       </Callout>
 
       <H3 id="output" num="12.3.7">Output</H3>
@@ -483,11 +485,11 @@ simulation:
             </thead>
             <tbody>
               {[
-                ['Smooth monotone decay to 10⁻⁸', 'Converged.', 'None. Proceed to post-processing.'],
+                [<>Smooth monotone decay to <M math="10^{-8}" /></>, 'Converged.', 'None. Proceed to post-processing.'],
                 ['Decay stalls on a plateau', 'The pseudo-timescale is too large, or relaxation is too weak.', <>Reduce <code>physical_timescale</code>; see <a href="/get-started/numerics">Chapter 8</a>.</>],
                 ['Stops at exactly iteration 1000', 'Not converged — the iteration budget was exhausted.', <>Raise <code>max_iterations</code> and check the final residual.</>],
-              ].map(([behaviour, meaning, action]) => (
-                <tr key={behaviour as string} style={tdBorder}>
+              ].map(([behaviour, meaning, action], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{behaviour}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{meaning}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{action}</td>
@@ -524,10 +526,10 @@ simulation:
             <tbody>
               {[
                 ['Qualitative', 'A single primary vortex, its centre displaced above and to the right of the box centre. Two weak counter-rotating corner eddies in the lower corners.'],
-                ['Boundary conditions', 'Velocity exactly (1,0) along the lid and exactly zero on the other three walls. A non-zero value on a stationary wall means the sideset was not resolved.'],
-                ['Quantitative', 'Extract u along the vertical centreline and v along the horizontal centreline, and compare against the reference profiles of Ghia et al. reproduced in the V&V Manual.'],
-              ].map(([check, look]) => (
-                <tr key={check} style={tdBorder}>
+                ['Boundary conditions', <>Velocity exactly <M math="(1,0)" /> along the lid and exactly zero on the other three walls. A non-zero value on a stationary wall means the sideset was not resolved.</>],
+                ['Quantitative', <>Extract <M math="u" /> along the vertical centreline and <M math="v" /> along the horizontal centreline, and compare against the reference profiles of Ghia et al. reproduced in the V&amp;V Manual.</>],
+              ].map(([check, look], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{check}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{look}</td>
                 </tr>
@@ -563,14 +565,14 @@ simulation:
             </thead>
             <tbody>
               {[
-                ['Reduce μ to 1e-3, giving Re = 1000', 'A stronger vortex and a more demanding solve; relaxation will need loosening.', '/get-started/numerics', '8'],
+                [<>Reduce <M math="\mu" /> to 1e-3, giving <M math="Re = 1000" /></>, 'A stronger vortex and a more demanding solve; relaxation will need loosening.', '/get-started/numerics', '8'],
                 ['Drive the lid by an expression rather than a constant', 'Time-dependent boundary conditions, and a transient analysis.', '/get-started/physical-analysis', '6'],
                 ['Heat the lower wall and enable thermal energy', 'The energy equation and a thermal boundary condition.', '/get-started/physical-analysis', '6'],
                 ['Add buoyancy with gravity and a reference temperature', 'Coupling between the momentum and energy equations.', '/get-started/physical-analysis', '6'],
                 ['Replace the lower wall with a solid domain and a fluid–solid interface', 'Multi-domain coupling and conjugate heat transfer.', '/get-started/interfaces', '7'],
                 ['Make the lower wall a flexible solid', 'Solid mechanics, mesh deformation, and fluid–structure interaction.', '/get-started/interfaces', '7'],
-              ].map(([change, intro, href, ch]) => (
-                <tr key={change as string} style={tdBorder}>
+              ].map(([change, intro, href, ch], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{change}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{intro}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}><a href={href as string}>{ch}</a></td>

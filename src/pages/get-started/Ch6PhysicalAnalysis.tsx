@@ -3,6 +3,7 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
 import { YamlTree } from '@/components/YamlTree';
 import { InputMap, NodeTree, type TreeNode } from '@/components/InputMap';
 import { Caption } from '@/components/Caption';
+import { M } from '@/components/tutorial/Equation';
 import { GsLayout, H2, H3, Callout } from './GsLayout';
 
 const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
@@ -203,9 +204,10 @@ export function Ch6PhysicalAnalysis() {
 
       <Callout type="tip">
         For violent free-surface problems a fixed time step is rarely adequate. The MULES
-        volume-fraction advection becomes unbounded above a Courant number of roughly 0.5, and an
-        unbounded volume fraction produces an unphysical density and then a velocity explosion.
-        Adaptive stepping with a target of 0.3 or lower is the reliable configuration.
+        volume-fraction advection becomes unbounded above a Courant number of roughly{' '}
+        <M math="0.5" />, and an unbounded volume fraction produces an unphysical density and then a
+        velocity explosion. Adaptive stepping with a target of <M math="0.3" /> or lower is the
+        reliable configuration.
       </Callout>
 
       <H2 id="domains" num="6.3">Domains</H2>
@@ -376,7 +378,7 @@ export function Ch6PhysicalAnalysis() {
             <tbody>
               {[
                 ['false (default)', '—', 'Standard SST; no transition modelling.'],
-                ['true', 'false (or omitted)', 'Full Langtry–Menter γ–Reθt model. Solves transport equations for both intermittency and transition-onset Reynolds number.'],
+                ['true', 'false (or omitted)', <>Full Langtry&ndash;Menter <M math="\gamma" />&ndash;<M math="Re_{\theta t}" /> model. Solves transport equations for both intermittency and transition-onset Reynolds number.</>],
                 ['true', 'true', 'Correlation-based model. Solves only the intermittency equation; the onset Reynolds number comes from local correlations.'],
               ].map(([tt, cb, model], i) => (
                 <tr key={i} style={tdBorder}>
@@ -520,7 +522,7 @@ export function Ch6PhysicalAnalysis() {
         For a benchmark whose reference solution assumes a purely conductive&ndash;convective energy
         balance, set <code>include_viscous_work: false</code>. Viscous dissipation adds a source
         term that does not scale with the imposed temperature difference, which breaks the linearity
-        making such a case independent of the chosen &Delta;T.
+        making such a case independent of the chosen <M math="\Delta T" />.
       </Callout>
 
       <H3 id="multiphase-free-surface">Multiphase and free-surface flow</H3>
@@ -617,7 +619,7 @@ export function Ch6PhysicalAnalysis() {
               {[
                 ['pair', '—', "Exactly two material names, both already listed in the domain's materials. Duplicate pairs are rejected regardless of order."],
                 ['option', 'none', <>Alternative: <code>continuum_surface_force</code>.</>],
-                ['surface_tension_coefficient', '0.0', 'Coefficient σ, in N/m.'],
+                ['surface_tension_coefficient', '0.0', <>Coefficient <M math="\sigma" />, in N/m.</>],
               ].map(([opt, def, desc]) => (
                 <tr key={opt as string} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
@@ -1087,7 +1089,7 @@ export function Ch6PhysicalAnalysis() {
       />
 
       <figure className="my-4">
-        <Caption label="Table 6.21" className="mb-2">Initialisation option, per field, under initialization &gt; &lt;field&gt;.</Caption>
+        <Caption label="Table 6.21" className="mb-2">Initialisation option, per field, under <code>initialization &gt; &lt;field&gt;</code>.</Caption>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
@@ -1731,8 +1733,8 @@ export function Ch6PhysicalAnalysis() {
       <p style={{ color: 'var(--text-dim)' }}>
         At an inlet or opening the turbulence quantities of an active RANS model must be specified.
         The <code>turbulence</code> block does this, offering four equivalent ways to state the same
-        information, listed in Table 6.33. The same block serves the k, &omega; and &epsilon;
-        fields.
+        information, listed in Table 6.33. The same block serves the <M math="k" />, <M math="\omega" />{' '}
+        and <M math="\varepsilon" /> fields.
       </p>
 
       <figure className="my-4">
@@ -2113,12 +2115,12 @@ export function Ch6PhysicalAnalysis() {
               {[
                 ['none', 'None; the body is fully constrained in that mode.'],
                 ['x_axis, y_axis', 'The single named axis.'],
-                ['z_axis', 'The z axis. Three-dimensional builds only.'],
+                ['z_axis', <>The <M math="z" /> axis. Three-dimensional builds only.</>],
                 ['x_and_y_axes', 'Both in-plane axes.'],
-                ['y_and_z_axes, x_and_z_axes', 'Two axes including z. Three-dimensional builds only.'],
+                ['y_and_z_axes, x_and_z_axes', <>Two axes including <M math="z" />. Three-dimensional builds only.</>],
                 ['x_y_and_z_axes', 'All three axes. Three-dimensional builds only.'],
-              ].map(([v, axes]) => (
-                <tr key={v} style={tdBorder}>
+              ].map(([v, axes], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{v}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{axes}</td>
                 </tr>

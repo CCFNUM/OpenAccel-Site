@@ -3,6 +3,7 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
 import { CodeBlock } from '@/components/CodeBlock';
 import { YamlTree } from '@/components/YamlTree';
 import { Caption } from '@/components/Caption';
+import { M } from '@/components/tutorial/Equation';
 import { GsLayout, H2, H3, Callout } from './GsLayout';
 
 const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
@@ -74,11 +75,11 @@ export function Ch3Running() {
             <tbody>
               {[
                 ['rcb', 'Recursive coordinate bisection'],
-                ['rcb_ignore_z', 'Recursive coordinate bisection, ignoring the z direction'],
+                ['rcb_ignore_z', <>Recursive coordinate bisection, ignoring the <M math="z" /> direction</>],
                 ['rib', 'Recursive inertial bisection'],
                 ['hsfc', 'Hilbert space-filling curve'],
-              ].map(([v, d]) => (
-                <tr key={v} style={{ borderBottom: '1px solid var(--table-border)' }}>
+              ].map(([v, d], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid var(--table-border)' }}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{v}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{d}</td>
                 </tr>

@@ -3,6 +3,7 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
 import { YamlTree } from '@/components/YamlTree';
 import { InputMap } from '@/components/InputMap';
 import { Caption } from '@/components/Caption';
+import { M } from '@/components/tutorial/Equation';
 import { GsLayout, H2, H3, Callout } from './GsLayout';
 
 const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
@@ -172,7 +173,7 @@ export function Ch10Output() {
 
       <Callout type="tip">
         When running a transition model, always output <code>turbulent_intermittency</code>. It is
-        the fastest diagnostic available: if &gamma; stays near unity across the whole surface,
+        the fastest diagnostic available: if <M math="\gamma" /> stays near unity across the whole surface,
         transition is not being triggered and the model is contributing nothing, regardless of how
         the loading looks.
       </Callout>

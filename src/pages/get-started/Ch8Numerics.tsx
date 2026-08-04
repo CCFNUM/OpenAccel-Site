@@ -69,13 +69,13 @@ function PseudoTimescaleBar() {
             <strong>Over-damped</strong><br />stable but slow
           </div>
           <div className="rounded p-3 text-center text-xs" style={{ border: '1px solid var(--map-highlight)', color: 'var(--map-highlight)' }}>
-            <strong>Target range</strong><br />L/3U to L/U
+            <strong>Target range</strong><br /><Equation math="L/3U" display={false} /> to <Equation math="L/U" display={false} />
           </div>
           <div className="rounded p-3 text-center text-xs" style={{ border: '1px solid var(--hairline)', color: 'var(--text-dim)' }}>
             <strong>Under-damped</strong><br />fast, then divergent
           </div>
         </div>
-        <p className="text-center mt-2 font-mono text-xs" style={{ color: 'var(--text-dim)' }}>&Delta;t<sub>ps</sub></p>
+        <p className="text-center mt-2 text-xs" style={{ color: 'var(--text-dim)' }}><Equation math="\Delta t_{ps}" display={false} /></p>
       </div>
     </div>
   );
@@ -131,13 +131,13 @@ export function Ch8Numerics() {
               {[
                 ['advection_scheme', 'upwind', 'default is stable but diffusive'],
                 ['max_iterations', '100', 'rarely enough for a steady run'],
-                ['residual_target', '1e-4', 'loose; tighten to 10⁻⁶ or below'],
+                ['residual_target', '1e-4', <>loose; tighten to <Equation math="10^{-6}" display={false} /> or below</>],
                 ['physical_timescale', '1.0', 'must be scaled to the domain'],
                 ['velocity_relaxation_factor', '1.0', '1.0 means no relaxation at all'],
                 ['pressure_relaxation_factor', '1.0', 'as above, unless SIMPLEC is enabled'],
                 ['transient_scheme', '—', 'required for every transient run'],
-              ].map(([opt, def, reason]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, def, reason], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{reason}</td>
@@ -189,8 +189,10 @@ export function Ch8Numerics() {
 
       <figure className="my-4">
         <Caption label="Table 8.3" className="mb-2">
-          Advection scheme for the turbulence transport equations: k, &omega;, &epsilon;, &gamma; and
-          Re<sub>&theta;t</sub>. The same two values apply.
+          Advection scheme for the turbulence transport equations: <Equation math="k" display={false} />,{' '}
+          <Equation math="\omega" display={false} />, <Equation math="\varepsilon" display={false} />,{' '}
+          <Equation math="\gamma" display={false} /> and <Equation math="Re_{\theta t}" display={false} />.
+          The same two values apply.
         </Caption>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -370,9 +372,9 @@ export function Ch8Numerics() {
             <tbody>
               {[
                 ['residual_type', 'RMS', 'Root-mean-square norm; currently the only accepted value.'],
-                ['residual_target', '1e-4', 'Convergence threshold. 10⁻⁶ is a practical minimum; validation work typically uses 10⁻⁸ or tighter.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt} style={tdBorder}>
+                ['residual_target', '1e-4', <>Convergence threshold. <Equation math="10^{-6}" display={false} /> is a practical minimum; validation work typically uses <Equation math="10^{-8}" display={false} /> or tighter.</>],
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -500,8 +502,9 @@ export function Ch8Numerics() {
       />
 
       <p style={{ color: 'var(--text-dim)' }}>
-        The term adds &rho;V/&Delta;t<sub>ps</sub> to the diagonal of every cell equation. It
-        changes how quickly the solution converges, never what it converges to.
+        The term adds <Equation math="\rho V/\Delta t_{ps}" display={false} /> to the diagonal of
+        every cell equation. It changes how quickly the solution converges, never what it converges
+        to.
       </p>
 
       <figure className="my-6">
@@ -522,11 +525,11 @@ export function Ch8Numerics() {
             </thead>
             <tbody>
               {[
-                ['Advection dominated', 'L/U', 'Domain residence time; L is the streamwise length and U a representative velocity.'],
-                ['Diffusion dominated', 'L²/α', 'Diffusive time, α = λ/ρcₚ.'],
+                ['Advection dominated', <Equation math="L/U" display={false} />, <>Domain residence time; <Equation math="L" display={false} /> is the streamwise length and <Equation math="U" display={false} /> a representative velocity.</>],
+                ['Diffusion dominated', <Equation math="L^{2}/\alpha" display={false} />, <>Diffusive time, <Equation math="\alpha=\lambda/\rho c_p" display={false} />.</>],
                 ['Conjugate or multi-domain', 'slowest of the above', 'Convergence is gated by the slowest physical process present.'],
-              ].map(([type, scale, just]) => (
-                <tr key={type} style={tdBorder}>
+              ].map(([type, scale, just], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{type}</td>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{scale}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{just}</td>
@@ -549,10 +552,10 @@ export function Ch8Numerics() {
             </thead>
             <tbody>
               {[
-                ['Smooth, monotone, but very slow decay', 'Increase Δt_ps by a factor of 2 to 5.'],
-                ['Plateau, oscillation, or upward spikes', 'Decrease Δt_ps.'],
-              ].map(([behaviour, action]) => (
-                <tr key={behaviour} style={tdBorder}>
+                ['Smooth, monotone, but very slow decay', <>Increase <Equation math="\Delta t_{ps}" display={false} /> by a factor of 2 to 5.</>],
+                ['Plateau, oscillation, or upward spikes', <>Decrease <Equation math="\Delta t_{ps}" display={false} />.</>],
+              ].map(([behaviour, action], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{behaviour}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{action}</td>
                 </tr>
@@ -678,8 +681,8 @@ export function Ch8Numerics() {
                 ['force_research', 'false', 'Repeats the search every time step rather than reusing the previous pairing.'],
                 ['conservative_flux_transfer', 'false', 'Enforces strict conservation across the interface, at the cost of interpolation smoothness.'],
                 ['verbose', '0', 'Diagnostic output level.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -719,8 +722,8 @@ export function Ch8Numerics() {
                 ['solid_displacement', '1', 'Extra passes assist stiff solid mechanics.'],
                 ['segregated_flow', '1', 'Repeats the whole momentum–pressure sequence.'],
                 ['volume_fraction', '1', 'Extra passes sharpen the free-surface interface.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -782,8 +785,8 @@ export function Ch8Numerics() {
               {[
                 ['freeze_per_timestep', 'true', 'Solves the mesh motion once per time step rather than every outer iteration.'],
                 ['max_smoothing_iters', '5', 'Smoothing passes applied to the deformed mesh.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -849,8 +852,8 @@ export function Ch8Numerics() {
               {[
                 ['omega_min', '0.1', 'Lower bound on the dynamically computed Aitken relaxation factor.'],
                 ['omega_max', '1.0', 'Upper bound on the dynamically computed Aitken relaxation factor.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -863,8 +866,8 @@ export function Ch8Numerics() {
                 ['iqn_ils_window', '5', 'Number of past coupling iterations retained in the least-squares model.'],
                 ['iqn_ils_filter_threshold', '1e-10', 'Threshold below which near-parallel columns are filtered from the model.'],
                 ['iqn_ils_reuse_across_timesteps', 'false', 'Carries the model from one time step into the next rather than rebuilding it.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt} style={tdBorder}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>
@@ -896,7 +899,7 @@ export function Ch8Numerics() {
         well-posed interface it converges in a handful of coupling iterations, where fixed-point
         relaxation would need dozens. Aitken is the lighter fallback &mdash; no history to store,
         robust, but slower. During a violent impact, keep <code>omega_min</code> from dropping too
-        far (below roughly 0.1): if the relaxation collapses in the noisy phase, the structure stops
+        far (below roughly <Equation math="0.1" display={false} />): if the relaxation collapses in the noisy phase, the structure stops
         responding to the fluid load and the coupling stalls.
       </Callout>
 
@@ -934,10 +937,11 @@ export function Ch8Numerics() {
             <tbody>
               {[
                 ['SIMPLE', '(neither set)', '—', 'Standard segregated coupling.'],
-                ['SIMPLEC', 'consistent', 'false', <>Retains neighbour terms in the velocity correction; permits &lambda;<sup>p</sup>&asymp;1.</>],
+                ['SIMPLEC', 'consistent', 'false', <>Retains neighbour terms in the velocity correction; permits{' '}
+                  <Equation math="\lambda^{p}\approx 1" display={false} />.</>],
                 ['Fractional step', 'fractional_step_method', 'false', 'Projection method in place of the pressure-correction sequence.'],
-              ].map(([alg, opt, def, effect]) => (
-                <tr key={alg as string} style={tdBorder}>
+              ].map(([alg, opt, def, effect], i) => (
+                <tr key={i} style={tdBorder}>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{alg}</td>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
@@ -1203,7 +1207,8 @@ export function Ch8Numerics() {
       </figure>
 
       <Callout type="tip">
-        The condition number of the pressure-correction operator scales approximately as h⁻². Halving
+        The condition number of the pressure-correction operator scales approximately as{' '}
+        <Equation math="h^{-2}" display={false} />. Halving
         the mesh spacing makes the linear system about four times harder to solve. If a refined mesh
         diverges, raise <code>max_iterations</code> and tighten <code>rtol</code> before touching
         anything else.

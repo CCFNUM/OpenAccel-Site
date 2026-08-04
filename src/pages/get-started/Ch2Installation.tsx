@@ -2,6 +2,7 @@ import { SEO } from '@/components/SEO';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { CodeBlock } from '@/components/CodeBlock';
 import { Caption } from '@/components/Caption';
+import { M } from '@/components/tutorial/Equation';
 import { GsLayout, H2, Callout } from './GsLayout';
 
 const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
@@ -36,15 +37,15 @@ export function Ch2Installation() {
           </thead>
           <tbody>
             {[
-              ['C++ toolchain', 'GCC ≥ 12, Clang ≥ 15', 'C++20 required'],
-              ['CMake', '≥ 3.18', ''],
+              ['C++ toolchain', <>GCC <M math="\ge" /> 12, Clang <M math="\ge" /> 15</>, 'C++20 required'],
+              ['CMake', <><M math="\ge" /> 3.18</>, ''],
               ['MPI', '—', 'OpenMPI or MPICH'],
               ['Trilinos', '—', 'STK required; Tpetra, Belos and Ifpack2 enable the Trilinos linear-solver family'],
               ['YAML-cpp', '—', 'input file parsing'],
-              ['PETSc', '≥ 3.18', <>optional; enables <code>family: petsc</code></>],
-              ['HYPRE', '≥ 3.0', <>optional; enables <code>family: hypre</code></>],
-            ].map(([dep, ver, notes]) => (
-              <tr key={dep as string} style={{ borderBottom: '1px solid var(--table-border)' }}>
+              ['PETSc', <><M math="\ge" /> 3.18</>, <>optional; enables <code>family: petsc</code></>],
+              ['HYPRE', <><M math="\ge" /> 3.0</>, <>optional; enables <code>family: hypre</code></>],
+            ].map(([dep, ver, notes], i) => (
+              <tr key={i} style={{ borderBottom: '1px solid var(--table-border)' }}>
                 <td className="py-2 px-3 align-top" style={{ color: 'var(--text)' }}>{dep}</td>
                 <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{ver}</td>
                 <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{notes}</td>

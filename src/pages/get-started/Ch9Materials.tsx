@@ -4,6 +4,7 @@ import { CodeBlock } from '@/components/CodeBlock';
 import { YamlTree } from '@/components/YamlTree';
 import { InputMap } from '@/components/InputMap';
 import { Caption } from '@/components/Caption';
+import { M } from '@/components/tutorial/Equation';
 import { GsLayout, H2, Callout } from './GsLayout';
 
 const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
@@ -146,10 +147,10 @@ export function Ch9Materials() {
                 ['dynamic_viscosity', '—', <>Constant value, when <code>option: value</code>.</>],
                 ['reference_temperature', '273.0', 'Sutherland reference temperature.'],
                 ['reference_viscosity', '0.0', 'Sutherland reference viscosity.'],
-                ['sutherlands_constant', '0.0', 'Sutherland constant S.'],
+                ['sutherlands_constant', '0.0', <>Sutherland constant <M math="S" />.</>],
                 ['temperature_exponent', '0.0', 'Exponent in the Sutherland expression.'],
-              ].map(([opt, def, desc]) => (
-                <tr key={opt as string} style={{ borderBottom: '1px solid var(--table-border)' }}>
+              ].map(([opt, def, desc], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid var(--table-border)' }}>
                   <td className="py-2 px-3 font-mono text-xs align-top" style={{ color: 'var(--cold)' }}>{opt}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{def}</td>
                   <td className="py-2 px-3 align-top" style={{ color: 'var(--text-dim)' }}>{desc}</td>

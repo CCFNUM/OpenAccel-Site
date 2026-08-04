@@ -41,3 +41,16 @@ export function Equation({ math, display = true, label }: EquationProps) {
     </div>
   );
 }
+
+/**
+ * M — inline math (DESIGN-BRIEF §22). Use for any variable/expression that is
+ * in math mode in the source .tex and appears inline in prose, table cells,
+ * callouts, list items or captions — e.g. <M math="\alpha" />, <M math="K_t" />,
+ * <M math="\mathbf{v}" />. Never approximate with plain-text/unicode (no "alpha",
+ * no "α") — always render through KaTeX so it matches display equations.
+ * input.i keywords/values stay in the mono code font (§18); this is only for
+ * physical/mathematical symbols.
+ */
+export function M({ math }: { math: string }) {
+  return <Equation math={math} display={false} />;
+}
