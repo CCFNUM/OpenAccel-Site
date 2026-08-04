@@ -27,3 +27,7 @@ pnpm-debug.log*
 
 # pnpm workspace build-approval stub (handled in package.json onlyBuiltDependencies)
 pnpm-workspace.yaml
+
+# internal working docs — kept locally for Claude Code, not published
+CLAUDE.md
+DESIGN-BRIEF.md
