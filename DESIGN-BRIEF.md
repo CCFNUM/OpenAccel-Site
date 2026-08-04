@@ -1,0 +1,175 @@
+# OpenAccel Website — Design Brief
+
+This document defines the visual language for the OpenAccel website. It is the
+authoritative reference for how every content element must look. Claude Code and
+any contributor must follow it. The goal: the website should read like a
+polished, theme-aware web version of the OpenAccel manuals (User Guide, Theory
+Guide, Validation Manual) — clean and academic, restrained, documentation-grade,
+comparable to SU2 / deal.II / OpenFOAM project sites, not a flashy marketing page.
+
+The site already ships a light/dark theme system (src/index.css,
+src/hooks/use-theme.ts), driven by a data-theme attribute on <html> with values
+dark and light. Every rule below must hold in BOTH themes. Never hardcode a raw
+colour in a component. Always reference a CSS token (var(--...)). If a needed
+token does not exist, add it to BOTH the [data-theme="dark"] and
+[data-theme="light"] blocks in src/index.css, contrast-checked, before using it.
+
+Golden test for every element: if the background were near-black (dark) or
+near-white (light), would every piece of text still be clearly legible?
+Target WCAG AA (>= 4.5:1 for body text) in both themes.
+
+---
+
+## 1. Existing token system (keep and extend — do not replace)
+
+Neutrals (per theme): --ink (page bg), --surface (card), --surface-2 (raised),
+--hairline (borders), --text (primary text), --text-dim (muted text).
+
+Physics-semantic accents (keep — these encode meaning, do not repurpose):
+--cold (blue) incompressible flow; --violet compressible flow/turbulence;
+--flux (cyan) multiphase/VOF/free surface; --hot (orange) FSI/ALE/moving mesh;
+--warm (yellow) heat transfer/CHT/buoyancy; --signal (green) solid mechanics.
+
+Fonts (keep): --font-sans IBM Plex Sans (body); --font-serif IBM Plex Serif;
+--font-mono IBM Plex Mono (code/keys); --font-display Archivo (headings).
+
+---
+
+## 2. NEW tokens to add (the manual's signature elements)
+
+Add these to BOTH theme blocks in src/index.css. Values are contrast-checked
+starting points; keep exact hex unless a contrast check fails.
+
+### 2a. Key-result box (--key) — the manual's keybox, "Key result"
+A DEEP TEAL, deliberately pushed away from --signal (success green) and --flux
+(cyan) so it reads as its own "important result" element.
+
+[data-theme="dark"] {
+  --key:          #5DCAA5;
+  --key-frame:    #0F6E56;
+  --key-bg:       rgba(93,202,165,0.10);
+  --key-title-fg: #04231D;
+  --key-body-fg:  #9FE1CB;
+}
+[data-theme="light"] {
+  --key:          #0F6E56;
+  --key-frame:    #0F6E56;
+  --key-bg:       #E1F5EE;
+  --key-title-fg: #FFFFFF;
+  --key-body-fg:  #04342C;
+}
+
+Structure (matches LaTeX keybox): a titled box. Title bar filled --key, title
+text --key-title-fg, label "Key result" (sentence case). Body has 1px --key-frame
+border, --key-bg fill, body text --key-body-fg. Rounded 8px, FULL border (never
+single-sided). One or more per chapter, for the headline validated finding.
+
+### 2b. Source / implementation box (--src) — the manual's srcbox
+For pointers into the OpenAccel source tree ("Implementation." notes). Slate,
+maps onto the cold/slate family so it stays quiet.
+
+[data-theme="dark"] {
+  --src:    #7FA8D0;
+  --src-bg: rgba(59,130,246,0.06);
+  --src-fg: #C5D6EA;
+}
+[data-theme="light"] {
+  --src:    #1F3A5F;
+  --src-bg: #EAF0F6;
+  --src-fg: #1F3A5F;
+}
+
+Structure: full 1px --src border, 8px radius, --src-bg fill. Lead-in word
+"Implementation." in bold --src, body text --src-fg, monospace for file/function
+names. (A single-sided left border is allowed ONLY if radius is 0.)
+
+---
+
+## 3. Callouts — map the manual's three boxes onto existing accents
+
+Do NOT invent new colours.
+- Warning -> --warm (gold). Icon ti-alert-triangle. Label "Warning".
+- Tip     -> --cold (blue).  Icon ti-bulb.            Label "Tip".
+- Note    -> --text-dim neutral (grey). Icon ti-info-circle. Label "Note".
+
+Each: full 1px accent border, faint accent-tinted bg (use existing --callout-*-bg
+tokens where present, else accent ~0.08 alpha in dark / a pale solid tint in
+light), 8px radius, small icon + bold sentence-case label, body in --text /
+--text-dim. Must stay distinct from the Key box and from each other in BOTH
+themes. Extend the existing Callout in src/pages/get-started/GsLayout.tsx; add the
+Key box and Source box as new components.
+
+---
+
+## 4. Tables — HEADER ROW ONLY (hard rule)
+
+Coloured header row only, NO alternating row stripes (zebra striping is removed).
+- Header row: bg --surface-2, header text --cold (or --text if contrast fails),
+  bold, sentence case, monospace for column keys.
+- Body rows: plain --surface / transparent — NO zebra striping.
+- Borders: outer border + single rule under the header (booktabs feel: top rule,
+  header rule, bottom rule; minimal interior vertical lines).
+- Left-align text columns. Wrap wide tables in overflow-x:auto so they never
+  break narrow layouts.
+Reuse/extend existing table styling (src/components/tutorial/SetupTable.tsx if
+present) so all tables match.
+
+---
+
+## 5. Code blocks & the YAML-tree
+
+5a. Standard code blocks (input.i YAML, shell): monospace --font-mono, bg
+--surface-2, 8px radius, subtle 1px --hairline border. YAML accents: keys
+--cold/--violet bold, comments --text-dim italic, strings a quiet accent. Keep
+restrained. Extend src/components/CodeBlock.tsx.
+
+5b. YAML-tree (the manual's yamltree): indented tree with faint vertical guide
+rules (--hairline low opacity) and # comments. Keys bold; comments --text-dim
+italic; "..." continuation dimmed. Boxed, captioned, labelled — mirrors
+\begin{yamltree}{caption}{label}. Treat as a first-class component.
+
+---
+
+## 6. Equations
+
+KaTeX (already a dependency). Display equations centred with right-aligned number
+where the manual numbers them; inline math inline. Equation colour follows --text
+(never hardcoded) so it flips with theme. Preserve manual notation EXACTLY: bold
+vectors (\mathbf{v}), bold tensors (\boldsymbol{\tau}), \mathbf{S}_{ip}, etc. Do
+not silently restyle notation.
+
+---
+
+## 7. Figures
+
+Web figures must be PNG or SVG. PDF figures do NOT render inline in a browser —
+never place a .pdf in an <img>. Where only a PDF exists, convert to PNG/SVG
+(separate tracked task) before use.
+Figure card: image on --surface, thin --hairline border, 8px radius, caption
+BELOW in --text-dim, small, with bold sentence-case label ("Figure 3."). Caption
+label style matches the manual (labelfont=bf, labelsep=period). Multi-panel
+figures in a responsive grid with per-panel + overall captions. Never put the
+label on the image line; label lives in the caption.
+
+---
+
+## 8. Headings & structure
+
+Page title: --font-display, large, --text; restrained accent rule/number is fine.
+H2 (section): bold, --text, clear top margin. H3: smaller, --text/--text-dim bold.
+Preserve numbered section depth to 3 levels where the manual numbers (secnumdepth=3).
+Sentence case for ALL headings and labels. Never Title Case, never ALL CAPS.
+
+---
+
+## 9. Non-negotiables (summary)
+
+1. Both themes always. No hardcoded colours in components — tokens only.
+2. Tables: header row only, no zebra stripes.
+3. Key-result box = deep teal --key, titled "Key result", distinct from
+   --signal/--flux.
+4. Figures: PNG/SVG only, caption below with bold "Figure N." label.
+5. Preserve manual notation in equations exactly.
+6. Sentence case everywhere in chrome/labels.
+7. Extend existing components (GsLayout, CodeBlock, tutorial/*); do not fork.
+8. Clean & academic register: restrained, legible, documentation-grade.
