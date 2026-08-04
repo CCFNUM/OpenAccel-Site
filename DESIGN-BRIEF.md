@@ -173,3 +173,61 @@ Sentence case for ALL headings and labels. Never Title Case, never ALL CAPS.
 6. Sentence case everywhere in chrome/labels.
 7. Extend existing components (GsLayout, CodeBlock, tutorial/*); do not fork.
 8. Clean & academic register: restrained, legible, documentation-grade.
+
+## 10. Input-file location map (User Guide chapters) — the \inputmap diagram
+
+Every User Guide chapter (Mesh, Physical Analysis, Interfaces, Numerics,
+Materials, Output) opens with a LOCATION MAP: a tree diagram of the whole input.i
+structure, with the ONE branch that chapter documents HIGHLIGHTED. This is the
+LaTeX \inputmap / TikZ tree from the manual. Reproduce it as a first-class,
+theme-aware component.
+
+Structure of the tree (top to bottom), connected by elbow connectors:
+  input.i
+   ├─ mesh
+   └─ simulation
+       ├─ physical_analysis
+       │   ├─ analysis_type
+       │   ├─ domains[]
+       │   ├─ rigid_bodies[]
+       │   └─ interfaces[]
+       ├─ solver
+       │   ├─ solver_control
+       │   ├─ output_control
+       │   └─ restart_control
+       └─ material_library
+
+Appearance:
+- All nodes are WHITE/neutral blocks by default: fill --surface, 1px --hairline
+  border, monospace label (--font-mono), small radius. In DARK theme the same
+  "white block" approach = fill --surface (the dark surface), --hairline border,
+  --text label. The look is identical in spirit in both themes: neutral blocks on
+  the page background.
+- The ONE block this chapter covers is HIGHLIGHTED with a decent accent, in both
+  themes: light theme uses a restrained maroon-family or teal-family highlight
+  (fill a pale tint, border + text the accent); dark theme uses the SAME accent
+  family tuned to sit well on the dark background (e.g. accent border + faint
+  accent-tint fill + accent text). Use a dedicated token pair --map-highlight /
+  --map-highlight-bg defined in BOTH theme blocks so it stays legible. Pick a
+  highlight that is NOT confusable with the physics accents or the --key teal.
+- Connectors: thin --hairline elbow lines (vertical + horizontal), like the LaTeX
+  tree. Left-aligned, indented per depth level.
+- Each block is a CLICKABLE LINK to that block's chapter/page (wouter route). On
+  hover, subtle affordance. So a reader can click "solver_control" and land on the
+  Numerics chapter, etc. The highlighted current-chapter block links to itself /
+  is non-navigating.
+- Monospace labels exactly as in the manual (mesh, physical_analysis, domains[],
+  rigid_bodies[], interfaces[], solver_control, output_control, restart_control,
+  material_library).
+
+Build ONE reusable component (e.g. InputMap) that takes a "highlight" prop naming
+which block to highlight, so every chapter passes its own block. Both themes,
+legible, per the golden test.
+
+## 11. "How to Read This Guide" pages — required per manual (recap + placement)
+
+Get Started (User Guide) and Theory Manual each need their own "How to Read/Use
+This Guide" page as the FIRST entry in that section, transcribed from that
+manual's main.tex, showing ONLY the boxes that manual actually uses with that
+manual's own labels/definitions. V&V/Tutorials does NOT get one. See CLAUDE.md
+for the box vocabularies and the exact content requirements.
