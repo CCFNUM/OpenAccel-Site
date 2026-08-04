@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- A2 fix: removed maximum-scale=1, no user-scalable restriction -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Theme: blocking inline script reads localStorage and sets data-theme BEFORE any
+         stylesheet or bundle loads, preventing a flash of the wrong theme.
+         Default is "dark". Keep this as the very first script in <head>. -->
+    <script>
+      (function(){try{var t=localStorage.getItem('openaccel-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+    </script>
+
+    <!-- Tells the browser both colour schemes are supported;
+         form controls, scrollbars, and native UI follow the active theme. -->
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- A4 fix: meaningful default title -->
+    <title>OpenAccel — Open-source multiphysics CFD solver</title>
+
+    <!-- A1 fix: real description -->
+    <meta name="description" content="OpenAccel is a free, open-source vertex-based CVFEM solver for multiphysics CFD: compressible and incompressible flow, multiphase VOF, fluid-structure interaction, conjugate heat transfer, and turbulence modelling. BSD 3-Clause licensed." />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="OpenAccel" />
+    <meta property="og:title" content="OpenAccel — Open-source multiphysics CFD solver" />
+    <meta property="og:description" content="OpenAccel is a free, open-source vertex-based CVFEM solver for multiphysics CFD: compressible and incompressible flow, multiphase VOF, fluid-structure interaction, conjugate heat transfer, and turbulence modelling. BSD 3-Clause licensed." />
+    <meta property="og:url" content="https://openaccel.replit.app/" />
+    <!-- A3 fix: actual OG image -->
+    <meta property="og:image" content="https://openaccel.replit.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="OpenAccel — Open-source multiphysics CFD solver. Multiphysics CFD, built in the open." />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="OpenAccel — Open-source multiphysics CFD solver" />
+    <meta name="twitter:description" content="OpenAccel is a free, open-source vertex-based CVFEM solver for multiphysics CFD: compressible and incompressible flow, multiphase VOF, fluid-structure interaction, conjugate heat transfer, and turbulence modelling. BSD 3-Clause licensed." />
+    <meta name="twitter:image" content="https://openaccel.replit.app/og-image.png" />
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "OpenAccel",
+      "description": "Open-source vertex-based CVFEM solver for multiphysics CFD",
+      "codeRepository": "https://github.com/CCFNUM/OpenAccel",
+      "programmingLanguage": "C++",
+      "license": "https://opensource.org/licenses/BSD-3-Clause",
+      "author": [
+        { "@type": "Person", "name": "Luca Mangani" },
+        { "@type": "Person", "name": "Lucian Hanimann" }
+      ]
+    }
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://openaccel.replit.app/" />
+
+    <!-- Fonts: only what we actually use. IBM Plex Serif dropped per audit.
+         Preload only the two faces needed for first paint (display + mono). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

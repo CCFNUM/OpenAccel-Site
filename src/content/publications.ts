@@ -1,0 +1,26 @@
+export const publications = [
+  {
+    id: 'p1',
+    type: 'journal',
+    year: 2022,
+    authors: 'Mangani, L.; Alloush, M. M.; Lindegger, R.; Hanimann, L.; Darwish, M.',
+    title: 'A Pressure-Based Fully-Coupled Flow Algorithm for the Control Volume Finite Element Method',
+    venue: 'Applied Sciences, Vol. 12, No. 9, Article 4633',
+    doi: '10.3390/app12094633',
+    pdfUrl: 'https://doi.org/10.3390/app12094633',
+    abstract: 'A pressure-based fully coupled flow algorithm is developed within the Control Volume Finite Element Method (CVFEM) framework for the solution of compressible and incompressible flows up to the transonic regime. Unlike traditional segregated approaches, the method solves the momentum and continuity equations simultaneously, providing improved robustness and convergence. The formulation combines the geometric flexibility of finite elements with the local conservation properties of finite volumes while maintaining the advantages of a pressure-based algorithm. The solver is validated using several benchmark cases, including incompressible laminar flow, turbulent flow, and compressible transonic flow. The results demonstrate excellent agreement with reference numerical and experimental data, confirming the accuracy, stability, and efficiency of the proposed fully coupled CVFEM formulation.',
+    isPlaceholder: false,
+  },
+  {
+    id: 'p2',
+    type: 'journal',
+    year: 2025,
+    authors: 'Mangani, L.; Alloush, M. M.; Moukalled, F.',
+    title: 'A CVFEM-Based Coupled Flow Solver Combined with a Fully Implicit Discontinuous Galerkin Method for Non-Conformal Grid Interfaces',
+    venue: 'Computers & Fluids, Vol. 297, Article 106624',
+    doi: '10.1016/j.compfluid.2025.106624',
+    pdfUrl: 'https://doi.org/10.1016/j.compfluid.2025.106624',
+    abstract: 'This work extends the previously developed fully coupled single-zone CVFEM flow solver to multi-zone configurations containing non-conformal mesh interfaces. The proposed approach employs a fully implicit Discontinuous Galerkin (DG) formulation to discretize skin-to-skin as well as translational and rotational periodic interfaces while preserving the robustness of the coupled pressure–velocity algorithm. The methodology enables accurate information transfer across non-matching meshes without compromising convergence. Validation is performed using five benchmark problems including flow past a NACA0012 airfoil, blood flow in a carotid artery, a converging intake, a low-pressure turbine cascade, and a hydraulic turbomachine. The results demonstrate excellent robustness, accuracy, and smooth communication across non-conformal interfaces, making the method suitable for complex multi-zone CFD applications.',
+    isPlaceholder: false,
+  },
+];

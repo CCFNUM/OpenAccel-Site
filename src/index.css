@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--ink);
+  --color-foreground: var(--text);
+  --color-border: var(--hairline);
+  --color-input: var(--surface-2);
+  --color-ring: var(--cold);
+
+  --color-card: var(--surface);
+  --color-card-foreground: var(--text);
+  --color-card-border: var(--hairline);
+
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--text);
+  --color-popover-border: var(--hairline);
+
+  --color-primary: var(--cold);
+  --color-primary-foreground: #ffffff;
+  
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--text);
+
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--text-dim);
+
+  --color-accent: var(--surface-2);
+  --color-accent-foreground: var(--text);
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-serif: "IBM Plex Serif", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-display: "Archivo", sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DARK THEME — defined on both :root (SSR / no-JS fallback) and [data-theme="dark"]
+   (needed so sections with data-theme="dark" override a light-mode page).
+   ───────────────────────────────────────────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  /* Surfaces */
+  --ink:       #080B11;
+  --surface:   #10151F;
+  --surface-2: #171E2B;
+  --hairline:  #232C3B;
+
+  /* Text */
+  --text:      #E7ECF4;
+  --text-dim:  #8C99AD;
+
+  /* Physics-semantic accent colours */
+  --cold:      #3B82F6;   /* incompressible flow */
+  --violet:    #A78BFA;   /* compressible flow, turbulence */
+  --flux:      #06B6D4;   /* multiphase, VOF, free surface */
+  --hot:       #F97316;   /* FSI, ALE, moving mesh */
+  --warm:      #EAB308;   /* heat transfer, CHT, buoyancy */
+  --signal:    #22D3A6;   /* solid mechanics, success states */
+
+  /* Pill backgrounds — low-opacity tint works on dark backgrounds */
+  --cold-pill-bg:   rgba(59,130,246,0.12);
+  --violet-pill-bg: rgba(167,139,250,0.12);
+  --flux-pill-bg:   rgba(6,182,212,0.12);
+  --hot-pill-bg:    rgba(249,115,22,0.12);
+  --warm-pill-bg:   rgba(234,179,8,0.12);
+  --signal-pill-bg: rgba(34,211,166,0.12);
+  --dim-pill-bg:    rgba(140,153,173,0.12);
+
+  /* Callout tint backgrounds (slightly lighter than pills) */
+  --callout-cold-bg:   rgba(59,130,246,0.08);
+  --callout-signal-bg: rgba(34,211,166,0.08);
+  --callout-warm-bg:   rgba(234,179,8,0.08);
+  --callout-hot-bg:    rgba(249,115,22,0.08);
+
+  /* Table zebra stripe */
+  --surface-stripe: rgba(23,30,43,0.5);
+
+  /* Docs link underline tint */
+  --link-underline: rgba(59,130,246,0.4);
+
+  /* Scroll-fade gradient colour (matches page bg) */
+  --scroll-fade: #080B11;
+
+  --radius: 0.25rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LIGHT THEME
+   Contrast verified: --text-dim #5A6678 on --ink #FBFCFD ≈ 5.6:1 ✓ WCAG AA
+                      --text-dim #5A6678 on --surface #FFFFFF ≈ 5.1:1 ✓ WCAG AA
+   ───────────────────────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  /* Surfaces */
+  --ink:       #FBFCFD;
+  --surface:   #FFFFFF;
+  --surface-2: #F1F4F8;
+  --hairline:  #DDE3EC;
+
+  /* Text */
+  --text:      #0F172A;
+  --text-dim:  #5A6678;
+
+  /* Physics accents — darker for legibility on white */
+  --cold:      #1D4ED8;
+  --violet:    #6D28D9;
+  --flux:      #0E7490;
+  --hot:       #C2410C;
+  --warm:      #A16207;
+  --signal:    #0F766E;
+
+  /* Pill backgrounds — solid tints (low-opacity washes out on white) */
+  --cold-pill-bg:   #EFF6FF;
+  --violet-pill-bg: #F5F3FF;
+  --flux-pill-bg:   #ECFEFF;
+  --hot-pill-bg:    #FFF7ED;
+  --warm-pill-bg:   #FEFCE8;
+  --signal-pill-bg: #F0FDFA;
+  --dim-pill-bg:    #F1F4F8;
+
+  /* Callout backgrounds — same solid tints as pills */
+  --callout-cold-bg:   #EFF6FF;
+  --callout-signal-bg: #F0FDFA;
+  --callout-warm-bg:   #FEFCE8;
+  --callout-hot-bg:    #FFF7ED;
+
+  /* Table zebra stripe — subtle on white */
+  --surface-stripe: rgba(0,0,0,0.03);
+
+  /* Docs link underline tint */
+  --link-underline: rgba(29,78,216,0.4);
+
+  /* Scroll-fade gradient colour */
+  --scroll-fade: #FBFCFD;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   THEME TRANSITION
+   Applied only during the switch (JS adds/removes data-theme-transitioning).
+   Prefers-reduced-motion users see an instant swap.
+   ───────────────────────────────────────────────────────────────────────────── */
+[data-theme-transitioning],
+[data-theme-transitioning] * {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme-transitioning],
+  [data-theme-transitioning] * {
+    transition: none !important;
+  }
+}
+
+.dark {
+  /* Site no longer uses this class; kept to avoid import errors from shadcn components */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    @apply font-sans antialiased text-foreground;
+    background-color: var(--ink);
+    color: var(--text);
+    font-size: 16px;
+    min-width: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Inline code chip */
+  :not(pre) > code {
+    background: var(--surface-2);
+    border-radius: 2px;
+    font-size: 0.875em;
+    color: color-mix(in srgb, var(--cold) 60%, var(--text));
+    padding: 0.1em 0.35em;
+    font-family: var(--font-mono);
+    word-break: break-word;
+  }
+
+  /* Table scrollable wrapper pattern */
+  .table-scroll {
+    overflow-x: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table-scroll::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--scroll-fade));
+    pointer-events: none;
+  }
+  .table-scroll table {
+    min-width: 500px;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+  }
+  .table-scroll th {
+    background: var(--surface-2);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    padding: 8px 12px;
+    border: 1px solid var(--hairline);
+    text-align: left;
+  }
+  .table-scroll td {
+    padding: 8px 12px;
+    border: 1px solid var(--hairline);
+    font-size: 14px;
+  }
+  /* Zebra stripe uses a semantic token instead of a hardcoded dark rgba */
+  .table-scroll tr:nth-child(even) td {
+    background: var(--surface-stripe);
+  }
+  .table-scroll td.num, .table-scroll th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-mono);
+  }
+
+  /* KaTeX display scroll */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Docs section heading rule */
+  .docs-content h2::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(to right, var(--cold), var(--hot));
+    margin-bottom: 0.75rem;
+    margin-top: 2.5rem;
+  }
+  .docs-content h2:first-child::before {
+    margin-top: 0;
+  }
+
+  /* Docs heading anchors */
+  .docs-content h2,
+  .docs-content h3 {
+    position: relative;
+    scroll-margin-top: 6rem;
+  }
+  .docs-content h2 .anchor-link,
+  .docs-content h3 .anchor-link {
+    position: absolute;
+    left: -1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    color: var(--cold);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .docs-content h2:hover .anchor-link,
+  .docs-content h3:hover .anchor-link {
+    opacity: 1;
+  }
+
+  /* Docs body links — underline tint uses token so it works in both modes */
+  .docs-content a:not(.anchor-link) {
+    color: var(--cold);
+    text-decoration: underline;
+    text-decoration-color: var(--link-underline);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s;
+  }
+  .docs-content a:not(.anchor-link):hover {
+    text-decoration-color: var(--cold);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--cold)] to-[var(--hot)];
+  }
+  .bg-gradient-cold-hot {
+    background-image: linear-gradient(to right, var(--cold), var(--hot));
+  }
+  .border-gradient-cold-hot {
+    border-image: linear-gradient(to right, var(--cold), var(--hot)) 1;
+  }
+
+  /* Physics tag pills — now use semantic tokens so they adapt to both themes.
+     In dark mode: low-opacity rgba tint.
+     In light mode: solid tint colours from the design spec. */
+  .tag-incompressible  { background: var(--cold-pill-bg);   color: var(--cold); }
+  .tag-compressible    { background: var(--violet-pill-bg);  color: var(--violet); }
+  .tag-turbulence      { background: var(--violet-pill-bg);  color: var(--violet); }
+  .tag-multiphase      { background: var(--flux-pill-bg);    color: var(--flux); }
+  .tag-fsi             { background: var(--hot-pill-bg);     color: var(--hot); }
+  .tag-heat-transfer   { background: var(--warm-pill-bg);    color: var(--warm); }
+  .tag-solid-mechanics { background: var(--signal-pill-bg);  color: var(--signal); }
+  .tag-default         { background: var(--dim-pill-bg);     color: var(--text-dim); }
+
+  /* Page hero band gradient rule */
+  .gradient-rule {
+    height: 1px;
+    background: linear-gradient(to right, var(--cold), var(--hot));
+  }
+}

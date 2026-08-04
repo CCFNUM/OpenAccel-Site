@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Cold→hot gradient for wordmark accent -->
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <!-- Subtle grid overlay -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#232C3B" stroke-width="0.5"/>
+    </pattern>
+    <!-- Hairline gradient bar -->
+    <linearGradient id="bar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#3B82F6"/>
+      <stop offset="70%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Vortex glow blobs -->
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F97316" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#080B11"/>
+
+  <!-- Grid texture -->
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- Atmospheric glows (velocity field feel) -->
+  <ellipse cx="900" cy="200" rx="380" ry="240" fill="url(#glow1)"/>
+  <ellipse cx="800" cy="430" rx="300" ry="200" fill="url(#glow2)"/>
+
+  <!-- Simulated streamlines (decorative) -->
+  <g stroke="#3B82F6" stroke-width="1" fill="none" opacity="0.12">
+    <path d="M 50 180 Q 300 160 550 200 Q 750 240 900 180 Q 1050 120 1180 160"/>
+    <path d="M 50 240 Q 280 220 520 260 Q 720 300 880 240 Q 1040 180 1180 220"/>
+    <path d="M 50 300 Q 260 280 500 320 Q 700 360 860 300 Q 1020 240 1180 280"/>
+    <path d="M 50 360 Q 240 340 480 380 Q 680 420 840 360 Q 1000 300 1180 340"/>
+    <path d="M 50 420 Q 220 400 460 440 Q 660 480 820 420 Q 980 360 1180 400"/>
+  </g>
+  <g stroke="#F97316" stroke-width="1" fill="none" opacity="0.10">
+    <path d="M 50 210 Q 320 185 570 225 Q 770 265 920 205 Q 1070 145 1180 185"/>
+    <path d="M 50 270 Q 300 245 550 285 Q 750 325 900 265 Q 1050 205 1180 245"/>
+    <path d="M 50 330 Q 280 305 530 345 Q 730 385 880 325 Q 1030 265 1180 305"/>
+    <path d="M 50 390 Q 260 365 510 405 Q 710 445 860 385 Q 1010 325 1180 365"/>
+  </g>
+
+  <!-- Cylinder obstacle -->
+  <circle cx="320" cy="315" r="45" fill="#10151F" stroke="#232C3B" stroke-width="2"/>
+  <!-- Cylinder highlight -->
+  <circle cx="308" cy="302" r="12" fill="#1a2035" opacity="0.8"/>
+
+  <!-- Wake particles -->
+  <g fill="#3B82F6" opacity="0.5">
+    <circle cx="400" cy="310" r="2"/>
+    <circle cx="450" cy="325" r="1.5"/>
+    <circle cx="500" cy="305" r="2"/>
+    <circle cx="560" cy="330" r="1.5"/>
+    <circle cx="610" cy="308" r="2"/>
+    <circle cx="670" cy="318" r="1.5"/>
+    <circle cx="720" cy="302" r="2"/>
+  </g>
+  <g fill="#F97316" opacity="0.45">
+    <circle cx="380" cy="298" r="1.5"/>
+    <circle cx="430" cy="340" r="2"/>
+    <circle cx="485" cy="290" r="1.5"/>
+    <circle cx="545" cy="350" r="2"/>
+    <circle cx="595" cy="288" r="1.5"/>
+    <circle cx="655" cy="345" r="2"/>
+    <circle cx="710" cy="282" r="1.5"/>
+  </g>
+
+  <!-- Gradient hairline rule above title -->
+  <rect x="60" y="150" width="380" height="2" fill="url(#bar)"/>
+
+  <!-- Eyebrow -->
+  <text x="60" y="142" font-family="'IBM Plex Mono', monospace, 'Courier New'" font-size="13" fill="#8C99AD" letter-spacing="3">OPEN SOURCE · CFD</text>
+
+  <!-- Wordmark: "Open" white, "Accel" gradient -->
+  <text x="56" y="240" font-family="Archivo, 'Arial Black', sans-serif" font-size="96" font-weight="700" fill="white">Open</text>
+  <text x="56" y="340" font-family="Archivo, 'Arial Black', sans-serif" font-size="96" font-weight="700" fill="url(#brand)">Accel</text>
+
+  <!-- Strapline -->
+  <text x="60" y="390" font-family="'IBM Plex Sans', 'Helvetica Neue', sans-serif" font-size="22" fill="#8C99AD">Multiphysics CFD, built in the open.</text>
+
+  <!-- Tags row -->
+  <g font-family="'IBM Plex Mono', monospace, 'Courier New'" font-size="12" fill="#3B82F6">
+    <rect x="60" y="418" width="120" height="24" rx="4" fill="#3B82F6" fill-opacity="0.12" stroke="#3B82F6" stroke-width="0.5" stroke-opacity="0.4"/>
+    <text x="120" y="434" text-anchor="middle">incompressible</text>
+    <rect x="192" y="418" width="80" height="24" rx="4" fill="#F97316" fill-opacity="0.12" stroke="#F97316" stroke-width="0.5" stroke-opacity="0.4"/>
+    <text x="232" y="434" fill="#F97316" text-anchor="middle">turbulence</text>
+    <rect x="284" y="418" width="54" height="24" rx="4" fill="#06B6D4" fill-opacity="0.12" stroke="#06B6D4" stroke-width="0.5" stroke-opacity="0.4"/>
+    <text x="311" y="434" fill="#06B6D4" text-anchor="middle">VOF</text>
+    <rect x="350" y="418" width="34" height="24" rx="4" fill="#A78BFA" fill-opacity="0.12" stroke="#A78BFA" stroke-width="0.5" stroke-opacity="0.4"/>
+    <text x="367" y="434" fill="#A78BFA" text-anchor="middle">FSI</text>
+  </g>
+
+  <!-- BSD badge, bottom-right -->
+  <text x="1140" y="590" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#8C99AD" text-anchor="end" opacity="0.7">BSD 3-Clause</text>
+  <text x="1140" y="610" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#8C99AD" text-anchor="end" opacity="0.7">github.com/CCFNUM/OpenAccel</text>
+</svg>

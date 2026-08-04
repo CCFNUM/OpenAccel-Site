@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://openaccel.replit.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://openaccel.replit.app/get-started</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/cavity</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/elbow</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/airfoil</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/pitzDaily</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/t106a</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/circularArc</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/forwardStep</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/damBreak</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/staticDroplet</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/flange</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/slab</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/benardCells</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/perpendicularFlap</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/oscillatingBox</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/flexibleDamBreak</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/tutorials/plateHole</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/theory</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://openaccel.replit.app/publications</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://openaccel.replit.app/develop</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://openaccel.replit.app/community</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://openaccel.replit.app/community/contributors</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://openaccel.replit.app/support</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://openaccel.replit.app/cite</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://openaccel.replit.app/license</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://openaccel.replit.app/contact</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>
