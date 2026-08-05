@@ -41,11 +41,24 @@ export function Equation({ math, display = true, label }: EquationProps) {
       el.style.transform = '';
       el.style.transformOrigin = '';
       wrap.style.height = '';
+
+      // KaTeX's own .katex-display centres its content (text-align: center),
+      // so when the equation is wider than its box it overflows EQUALLY on
+      // both sides. el.scrollWidth only ever grows to cover overflow past
+      // the box's right edge — it does not extend leftward past x=0 — so it
+      // silently undercounts a centred equation's true width by roughly half
+      // the overflow. That under-measurement produced a scale factor that
+      // was too large, leaving the last term still clipped by this wrapper's
+      // overflow:hidden. getBoundingClientRect() on the actual rendered
+      // KaTeX root, by contrast, reports the true layout box regardless of
+      // an ancestor's overflow or the element's own centring, so use that.
+      const inner = (el.querySelector('.katex') as HTMLElement | null) ?? el;
+      const natural = inner.getBoundingClientRect().width;
       const available = wrap.clientWidth;
-      const natural = el.scrollWidth;
       if (available > 0 && natural > available + 1) {
-        // Floor so we never scale up; keep a sane lower bound for legibility.
-        const scale = Math.max(available / natural, 0.35);
+        // Small safety margin so rounding never leaves a sliver clipped;
+        // floor so we never scale UP past 1, and keep a legibility floor.
+        const scale = Math.max((available / natural) * 0.985, 0.35);
         el.style.transform = `scale(${scale})`;
         el.style.transformOrigin = 'center top';
         wrap.style.height = `${Math.ceil(el.scrollHeight * scale)}px`;
