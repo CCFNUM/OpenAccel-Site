@@ -46,6 +46,7 @@ const ThCh15 = lazy(() => import('@/pages/theory/Ch15PvCoupling').then(m => ({ d
 const ThCh16 = lazy(() => import('@/pages/theory/Ch16LinearSolvers').then(m => ({ default: m.Ch16LinearSolvers })));
 const ThCh17 = lazy(() => import('@/pages/theory/Ch17Implementation').then(m => ({ default: m.Ch17Implementation })));
 const ThCh18 = lazy(() => import('@/pages/theory/Ch18Postprocessing').then(m => ({ default: m.Ch18Postprocessing })));
+const ThCh19 = lazy(() => import('@/pages/theory/Ch19MeshQuality').then(m => ({ default: m.Ch19MeshQuality })));
 const Tutorials    = lazy(() => import('@/pages/Tutorials').then(m => ({ default: m.Tutorials })));
 const TutorialDetail = lazy(() => import('@/pages/TutorialDetail').then(m => ({ default: m.TutorialDetail })));
 const Publications = lazy(() => import('@/pages/Publications').then(m => ({ default: m.Publications })));
@@ -122,6 +123,7 @@ function Router() {
           <Route path="/theory/linear-solvers"             component={ThCh16} />
           <Route path="/theory/implementation"             component={ThCh17} />
           <Route path="/theory/postprocessing"             component={ThCh18} />
+          <Route path="/theory/mesh-quality"               component={ThCh19} />
           {/* /docs and /docs/* permanently redirect to /theory */}
           <Route path="/docs">{() => <DocsRedirect />}</Route>
           <Route path="/docs/:rest*">{() => <DocsRedirect />}</Route>
