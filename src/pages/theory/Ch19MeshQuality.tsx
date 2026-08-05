@@ -3,6 +3,7 @@ import { SEO } from '@/components/SEO';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { DocCallout } from '@/components/DocCallout';
 import { CodeBlock } from '@/components/CodeBlock';
+import { Algorithm } from '@/components/theory/Algorithm';
 import { M } from '@/components/tutorial/Equation';
 import { TheoryLayout } from './TheoryLayout';
 import { H2, H3 } from '../get-started/GsLayout';
@@ -105,19 +106,21 @@ export function Ch19MeshQuality() {
         For flat tetrahedral elements, the correction implements a vertex-movement strategy:
       </p>
 
-      <CodeBlock
-        lang="text"
-        label="Listing 19.1"
-        caption="Flat element correction (FETETF)."
-        code={`Input: flat tetrahedral element E
-identify element nodes {n1, n2, n3, n4}
-compute element centroid c = (1/4) * sum(x_i, i=1..4)
-calculate node distances from centroid
-for each node n_i:
-    if |x_i - c| > 1.5 * average distance:
-        move node toward centroid:
-            x_i_new = x_i + alpha * (c - x_i), with alpha = 0.1 (smoothing factor)
-recompute element quality`}
+      <Algorithm
+        number="2"
+        caption="Flat element correction (FETETF)"
+        lines={[
+          { text: "**Input:** flat tetrahedral element $E$" },
+          { text: "identify element nodes $\\{n_1, n_2, n_3, n_4\\}$" },
+          { text: "compute element centroid $\\mathbf{c} = \\tfrac{1}{4}\\sum_{i=1}^{4}\\mathbf{x}_i$" },
+          { text: "calculate node distances from centroid" },
+          { text: "**for** each node $n_i$ **do**" },
+          { text: "**if** $|\\mathbf{x}_i - \\mathbf{c}| > 1.5 \\times \\text{average distance}$ **then**", indent: 1 },
+          { text: "move node toward centroid: $\\mathbf{x}_i^{new} = \\mathbf{x}_i + \\alpha(\\mathbf{c} - \\mathbf{x}_i)$, with $\\alpha = 0.1$ (smoothing factor)", indent: 2 },
+          { text: "**end if**", indent: 1 },
+          { text: "**end for**" },
+          { text: "recompute element quality" },
+        ]}
       />
 
       <H3 id="high-aspect-ratio-treatment" num="19.2.2">High-aspect-ratio element treatment</H3>

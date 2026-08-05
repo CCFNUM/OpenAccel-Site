@@ -5,6 +5,7 @@ import { KeyBox } from '@/components/KeyBox';
 import { SourceBox } from '@/components/SourceBox';
 import { DocCallout } from '@/components/DocCallout';
 import { CodeBlock } from '@/components/CodeBlock';
+import { Algorithm } from '@/components/theory/Algorithm';
 import { Equation, M } from '@/components/tutorial/Equation';
 import { TheoryLayout } from './TheoryLayout';
 import { H2, H3 } from '../get-started/GsLayout';
@@ -360,15 +361,18 @@ export function Ch4Turbulence() {
         moderate meshes but expensive on very large ones, where the Poisson method is preferable.
       </p>
 
-      <CodeBlock
-        lang="text"
-        label="Listing 4.1"
-        caption="Nearest-wall-node distance (mesh_wave)."
-        code={`gather all wall-node coordinates {x_w} from every rank into a global list W
-for each interior node i (on this rank):
-    y_i <- infinity
-    for each wall node w in W:
-        y_i <- min(y_i, || x_i - x_w ||_2)`}
+      <Algorithm
+        number="1"
+        caption="Nearest-wall-node distance (mesh_wave)"
+        lines={[
+          { text: "gather all wall-node coordinates $\\{\\mathbf{x}_w\\}$ from every rank into a global list $W$" },
+          { text: "**for** each interior node $i$ (on this rank) **do**" },
+          { text: "$y_i \\leftarrow \\infty$", indent: 1 },
+          { text: "**for** each wall node $w$ in $W$ **do**", indent: 1 },
+          { text: "$y_i \\leftarrow \\min\\bigl(y_i,\\ \\lVert \\mathbf{x}_i - \\mathbf{x}_w \\rVert_2\\bigr)$", indent: 2 },
+          { text: "**end for**", indent: 1 },
+          { text: "**end for**" },
+        ]}
       />
 
       <DocCallout icon={AlertTriangle} label="Caution" accent="var(--warm)" bg="var(--callout-warm-bg)">
