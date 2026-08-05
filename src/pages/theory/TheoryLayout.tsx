@@ -162,7 +162,7 @@ export function TheoryLayout({ chNum, title, inProgress, children }: Props) {
         </aside>
 
         {/* Main content */}
-        <div className="flex-1 min-w-0 docs-content" style={{ fontSize: 17, lineHeight: 1.7, color: 'var(--text)', maxWidth: '72ch' }}>
+        <div className="flex-1 min-w-0 docs-content" style={{ fontSize: 17, lineHeight: 1.7, color: 'var(--text)', maxWidth: '84ch' }}>
           {children}
         </div>
       </div>

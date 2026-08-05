@@ -352,11 +352,14 @@
     font-family: var(--font-mono);
   }
 
-  /* KaTeX display scroll */
+  /* Display equations never scroll — the Equation component scales wide
+     equations down to fit instead (see src/components/tutorial/Equation.tsx).
+     KaTeX's own .katex-display must not carry its own overflow-x:auto here:
+     that would give the (still full-width, pre-scale) inner node its own
+     scrollbar, which then just rides along, shrunk, inside the outer
+     transform:scale() — visible as a scrollbar under the equation. */
   .katex-display {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
   }
 
   /* Docs section heading rule */
