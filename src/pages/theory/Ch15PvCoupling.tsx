@@ -201,16 +201,16 @@ export function Ch15PvCoupling() {
           only in the coefficient used in the pressure-correction matrix and in permitting{' '}
           <M math="\lambda^{p}\approx1" />.</>}
         steps={[
-          { id: 's', kind: 'start', title: 'Initialise', subtitle: 'p* and fields at time tⁿ' },
-          { id: 'mom', kind: 'process', title: 'Solve momentum predictor', subtitle: 'with p* ⟹ v*' },
-          { id: 'rc', kind: 'process', title: 'Rhie–Chow face mass fluxes', subtitle: 'computes ṁ*' },
-          { id: 'pc', kind: 'process', title: 'Solve pressure correction p′', subtitle: 'SIMPLE / SIMPLEC coefficient' },
-          { id: 'corr', kind: 'process', title: 'Correct v, p, ṁ' },
+          { id: 's', kind: 'start', title: 'Initialise', subtitle: '$p^{*}$ and fields at time $t^{n}$' },
+          { id: 'mom', kind: 'process', title: 'Solve momentum predictor', subtitle: 'with $p^{*} \\Rightarrow \\mathbf{v}^{*}$' },
+          { id: 'rc', kind: 'process', title: 'Rhie–Chow face mass fluxes', subtitle: 'computes $\\dot{m}^{*}$' },
+          { id: 'pc', kind: 'process', title: 'Solve pressure correction $p\'$', subtitle: 'SIMPLE / SIMPLEC coefficient' },
+          { id: 'corr', kind: 'process', title: 'Correct $\\mathbf{v},\\ p,\\ \\dot{m}$' },
           { id: 'aux', kind: 'process', title: 'Solve auxiliary equations', subtitle: 'energy, turbulence, phasic, …' },
           { id: 'dec', kind: 'decision', title: 'Converged?' },
-          { id: 'done', kind: 'end', title: 'Advance to tⁿ⁺¹' },
+          { id: 'done', kind: 'end', title: 'Advance to $t^{n+1}$' },
         ]}
-        loop={{ from: 'dec', to: 'mom', label: 'no, p* := p', exitLabel: 'yes' }}
+        loop={{ from: 'dec', to: 'mom', label: 'no, $p^{*} := p$', exitLabel: 'yes' }}
       />
 
       <H2 id="compressibility" num="15.3">Compressibility Considerations</H2>

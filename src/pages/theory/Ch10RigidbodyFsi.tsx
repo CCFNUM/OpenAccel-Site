@@ -86,13 +86,13 @@ export function Ch10RigidbodyFsi() {
           resulting body pose is imposed on the mesh through the <code>rigid_body_solution</code>{' '}
           boundary condition and propagated by ALE mesh motion.</>}
         steps={[
-          { id: 'flow', kind: 'start', title: 'Flow solution', subtitle: 'Flow field at time tⁿ' },
-          { id: 'force', kind: 'process', title: 'Force & moment', subtitle: 'Integrate −p·n + wall shear stress over the wetted body surface ⟹ F, M' },
+          { id: 'flow', kind: 'start', title: 'Flow solution', subtitle: 'Flow field at time $t^{n}$' },
+          { id: 'force', kind: 'process', title: 'Force & moment', subtitle: 'Integrate $-p\\,\\mathbf{n} + \\boldsymbol{\\tau}_w$ over the wetted surface $\\Rightarrow \\mathbf{F},\\ \\mathbf{M}$' },
           { id: 'integ', kind: 'process', title: '6-DOF integrators', subtitle: 'Average-acceleration (translation); RK4 + quaternion (rotation)' },
-          { id: 'mask', kind: 'process', title: 'Apply DOF masks', subtitle: 'Produces the new pose (position x, orientation quaternion q)' },
-          { id: 'bc', kind: 'process', title: 'Impose boundary displacement', subtitle: 'rigid_body_solution boundary condition ⟹ ALE mesh update' },
+          { id: 'mask', kind: 'process', title: 'Apply DOF masks', subtitle: 'New pose: position $\\mathbf{x}$, orientation quaternion $\\mathbf{q}$' },
+          { id: 'bc', kind: 'process', title: 'Impose boundary displacement', subtitle: '$\\texttt{rigid\\_body\\_solution}$ BC $\\Rightarrow$ ALE mesh update' },
         ]}
-        loop={{ from: 'bc', to: 'flow', label: 'advance to tⁿ⁺¹' }}
+        loop={{ from: 'bc', to: 'flow', label: 'advance to $t^{n+1}$' }}
       />
 
       <H2 id="partitioned-fsi" num="10.2">Partitioned Fluid&ndash;Structure Interaction</H2>
@@ -121,16 +121,16 @@ export function Ch10RigidbodyFsi() {
           <M math="\mathbf{r}^{k}=\tilde{\mathbf{d}}^{k}-\mathbf{d}^{k-1}" /> is driven to zero by
           fixed under-relaxation, Aitken's dynamic factor, or IQN-ILS quasi-Newton acceleration.</>}
         steps={[
-          { id: 's', kind: 'start', title: 'Outer coupling iteration k' },
-          { id: 'f', kind: 'process', title: 'Solve fluid', subtitle: 'Momentum + pressure correction ⟹ interface traction tᵏ' },
+          { id: 's', kind: 'start', title: 'Outer coupling iteration $k$' },
+          { id: 'f', kind: 'process', title: 'Solve fluid', subtitle: 'Momentum + pressure correction $\\Rightarrow$ interface traction $\\mathbf{t}^{k}$' },
           { id: 'tr', kind: 'process', title: 'Transfer traction', subtitle: 'Neumann load to the solid, via the DG interface' },
-          { id: 'sol', kind: 'process', title: 'Solve solid displacement', subtitle: 'Produces the predicted interface displacement d̃ᵏ' },
-          { id: 'rel', kind: 'process', title: 'Relax / accelerate', subtitle: 'dᵏ = dᵏ⁻¹ + ω·rᵏ — fixed URF, Aitken, or IQN-ILS' },
-          { id: 'mesh', kind: 'process', title: 'Move fluid mesh', subtitle: 'ALE update to the relaxed displacement dᵏ' },
+          { id: 'sol', kind: 'process', title: 'Solve solid displacement', subtitle: 'Produces the predicted interface displacement $\\tilde{\\mathbf{d}}^{k}$' },
+          { id: 'rel', kind: 'process', title: 'Relax / accelerate', subtitle: '$\\mathbf{d}^{k} = \\mathbf{d}^{k-1} + \\omega\\,\\mathbf{r}^{k}$ — fixed URF, Aitken, or IQN-ILS' },
+          { id: 'mesh', kind: 'process', title: 'Move fluid mesh', subtitle: 'ALE update to the relaxed displacement $\\mathbf{d}^{k}$' },
           { id: 'dec', kind: 'decision', title: 'Converged?', subtitle: 'Interface residual below target?' },
-          { id: 'done', kind: 'end', title: 'Advance to tⁿ⁺¹' },
+          { id: 'done', kind: 'end', title: 'Advance to $t^{n+1}$' },
         ]}
-        loop={{ from: 'dec', to: 'f', label: 'no, k := k+1', exitLabel: 'yes' }}
+        loop={{ from: 'dec', to: 'f', label: 'no, $k := k+1$', exitLabel: 'yes' }}
       />
 
       <SourceBox>

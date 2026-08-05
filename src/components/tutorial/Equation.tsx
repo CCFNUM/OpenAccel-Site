@@ -13,10 +13,9 @@ interface EquationProps {
  * Pass display=true (default) for a numbered block equation.
  * Pass display=false for inline math.
  *
- * Display equations no longer scroll horizontally: if the rendered KaTeX is
- * wider than the available column, it is scaled down in place to fit (rather
- * than clipped or left to overflow into a scrollbar). Re-measured on window
- * resize so it stays correct as the viewport changes.
+ * Wide display equations are shrunk to fit using FONT-SIZE (not transform:scale),
+ * so the browser reflows the box naturally and nothing is ever clipped or
+ * scrolled. Re-measured on window resize.
  */
 export function Equation({ math, display = true, label }: EquationProps) {
   const ref = useRef<HTMLSpanElement | HTMLDivElement>(null);
@@ -37,37 +36,31 @@ export function Equation({ math, display = true, label }: EquationProps) {
     const wrap = wrapRef.current;
 
     const fit = () => {
-      // Reset before measuring so we always compare against natural size.
-      el.style.transform = '';
-      el.style.transformOrigin = '';
-      wrap.style.height = '';
-
-      // KaTeX's own .katex-display centres its content (text-align: center),
-      // so when the equation is wider than its box it overflows EQUALLY on
-      // both sides. el.scrollWidth only ever grows to cover overflow past
-      // the box's right edge — it does not extend leftward past x=0 — so it
-      // silently undercounts a centred equation's true width by roughly half
-      // the overflow. That under-measurement produced a scale factor that
-      // was too large, leaving the last term still clipped by this wrapper's
-      // overflow:hidden. getBoundingClientRect() on the actual rendered
-      // KaTeX root, by contrast, reports the true layout box regardless of
-      // an ancestor's overflow or the element's own centring, so use that.
+      // Reset to full size before measuring natural width.
+      el.style.fontSize = '';
       const inner = (el.querySelector('.katex') as HTMLElement | null) ?? el;
       const natural = inner.getBoundingClientRect().width;
       const available = wrap.clientWidth;
-      if (available > 0 && natural > available + 1) {
-        // Small safety margin so rounding never leaves a sliver clipped;
-        // floor so we never scale UP past 1, and keep a legibility floor.
-        const scale = Math.max((available / natural) * 0.985, 0.35);
-        el.style.transform = `scale(${scale})`;
-        el.style.transformOrigin = 'center top';
-        wrap.style.height = `${Math.ceil(el.scrollHeight * scale)}px`;
+      if (available > 0 && natural > available) {
+        // Shrink via font-size: the whole equation (incl. height) reflows to
+        // fit. 0.98 safety margin; floor at 0.4 of base so it stays legible.
+        const ratio = Math.max((available / natural) * 0.88, 0.4);
+        // KaTeX display base font-size is ~1.21em of parent; scale from that.
+        el.style.fontSize = `${ratio * 100}%`;
       }
     };
 
+    // Fit now, and again after fonts settle (KaTeX metrics shift on font load).
     fit();
+    const t = setTimeout(fit, 150);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fit).catch(() => {});
+    }
     window.addEventListener('resize', fit);
-    return () => window.removeEventListener('resize', fit);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', fit);
+    };
   }, [math, display]);
 
   if (!display) {
@@ -77,7 +70,7 @@ export function Equation({ math, display = true, label }: EquationProps) {
   return (
     <div className="my-6">
       <div className="flex items-center justify-center gap-4">
-        <div ref={wrapRef} className="w-full overflow-hidden">
+        <div ref={wrapRef} className="w-full">
           <div ref={ref as React.RefObject<HTMLDivElement>} className="katex-display-block" />
         </div>
         {label && (
@@ -91,11 +84,7 @@ export function Equation({ math, display = true, label }: EquationProps) {
 /**
  * M — inline math (DESIGN-BRIEF §22). Use for any variable/expression that is
  * in math mode in the source .tex and appears inline in prose, table cells,
- * callouts, list items or captions — e.g. <M math="\alpha" />, <M math="K_t" />,
- * <M math="\mathbf{v}" />. Never approximate with plain-text/unicode (no "alpha",
- * no "α") — always render through KaTeX so it matches display equations.
- * input.i keywords/values stay in the mono code font (§18); this is only for
- * physical/mathematical symbols.
+ * callouts, list items or captions.
  */
 export function M({ math }: { math: string }) {
   return <Equation math={math} display={false} />;

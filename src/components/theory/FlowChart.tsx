@@ -1,136 +1,149 @@
-import { Caption } from '@/components/Caption';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import katex from 'katex';
 
-/**
- * FlowChart — static, theme-aware "card-step" algorithm diagram.
- * DESIGN-BRIEF.md §23 (Style B). Renders the manual's TikZ fcstart/fcproc/fcdec
- * chains as a vertical stack of cards with directional arrows, and a labelled
- * orange feedback loop for the iterative return edge. Driven entirely by data
- * so every Theory-chapter algorithm renders consistently. STATIC — no
- * interactivity (per §23, that is a later polish pass).
- *
- * Layout: a CSS grid shared by the card column and the loop-rail column, one
- * grid row per step plus one row per connecting arrow (2n-1 rows total). The
- * loop rail spans by grid-row line number, so it aligns exactly with the
- * from/to cards regardless of each card's rendered height (titles/subtitles
- * vary in length) — no percentage/pixel math needed.
- */
-export interface FlowStep {
-  id: string;
-  /** 'start' | 'end' — neutral; 'process' — cold accent; 'decision' — teal/flux accent */
-  kind: 'start' | 'end' | 'process' | 'decision';
-  title: string;
-  subtitle?: string;
+const MAROON = '#7A003C';
+const MAROON_BG_LIGHT = 'rgba(122,0,60,0.07)';
+
+type Kind = 'start' | 'end' | 'process' | 'decision';
+interface Step { id: string; kind: Kind; title: string; subtitle?: string; }
+interface Loop { from: string; to: string; label?: string; exitLabel?: string; }
+interface FlowChartProps { steps: Step[]; loop?: Loop; label?: string; caption?: ReactNode; }
+
+function renderInto(host: HTMLElement, text: string) {
+  host.innerHTML = '';
+  for (const part of text.split(/(\$[^$]*\$)/g)) {
+    if (part.startsWith('$') && part.endsWith('$') && part.length > 1) {
+      const s = document.createElement('span');
+      katex.render(part.slice(1, -1), s, { throwOnError: false, displayMode: false });
+      host.appendChild(s);
+    } else if (part) host.appendChild(document.createTextNode(part));
+  }
 }
 
-export interface FlowLoop {
-  /** id of the step the feedback arrow leaves from (usually the decision node) */
-  from: string;
-  /** id of the step the feedback arrow returns to */
-  to: string;
-  /** label on the returning arrow, e.g. "no, p* := p" */
-  label: string;
-  /** label on the forward (non-looping) exit edge out of the `from` node, e.g. "yes" */
-  exitLabel?: string;
-}
-
-interface FlowChartProps {
-  label: string;
-  caption: React.ReactNode;
-  steps: FlowStep[];
-  loop?: FlowLoop;
-}
-
-const KIND_STYLE: Record<FlowStep['kind'], { border: string; titleColor: string }> = {
-  start:    { border: 'var(--hairline)', titleColor: 'var(--text)' },
-  end:      { border: 'var(--hairline)', titleColor: 'var(--text)' },
-  process:  { border: 'var(--cold)',     titleColor: 'var(--cold)' },
-  decision: { border: 'var(--flux)',     titleColor: 'var(--flux)' },
-};
-
-function DownArrow() {
+function Arrow() {
   return (
-    <div className="flex justify-center py-0.5" aria-hidden>
-      <svg width="14" height="18" viewBox="0 0 14 18">
-        <line x1="7" y1="0" x2="7" y2="12" stroke="var(--hairline)" strokeWidth="1.5" />
-        <polygon points="7,18 2,10 12,10" fill="var(--hairline)" />
+    <div className="flex justify-center" style={{ height: 26 }}>
+      <svg width="16" height="26" style={{ overflow: 'visible' }}>
+        <line x1="8" y1="0" x2="8" y2="20" stroke="var(--text-dim)" strokeWidth="1.75" />
+        <path d="M3 15 L8 22 L13 15" fill="none" stroke="var(--text-dim)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </div>
   );
 }
 
-export function FlowChart({ label, caption, steps, loop }: FlowChartProps) {
-  // Grid row for step i (1-indexed CSS grid lines): steps sit on odd rows,
-  // arrows on even rows, so step i (0-indexed) occupies grid row 2*i + 1.
-  const rowOf = (idx: number) => 2 * idx + 1;
-  const fromIdx = loop ? steps.findIndex(s => s.id === loop.from) : -1;
-  const toIdx = loop ? steps.findIndex(s => s.id === loop.to) : -1;
-  const totalRows = 2 * steps.length - 1;
+export function FlowChart({ steps, loop, label, caption }: FlowChartProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const nodeRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [loopPath, setLoopPath] = useState<string>('');
+  const [loopLabelPos, setLoopLabelPos] = useState<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    rootRef.current?.querySelectorAll<HTMLElement>('[data-tex]').forEach((el) => {
+      renderInto(el, el.getAttribute('data-tex') || '');
+    });
+  }, [steps, loopLabelPos]);
+
+  useLayoutEffect(() => {
+    if (!loop || !boxRef.current) return;
+    const compute = () => {
+      const from = nodeRefs.current[loop.from];
+      const to = nodeRefs.current[loop.to];
+      const box = boxRef.current;
+      if (!from || !to || !box) return;
+      const b = box.getBoundingClientRect();
+      const f = from.getBoundingClientRect();
+      const t = to.getBoundingClientRect();
+      const fromY = f.top + f.height / 2 - b.top;
+      const fromX = f.right - b.left;
+      const toY = t.top + t.height / 2 - b.top;
+      const toX = t.right - b.left;
+      const railX = Math.max(fromX, toX) + 46;
+      setLoopPath(`M ${fromX} ${fromY} H ${railX} V ${toY} H ${toX}`);
+      setLoopLabelPos({ x: railX + 6, y: (fromY + toY) / 2 });
+    };
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(boxRef.current);
+    window.addEventListener('resize', compute);
+    return () => { ro.disconnect(); window.removeEventListener('resize', compute); };
+  }, [loop, steps]);
 
   return (
-    <figure className="my-6">
-      <div className="rounded-md border overflow-x-auto p-6" style={{ borderColor: 'var(--code-border)', background: 'var(--surface-2)' }}>
-        <div
-          className="mx-auto"
-          style={{
-            display: 'grid',
-            width: 'fit-content',
-            gridTemplateColumns: loop ? '320px 70px' : '320px',
-            gridTemplateRows: `repeat(${totalRows}, auto)`,
-            columnGap: 24,
-          }}
-        >
-          {steps.map((step, i) => {
-            const s = KIND_STYLE[step.kind];
+    <figure className="my-8" ref={rootRef}>
+      <div className="relative mx-auto" ref={boxRef} style={{ width: 'fit-content', paddingRight: loop ? 100 : 0 }}>
+        {loop && (
+          <svg className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+            <defs>
+              <marker id="fcaM" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M2 2 L10 6 L2 10" fill="none" stroke={MAROON} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+              </marker>
+            </defs>
+            {loopPath && <path d={loopPath} fill="none" stroke={MAROON} strokeWidth="1.75" markerEnd="url(#fcaM)" />}
+          </svg>
+        )}
+        {loop && loopLabelPos && (
+          <div className="absolute text-[11px] italic pointer-events-none" data-tex={loop.label}
+            style={{ left: loopLabelPos.x, top: loopLabelPos.y, transform: 'translateY(-50%)', color: MAROON, whiteSpace: 'nowrap' }} />
+        )}
+
+        <div className="flex flex-col items-center">
+          {steps.map((s, i) => {
+            const last = i === steps.length - 1;
+            const showExit = loop && s.id === loop.from;
             return (
-              <div key={step.id} style={{ gridColumn: 1, gridRow: rowOf(i) }}>
-                <div
-                  className="rounded-xl px-4 py-3"
-                  style={{ border: `1.5px solid ${s.border}`, background: 'var(--surface)', borderRadius: 12 }}
-                >
-                  <p className="text-sm font-semibold leading-snug" style={{ color: s.titleColor }}>{step.title}</p>
-                  {step.subtitle && (
-                    <p className="text-xs mt-1 leading-snug" style={{ color: 'var(--text-dim)' }}>{step.subtitle}</p>
-                  )}
+              <div key={s.id} className="flex flex-col items-center">
+                <div ref={(el) => { nodeRefs.current[s.id] = el; }}>
+                  <Node step={s} />
                 </div>
+                {!last && (
+                  <div className="relative">
+                    <Arrow />
+                    {showExit && loop?.exitLabel && (
+                      <span className="absolute text-[11px] italic" style={{ left: 14, top: 4, color: 'var(--text-dim)' }}>{loop.exitLabel}</span>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
-
-          {steps.slice(0, -1).map((step, i) => (
-            <div key={`arrow-${step.id}`} style={{ gridColumn: 1, gridRow: rowOf(i) + 1 }}>
-              <DownArrow />
-            </div>
-          ))}
-
-          {loop && fromIdx >= 0 && toIdx >= 0 && (
-            <div
-              className="relative"
-              style={{ gridColumn: 2, gridRow: `${rowOf(toIdx)} / ${rowOf(fromIdx) + 1}` }}
-              aria-hidden
-            >
-              {/* Vertical rail */}
-              <div className="absolute top-0 bottom-0" style={{ left: 8, width: 2, background: 'var(--hot)', borderRadius: 1 }} />
-              {/* Arrowhead pointing left into the "to" card */}
-              <div className="absolute" style={{ left: -6, top: 0, transform: 'translateY(-50%)' }}>
-                <svg width="16" height="12" viewBox="0 0 16 12"><polygon points="16,0 16,12 6,6" fill="var(--hot)" /></svg>
-              </div>
-              {/* Horizontal tick out of the "from" card, at the bottom of the rail */}
-              <div className="absolute" style={{ left: -12, bottom: 0, width: 20, height: 2, background: 'var(--hot)' }} />
-              {/* Loop condition label, vertical, alongside the rail */}
-              <div
-                className="absolute text-[10px] font-mono px-1.5 py-0.5 rounded whitespace-nowrap"
-                style={{
-                  left: 16, top: '50%', transform: 'translateY(-50%) rotate(90deg)', transformOrigin: 'left center',
-                  color: 'var(--hot)', background: 'var(--hot-pill-bg)', border: '1px solid var(--hot)',
-                }}
-              >
-                {loop.label}
-              </div>
-            </div>
-          )}
         </div>
       </div>
-      <Caption label={label} className="mt-2">{caption}</Caption>
+      {(label || caption) && (
+        <figcaption className="mt-4 text-sm text-center" style={{ color: 'var(--text-dim)' }}>
+          {label && <span className="font-semibold" style={{ color: 'var(--text)' }}>{label}. </span>}{caption}
+        </figcaption>
+      )}
     </figure>
+  );
+}
+
+function Node({ step }: { step: Step }) {
+  if (step.kind === 'decision') {
+    const W = 240, H = 108;
+    return (
+      <div className="my-1 relative flex items-center justify-center" style={{ width: W, height: H }}>
+        <svg width={W} height={H} className="absolute inset-0" style={{ overflow: 'visible' }}>
+          <polygon points={`${W/2},2 ${W-2},${H/2} ${W/2},${H-2} 2,${H/2}`}
+            fill={MAROON_BG_LIGHT} stroke={MAROON} strokeWidth="1.75" />
+        </svg>
+        <div className="relative text-center px-2" style={{ maxWidth: W - 70 }}>
+          <div className="text-[13px] font-medium" style={{ color: MAROON }} data-tex={step.title} />
+          {step.subtitle && <div className="text-[10px] mt-0.5 leading-tight" style={{ color: MAROON, opacity: 0.85 }} data-tex={step.subtitle} />}
+        </div>
+      </div>
+    );
+  }
+  const isEnd = step.kind === 'start' || step.kind === 'end';
+  return (
+    <div className="text-center" style={{
+      width: 300, padding: '10px 20px',
+      borderRadius: isEnd ? 999 : 8,
+      background: isEnd ? 'var(--key-bg)' : 'var(--callout-cold-bg)',
+      border: `1.5px solid ${isEnd ? 'var(--key-frame)' : 'var(--cold)'}`,
+    }}>
+      <div className="text-[14px] font-semibold" style={{ color: isEnd ? 'var(--key-body-fg)' : 'var(--cold)' }} data-tex={step.title} />
+      {step.subtitle && <div className="text-[12px] mt-0.5" style={{ color: isEnd ? 'var(--key-body-fg)' : 'var(--text-dim)', opacity: isEnd ? 0.85 : 1 }} data-tex={step.subtitle} />}
+    </div>
   );
 }
