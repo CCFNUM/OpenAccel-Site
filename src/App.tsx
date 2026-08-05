@@ -38,6 +38,7 @@ const ThCh7  = lazy(() => import('@/pages/theory/Ch7MovingDomains').then(m => ({
 const ThCh8  = lazy(() => import('@/pages/theory/Ch8FreeSurface').then(m => ({ default: m.Ch8FreeSurface })));
 const ThCh9  = lazy(() => import('@/pages/theory/Ch9Solid').then(m => ({ default: m.Ch9Solid })));
 const ThCh10 = lazy(() => import('@/pages/theory/Ch10RigidbodyFsi').then(m => ({ default: m.Ch10RigidbodyFsi })));
+const ThCh11 = lazy(() => import('@/pages/theory/Ch11Cvfem').then(m => ({ default: m.Ch11Cvfem })));
 const Tutorials    = lazy(() => import('@/pages/Tutorials').then(m => ({ default: m.Tutorials })));
 const TutorialDetail = lazy(() => import('@/pages/TutorialDetail').then(m => ({ default: m.TutorialDetail })));
 const Publications = lazy(() => import('@/pages/Publications').then(m => ({ default: m.Publications })));
@@ -106,6 +107,7 @@ function Router() {
           <Route path="/theory/free-surface"               component={ThCh8} />
           <Route path="/theory/solid"                      component={ThCh9} />
           <Route path="/theory/rigidbody-fsi"              component={ThCh10} />
+          <Route path="/theory/cvfem"                      component={ThCh11} />
           {/* /docs and /docs/* permanently redirect to /theory */}
           <Route path="/docs">{() => <DocsRedirect />}</Route>
           <Route path="/docs/:rest*">{() => <DocsRedirect />}</Route>
