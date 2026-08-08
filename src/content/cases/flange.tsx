@@ -29,7 +29,7 @@ export function FlangeContent() {
 
       <section id="setup">
         <h2>2. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Flange thermal diffusion — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -66,7 +66,7 @@ export function FlangeContent() {
 
       <section id="results">
         <h2>3. Results</h2>
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 1"
           left={{ src: '/figures/temp_contour_flange_0.1.svg', alt: 'Early transient temperature', subcaption: 'Temperature field at an early time (transient).' }}
           right={{ src: '/figures/temp_contour_flange_3.svg',  alt: 'Steady-state temperature',    subcaption: 'Steady-state temperature field at t = 3 s.' }}
           caption="Temperature evolution in the flange. The thermal field smoothly bridges the two prescribed-temperature patches; adiabatic boundaries are silent (zero normal flux) at convergence."

@@ -32,7 +32,7 @@ export function FlexibleBottomCavityContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/flexible_bottom_cavity.svg"
           alt="Channel-cavity geometry"
           caption="Channel–cavity geometry: a 14 × 1 m channel feeds a 4 × 1 m square cavity whose floor is a clamped elastic plate of thickness 0.4 m. The FSI interface is the cavity floor at y = −1. The plate midpoint A = (4, −1.4) is the probe location for displacement metrics."
@@ -41,7 +41,7 @@ export function FlexibleBottomCavityContent() {
 
       <section id="setup">
         <h2>3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Channel flow over flexible cavity floor — complete case setup"
           groups={[
             { heading: 'Geometry', rows: [
@@ -85,12 +85,12 @@ export function FlexibleBottomCavityContent() {
       <section id="results">
         <h2>4. Results</h2>
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 2"
           left={{ src: '/figures/u_x_cavity_flex.svg', alt: 'Horizontal displacement (undamped)', subcaption: 'Horizontal displacement u_x(A, t)' }}
           right={{ src: '/figures/u_y_cavity_flex.svg', alt: 'Vertical displacement (undamped)', subcaption: 'Vertical displacement u_y(A, t)' }}
           caption="Plate midpoint displacement without structural damping. The under-damped oscillation decays through fluid viscous dissipation and numerical damping from the first-order scheme."
         />
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 3"
           left={{ src: '/figures/u_x_cavity_flex_damped.svg', alt: 'Horizontal displacement (damped)', subcaption: 'Horizontal displacement u_x(A, t), damped run' }}
           right={{ src: '/figures/u_y_cavity_flex_damped.svg', alt: 'Vertical displacement (damped)', subcaption: 'Vertical displacement u_y(A, t), damped run' }}
           caption="Plate midpoint displacement with mass-proportional Rayleigh damping (α = 0.1 s⁻¹). The persistent oscillation is eliminated and the plate reaches its asymptotic deflection monotonically."
@@ -128,7 +128,7 @@ export function FlexibleBottomCavityContent() {
           u_y,A reference from the fine-mesh Tuković et al. study; u_x,A and F_y from the solids4foam coarse-mesh tutorial.
         </p>
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 4"
           left={{ src: '/figures/cavity_flex_contour_openaccel.svg', alt: 'OpenAccel steady-state field', subcaption: 'OpenAccel' }}
           right={{ src: '/figures/cavity_flex_contour_s4f.png', alt: 'solids4foam reference field', subcaption: 'solids4foam' }}
           caption="Steady-state fields: fluid domain coloured by velocity magnitude, elastic plate coloured by von Mises stress. The channel boundary layers, cavity recirculation, and bending-stress distribution in the deformed plate are all visible."

@@ -27,7 +27,7 @@ export function TaylorCouetteContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/taylor.svg"
           alt="Taylor–Couette–Poiseuille setup"
           caption="Taylor–Couette–Poiseuille validation case. Top: r–θ plane showing the 90° annular sector. Bottom: r–z plane showing the annular gap and the axial velocity profile v_z(r) driven by the imposed pressure gradient."
@@ -36,7 +36,7 @@ export function TaylorCouetteContent() {
 
       <section id="setup">
         <h2>3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Taylor–Couette–Poiseuille — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -107,12 +107,12 @@ export function TaylorCouetteContent() {
 
       <section id="results">
         <h2>5. Results</h2>
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 2"
           left={{ src: '/figures/vy-taylor.svg',        alt: 'Axial velocity contour',     subcaption: 'Axial velocity v_z contour.' }}
           right={{ src: '/figures/vx-taylor-vector.svg', alt: 'Azimuthal velocity contour', subcaption: 'Relative azimuthal velocity v_θ,rel contour.' }}
           caption="Velocity contours over the 90° annular sector. Strict azimuthal symmetry confirms the rotational periodic interface."
         />
-        <TutorialSubfigureStack
+        <TutorialSubfigureStack label="Figure 3"
           items={[
             { src: '/figures/vz-taylor.svg',      alt: 'Axial velocity profile',     subcaption: 'Axial velocity v_z(r) vs. analytical annular Poiseuille profile.' },
             { src: '/figures/v-theta-taylor.svg', alt: 'Azimuthal velocity profile', subcaption: 'Relative azimuthal velocity v_θ,rel(r) vs. analytical Taylor–Couette profile.' },

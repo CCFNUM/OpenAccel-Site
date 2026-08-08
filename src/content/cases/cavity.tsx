@@ -5,6 +5,11 @@ import { Equation } from '@/components/tutorial/Equation';
 
 const F = (name: string) => `/figures/${name}.svg`;
 
+// Contour plates are letter-landscape (792×612 pt → cm); source LaTeX trim
+// for the cavity velocity contours is 3cm 1cm 3cm 1cm (L B R T).
+const CAV_BASE: [number, number] = [27.94, 21.59];
+const CAV_TRIM: [number, number, number, number] = [3, 1, 3, 1];
+
 export function CavityContent() {
   return (
     <>
@@ -32,7 +37,7 @@ export function CavityContent() {
 
       <section id="geometry" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src={F('cavity_schematic')}
           alt="Lid-driven cavity schematic"
           caption="Lid-driven cavity: a unit square with a tangentially moving top wall at U₀ = 1 m/s. The remaining three walls are stationary no-slip."
@@ -42,7 +47,7 @@ export function CavityContent() {
 
       <section id="setup" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Lid-driven cavity — complete case setup."
           groups={[
             {
@@ -97,13 +102,13 @@ export function CavityContent() {
       <section id="results" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">4. Results</h2>
 
-        <TutorialSubfigureRow
-          left={{ src: F('cavity-velocity'),   alt: 'u-velocity contour', subcaption: 'u-velocity contour.' }}
-          right={{ src: F('cavity-v-velocity'), alt: 'v-velocity contour', subcaption: 'v-velocity contour.' }}
+        <TutorialSubfigureRow label="Figure 2"
+          left={{ src: F('cavity-velocity'),   alt: 'u-velocity contour', subcaption: 'u-velocity contour.', trim: CAV_TRIM, trimBase: CAV_BASE }}
+          right={{ src: F('cavity-v-velocity'), alt: 'v-velocity contour', subcaption: 'v-velocity contour.', trim: CAV_TRIM, trimBase: CAV_BASE }}
           caption="Steady-state velocity contours at Re = 100. The primary vortex sits slightly above the geometric centre, consistent with the asymmetric pressure distribution induced by the moving lid."
         />
 
-        <TutorialSubfigureStack
+        <TutorialSubfigureStack label="Figure 3"
           items={[
             { src: F('cavity-u'), alt: 'u-velocity along vertical centreline',   subcaption: 'u-velocity along the vertical centreline.' },
             { src: F('cavity-v'), alt: 'v-velocity along horizontal centreline', subcaption: 'v-velocity along the horizontal centreline.' },

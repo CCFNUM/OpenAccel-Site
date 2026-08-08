@@ -33,7 +33,7 @@ export function PressurizedCylinderContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/pressurized_cylinder.svg"
           alt="Pressurised cylinder geometry"
           caption="Internally pressurised thick-walled cylinder: quarter-symmetric model with inner radius r_i = 7 m and outer radius r_o = 18.625 m. Uniform internal pressure p_i on the inner arc; traction-free outer arc; symmetry on the two straight edges."
@@ -42,7 +42,7 @@ export function PressurizedCylinderContent() {
 
       <section id="setup">
         <h2>3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Pressurised thick-walled cylinder — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -88,14 +88,14 @@ export function PressurizedCylinderContent() {
 
       <section id="results">
         <h2>5. Results</h2>
-        <TutorialSubfigureStack
+        <TutorialSubfigureStack label="Figure 2"
           items={[
             { src: '/figures/stress_radial_pressurized_tank.svg', alt: 'Radial stress σ_r(r)', subcaption: 'Radial stress σ_r(r) across the wall thickness.' },
             { src: '/figures/stress_circum_pressurized_tank.svg', alt: 'Circumferential stress σ_θ(r)', subcaption: 'Circumferential stress σ_θ(r) across the wall thickness.' },
           ]}
           caption="In-plane stress components along a radial cut from r = r_i to r = r_o, compared with the Lamé analytical solution."
         />
-        <TutorialFigure
+        <TutorialFigure label="Figure 3"
           src="/figures/displacement_pressurized_tank.svg"
           alt="Radial displacement u_r(r)"
           caption="Radial displacement u_r(r) across the wall thickness, compared with the Lamé analytical solution."

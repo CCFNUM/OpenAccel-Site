@@ -1,7 +1,13 @@
 import { TutorialFigure, TutorialSubfigureRow } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
-import { Equation } from '@/components/tutorial/Equation';
+import { DataTable } from '@/components/tutorial/DataTable';
+import { Equation, M } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
+
+// Contour plates are letter-landscape (792×612 pt → cm); source LaTeX trim for
+// the eddy-viscosity / dissipation contours is 3cm 1cm 3cm 1cm (L B R T).
+const BUMP_BASE: [number, number] = [27.94, 21.59];
+const BUMP_TRIM: [number, number, number, number] = [3, 1, 3, 1];
 
 export function BumpSSTContent() {
   return (
@@ -33,7 +39,7 @@ export function BumpSSTContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/bump2D_schematic.svg"
           alt="2D bump-in-channel geometry"
           caption="Geometry and boundary conditions for the NASA TMR 2-D bump-in-channel benchmark. Full domain x ∈ [−25, 26.5], y ∈ [0, 5] (top); close-up of the sin⁴ bump profile with peak height 0.05 at x = 0.75 (bottom)."
@@ -44,7 +50,7 @@ export function BumpSSTContent() {
 
       <section id="setup">
         <h2>3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="2-D bump-in-channel (NASA TMR SST) — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -95,62 +101,42 @@ export function BumpSSTContent() {
       <section id="results">
         <h2>5. Results</h2>
 
-        <TutorialSubfigureRow
-          left={{ src: '/figures/mu_bump_openaccel.svg', alt: 'Eddy viscosity – OpenAccel', subcaption: 'μ_t/μ_ref — OpenAccel (705×321, 2nd finest grid)' }}
-          right={{ src: '/figures/mu_bump_CFL3d.svg', alt: 'Eddy viscosity – CFL3D', subcaption: 'μ_t/μ_ref — CFL3D (1409×641, finest grid)' }}
+        <TutorialSubfigureRow label="Figure 2"
+          left={{ src: '/figures/mu_bump_openaccel.svg', alt: 'Eddy viscosity – OpenAccel', subcaption: 'μ_t/μ_ref — OpenAccel (705×321, 2nd finest grid)', trim: BUMP_TRIM, trimBase: BUMP_BASE }}
+          right={{ src: '/figures/mu_bump_CFL3d.svg', alt: 'Eddy viscosity – CFL3D', subcaption: 'μ_t/μ_ref — CFL3D (1409×641, finest grid)', trim: BUMP_TRIM, trimBase: BUMP_BASE }}
           caption="Turbulent eddy-viscosity ratio μ_t/μ_ref over the bump."
         />
-        <TutorialSubfigureRow
-          left={{ src: '/figures/omega_bump_openaccel.svg', alt: 'Specific dissipation rate – OpenAccel', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — OpenAccel (705×321)' }}
-          right={{ src: '/figures/omega_bump_CFL3d.svg', alt: 'Specific dissipation rate – CFL3D', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — CFL3D (1409×641)' }}
+        <TutorialSubfigureRow label="Figure 3"
+          left={{ src: '/figures/omega_bump_openaccel.svg', alt: 'Specific dissipation rate – OpenAccel', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — OpenAccel (705×321)', trim: BUMP_TRIM, trimBase: BUMP_BASE }}
+          right={{ src: '/figures/omega_bump_CFL3d.svg', alt: 'Specific dissipation rate – CFL3D', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — CFL3D (1409×641)', trim: BUMP_TRIM, trimBase: BUMP_BASE }}
           caption="Specific dissipation rate (normalised per NASA TMR convention). The freestream value is 10⁻⁶ at the inlet."
         />
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 4"
           src="/figures/Cp_bump.svg"
           alt="Surface Cp distribution"
           caption="Surface pressure coefficient C_p along the lower wall. OpenAccel on the 2nd-finest NASA TMR grid (705×321) vs. FUN3D reference on the finest grid (1409×641)."
         />
-        <TutorialFigure
+        <TutorialFigure label="Figure 5"
           src="/figures/Cf_bump.svg"
           alt="Surface Cf distribution"
           caption="Surface skin-friction coefficient C_f along the lower wall. Localised anomalies near x = 0 (turbulence-model activation) and x = 1.5 (trailing-edge numerical influence) are common to all SST codes on this benchmark."
         />
-        <TutorialFigure
+        <TutorialFigure label="Figure 6"
           src="/figures/velocity_profile_bump.svg"
           alt="Streamwise velocity profiles"
           caption="Streamwise velocity profiles U_x/U∞ vs. wall-normal distance at two stations: x = 0.75 (bump apex) and x = 1.20148 (leeward recovery). OpenAccel on the 2nd-finest grid vs. CFL3D on the finest grid."
         />
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Integrated lift and drag coefficients on the bump at Re_L = 3×10⁶, M∞ = 0.2.
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['Quantity', 'OpenAccel', 'CFL3D', 'Diff. vs CFL3D', 'FUN3D', 'Diff. vs FUN3D'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['C_D (total)', '0.00361', '0.00360', '0.27', '0.00359', '0.55'],
-                ['C_L (total)', '0.02491', '0.02497', '0.24', '0.02508', '0.67'],
-              ].map(([q, oa, cfl, dc, fun, df], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium font-mono">{q}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs font-semibold text-[var(--signal)]">{oa}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{cfl}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{dc}%</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{fun}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{df}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption={<>Integrated lift and drag coefficients on the bump at <M math="\mathit{Re}_L = 3\times10^{6}" />, <M math="\mathit{Ma}_\infty = 0.2" />.</>}
+          headers={['Quantity', 'OpenAccel', 'CFL3D', 'Diff. vs CFL3D', 'FUN3D', 'Diff. vs FUN3D']}
+          rows={[
+            [<M math="C_D\ \text{(total)}" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.00361</span>, '0.00360', '0.27%', '0.00359', '0.55%'],
+            [<M math="C_L\ \text{(total)}" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.02491</span>, '0.02497', '0.24%', '0.02508', '0.67%'],
+          ]}
+        />
       </section>
 
       <Takeaway>

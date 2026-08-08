@@ -31,7 +31,7 @@ export function ElbowContent() {
 
       <section id="setup">
         <h2>2. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Elbow — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -65,7 +65,7 @@ export function ElbowContent() {
 
       <section id="results">
         <h2>3. Results</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/velocity_elbow.svg"
           alt="Velocity magnitude in elbow"
           caption="Velocity magnitude. The stronger vertical inlet (v = 3 m/s) dominates the merged stream after the junction. Mass flow rates: inlet 1 = 35.5 kg/s, inlet 2 = 26.7 kg/s, outlet = 62.2 kg/s — confirming mass conservation."

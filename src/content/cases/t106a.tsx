@@ -36,7 +36,7 @@ export function T106AContent() {
 
       <section id="geometry" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src={F('t106a')}
           alt="T106A turbine cascade computational domain"
           caption="T106A turbine cascade computational domain (not to scale). The pitchwise direction is closed by a translational periodic interface, so a single blade passage represents the full cascade."
@@ -46,7 +46,7 @@ export function T106AContent() {
 
       <section id="setup" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="T106A turbine cascade — complete case setup."
           groups={[
             {
@@ -117,20 +117,20 @@ export function T106AContent() {
           edge and <em>P</em><sub>t,in</sub> is the inlet total pressure.
         </p>
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 2"
           left={{  src: F('leading_edge'),  alt: 'Leading edge streamlines',  subcaption: 'Leading edge: no separation bubble.' }}
           right={{ src: F('trailing_t106'), alt: 'Trailing edge streamlines', subcaption: 'Trailing edge: long separation bubble, 0.76 ≤ x/C ≤ 1.0.' }}
           caption="Mean-flow streamlines on the T106A suction side at Re_C = 51 831. The absence of a leading-edge bubble at this resolution is consistent with the high-fidelity DNS of Ranjan et al. (2017)."
         />
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 3"
           src={F('Cp_t106')}
           alt="Blade surface pressure coefficient vs normalised axial chord"
           caption="Blade surface pressure coefficient C_p vs. normalised axial chord x/C_ax, compared against the experiment of Stadtmüller (2001) and the DNS of Wissink (2003). The plateau on the suction side near the trailing edge is the signature of the laminar separation bubble."
           width="normal"
         />
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 4"
           left={{  src: F('velocity_t106a'),  alt: 'Velocity magnitude contour', subcaption: 'Velocity magnitude.' }}
           right={{ src: F('pressure_t106a'), alt: 'Static pressure contour',     subcaption: 'Static pressure coefficient.' }}
           caption="T106A cascade contours at Re_C = 51 800, Tu = 0.5%."

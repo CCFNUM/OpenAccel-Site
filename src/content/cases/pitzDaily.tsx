@@ -39,7 +39,7 @@ export function PitzDailyContent() {
 
       <section id="geometry" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src={F('pitzdaily')}
           alt="Pitz–Daily backward-facing step geometry"
           caption="Pitz–Daily backward-facing step. Flow enters uniformly through the inlet at u = 10 m/s, expands over a step of height h = 0.0254 m into a channel of height H = 0.0508 m and length L = 0.29 m, and exits through a symmetrically converging nozzle."
@@ -49,7 +49,7 @@ export function PitzDailyContent() {
 
       <section id="setup" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Pitz–Daily backward-facing step — complete case setup."
           groups={[
             {
@@ -128,14 +128,14 @@ export function PitzDailyContent() {
           inside the experimental band of Ruck &amp; Makiola (1993).
         </p>
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 2"
           src={F('velocity_profile_pitzdaily')}
           alt="Normalised streamwise velocity profiles at several axial stations"
           caption="Normalised streamwise velocity profiles u/u_in at several axial stations downstream of the step, compared with the experimental data of Ruck & Makiola (1993)."
           width="wide"
         />
 
-        <TutorialSubfigureStack
+        <TutorialSubfigureStack label="Figure 3"
           items={[
             { src: F('uvelocity1'), alt: 'u-velocity at iteration 300',  subcaption: 'Iteration 300 — the recirculation vortex is still developing.' },
             { src: F('uvelocity2'), alt: 'u-velocity at iteration 1000', subcaption: 'Iteration 1 000 — steady state. The vortex has reached its final reattachment location.' },

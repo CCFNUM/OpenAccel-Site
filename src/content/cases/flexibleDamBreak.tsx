@@ -25,7 +25,7 @@ export function FlexibleDamBreakContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/flelxible_dam_schematic.svg"
           alt="Flexible dam break schematic"
           caption="Flexible dam-break configuration: a water column of dimensions w × b = 0.146 × 0.292 m sits at the lower-left of a 0.584 × 0.584 m domain. A clamped elastic obstacle stands at the centre."
@@ -34,7 +34,7 @@ export function FlexibleDamBreakContent() {
 
       <section id="setup">
         <h2>3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Flexible dam-break — complete case setup"
           groups={[
             { heading: 'Geometry', rows: [
@@ -78,7 +78,7 @@ export function FlexibleDamBreakContent() {
 
       <section id="results">
         <h2>4. Results</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 2"
           src="/figures/flexibleDam_tipDisplacement.png"
           alt="Flexible dam tip displacement"
           caption="Horizontal tip displacement δ_x(t) of the flexible obstacle compared with reference results from the literature."
@@ -86,17 +86,17 @@ export function FlexibleDamBreakContent() {
 
         <p>The free-surface snapshots below compare the OpenAccel solution (left) with the space–time FEM reference of Walhorn et al. (right) at three instants.</p>
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 3"
           left={{ src: '/figures/flexDam_openaccel_t015.svg', alt: 'OpenAccel t=0.15s', subcaption: 't = 0.15 s (OpenAccel)' }}
           right={{ src: '/figures/flexDam_walhorn_t015.png',  alt: 'Walhorn t=0.15s',  subcaption: 't = 0.15 s (Walhorn)' }}
           caption="Free surface at t = 0.15 s."
         />
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 4"
           left={{ src: '/figures/flexDam_openaccel_t0185.svg', alt: 'OpenAccel t=0.185s', subcaption: 't = 0.185 s (OpenAccel)' }}
           right={{ src: '/figures/flexDam_walhorn_t0185.png',  alt: 'Walhorn t=0.185s',  subcaption: 't = 0.185 s (Walhorn)' }}
           caption="Free surface at t = 0.185 s."
         />
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 5"
           left={{ src: '/figures/flexDam_openaccel_t025.svg', alt: 'OpenAccel t=0.25s', subcaption: 't = 0.25 s (OpenAccel)' }}
           right={{ src: '/figures/flexDam_walhorn_t025.png',  alt: 'Walhorn t=0.25s',  subcaption: 't = 0.25 s (Walhorn)' }}
           caption="Free surface at t = 0.25 s."

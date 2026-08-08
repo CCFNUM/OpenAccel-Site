@@ -40,7 +40,7 @@ export function T3AContent() {
 
       <section id="geometry" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src={F('flatplate')}
           alt="ERCOFTAC T3A flat plate schematic"
           caption="ERCOFTAC T3A flat plate (not to scale). The free-stream turbulence intensity Tu = 3.3% triggers bypass transition on the plate surface."
@@ -58,7 +58,7 @@ export function T3AContent() {
           math={String.raw`k = \tfrac{3}{2}(Tu \cdot U_\infty)^2 = 0.0476\;\text{m}^2/\text{s}^2, \qquad \omega = \frac{k^{1/2}}{C_\mu^{1/4}\,\ell_t} = 264.63\;\text{s}^{-1}`}
         />
 
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="T3A flat plate — complete case setup."
           groups={[
             {
@@ -121,7 +121,7 @@ export function T3AContent() {
           <sup>−1/2</sup> and the White turbulent correlation C<sub>f</sub> = 0.455 / ln²(0.06 Re<sub>x</sub>).
         </p>
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 2"
           src={F('Cf-flatplate')}
           alt="Skin-friction coefficient vs local Reynolds number"
           caption="Skin-friction coefficient C_f vs. local Reynolds number Re_x. The three regimes — Blasius laminar, transition rise, and White turbulent — are clearly resolved."
@@ -162,7 +162,7 @@ export function T3AContent() {
           is expected to follow u⁺ = y⁺ in the viscous sublayer and the log law in the outer layer.
         </p>
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 3"
           left={{
             src: uPlusFig,
             alt: 'u+ vs y+ at three streamwise stations',

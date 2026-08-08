@@ -31,7 +31,7 @@ export function OscillatingBoxContent() {
 
       <section id="setup">
         <h2>2. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Oscillating box — complete case setup"
           groups={[
             { heading: 'Fluid properties (air)', rows: [
@@ -68,7 +68,7 @@ export function OscillatingBoxContent() {
 
       <section id="results">
         <h2>3. Results</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/y-disp-box.svg"
           alt="Box vertical displacement"
           caption="Probe-point vertical displacement for the oscillating box. The OpenAccel ALE solution (symbols) is compared against the prescribed sinusoidal motion y(t) = 0.1 sin(2πt) with f = 1 Hz and A = 0.1 m (solid line). The two curves overlap to within 10⁻⁴ m over one full cycle."
@@ -100,7 +100,7 @@ export function OscillatingBoxContent() {
           ['0.9', '0.9'],
           ['1',   '1.0'],
         ] as [string, string][]).map(([key, label]) => (
-          <TutorialSubfigureRow
+          <TutorialSubfigureRow label="Figure 2"
             key={key}
             left={{  src: `/figures/box_${key}_velocity.png`, alt: `Velocity t=${label}s`, subcaption: `Velocity, t = ${label} s` }}
             right={{ src: `/figures/box_${key}_press.png`,    alt: `Pressure t=${label}s`, subcaption: `Pressure, t = ${label} s` }}

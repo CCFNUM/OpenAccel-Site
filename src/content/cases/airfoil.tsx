@@ -34,7 +34,7 @@ export function AirfoilContent() {
 
       <section id="geometry" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src={F('airfoil_schematic')}
           alt="Computational domain for the airfoil near-wake validation"
           caption="Computational domain for the airfoil near-wake validation. Outer boundaries are placed sufficiently far from the airfoil to avoid blockage. The inset shows the Nakayama Model-A profile at zero angle of attack with chord C = 1 m."
@@ -44,7 +44,7 @@ export function AirfoilContent() {
 
       <section id="setup" className="mb-12 scroll-mt-24">
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Nakayama airfoil — complete case setup."
           groups={[
             {
@@ -104,21 +104,21 @@ export function AirfoilContent() {
           label="1"
         />
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 2"
           src={F('Cp_airfoil')}
           alt="Pressure coefficient on Nakayama Model-A airfoil"
           caption="Pressure coefficient C_p on the Nakayama Model-A airfoil at Re_C = 1.2 × 10⁶, α = 0°."
           width="normal"
         />
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 3"
           src={SVG('wake_detail')}
           alt="Near-wake velocity profiles at several downstream stations"
           caption="Near-wake velocity profiles Uₓ/U∞ at several downstream stations behind the Nakayama Model-A airfoil at Re = 1.2 × 10⁶, α = 0°. Red solid lines: OpenAccel SST k–ω simulation. Black dashed lines: FUN3D numerical results. Symbols: experimental data of Nakayama (1985)."
           width="normal"
         />
 
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 4"
           left={{  src: F('velocity_airfoil'), alt: 'Velocity magnitude contour', subcaption: 'Velocity magnitude |U|/U∞.' }}
           right={{ src: F('pressure_airfoil'), alt: 'Pressure contour',            subcaption: 'Pressure.' }}
           caption="Flow field at Re_C = 1.2 × 10⁶, α = 0°. The pressure distribution is nearly symmetric about the chord, as expected at zero incidence."

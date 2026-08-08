@@ -32,7 +32,7 @@ export function StaticDropletContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/droplet.svg"
           alt="Static droplet geometry"
           caption="Static droplet of radius R = 0.2 m centred in a unit-square domain. Inward arrows mark the direction of the surface-tension force."
@@ -41,7 +41,7 @@ export function StaticDropletContent() {
 
       <section id="setup">
         <h2>3. Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Static droplet — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -110,12 +110,12 @@ export function StaticDropletContent() {
           </table>
         </div>
 
-        <TutorialFigure
+        <TutorialFigure label="Figure 2"
           src="/figures/pressure_droplet_distribution.svg"
           alt="Pressure centreline distribution"
           caption="Pressure distribution along the horizontal centreline y = 0.5 m, compared against the analytical Young–Laplace solution (Δp_exact = 365 Pa)."
         />
-        <TutorialSubfigureRow
+        <TutorialSubfigureRow label="Figure 3"
           left={{ src: '/figures/pressure_droplet.svg', alt: 'Pressure contour', subcaption: 'Pressure contour.' }}
           right={{ src: '/figures/velocity_droplet.svg', alt: 'Velocity magnitude', subcaption: 'Velocity magnitude (parasitic currents).' }}
           caption="Static droplet contours. The pressure jump is uniform inside and outside, while the velocity field shows CSF parasitic currents localised at the interface."

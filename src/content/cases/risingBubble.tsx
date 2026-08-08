@@ -37,7 +37,7 @@ export function RisingBubbleContent() {
 
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 1"
           src="/figures/rising_bubble.svg"
           alt="Rising bubble geometry"
           caption="Geometry and boundary conditions for the rising-bubble benchmark (Hysing Test Case 1). Domain [0,1] × [0,2]; no-slip top and bottom, free-slip lateral walls."
@@ -46,7 +46,7 @@ export function RisingBubbleContent() {
 
       <section id="setup">
         <h2>3. Numerical Setup</h2>
-        <SetupTable
+        <SetupTable label="Table 1"
           caption="Rising bubble (Hysing Test Case 1) — complete case setup"
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -132,17 +132,17 @@ export function RisingBubbleContent() {
 
       <section id="results">
         <h2>5. Results</h2>
-        <TutorialFigure
+        <TutorialFigure label="Figure 2"
           src="/figures/bubble_yc.svg"
           alt="Centre-of-mass trajectory"
           caption="Centre-of-mass trajectory y_c(t) over the benchmark window t ∈ [0, 3] for the Hysing Test 1 configuration."
         />
-        <TutorialFigure
+        <TutorialFigure label="Figure 3"
           src="/figures/bubble_rise_velocity.svg"
           alt="Bubble rise velocity"
           caption="Bubble rise velocity U_c,y(t) over the benchmark window. The signal shows initial acceleration, a single peak near t ≈ 1.9 m/s, and a slow decay."
         />
-        <TutorialFigure
+        <TutorialFigure label="Figure 4"
           src="/figures/bubble_shape.svg"
           alt="Final bubble shape"
           caption="Bubble shape at the final benchmark time t = 3 for the Hysing Test 1 configuration, compared against the reference contours. The bubble has settled into a smooth ellipsoidal shape with a slight depression at the lower pole."
