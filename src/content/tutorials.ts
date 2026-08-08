@@ -295,6 +295,15 @@ export const tutorials: Tutorial[] = [
     description: 'Thick-walled cylinder under internal pressure. Validates radial and circumferential stress distributions against the Lamé analytical solution.',
     tags: ['solid-mechanics', 'stress', 'Lamé', 'analytical', 'pressure'], buildFlags: [], estimatedTime: '< 1 min',
   },
+  {
+    caseId: 'VC025', slug: 'layeredPipe', displayTitle: 'Bi-Material Thick-Walled Cylinder', title: 'Bi-material thick-walled cylinder',
+    group: 'Solid Mechanics',
+    githubFolder: undefined, githubDisabled: true,
+    lastUpdated: '2026-07-23',
+    physics: ['solid-mechanics'], difficulty: 'advanced', dim: '2D', status: 'complete',
+    description: 'Internally pressurised compound cylinder of two concentric elastic layers, coupled by a conformal solid–solid interface. Validates traction continuity and the hoop-stress jump against the compound-cylinder (Lamé) analytical solution.',
+    tags: ['solid-mechanics', 'multi-material', 'interface', 'Lamé', 'analytical'], buildFlags: [], estimatedTime: '< 1 min',
+  },
 ];
 
 /** Returns "< 30 min" for any case with an upper bound ≤ 30 min; otherwise the raw estimatedTime. */

@@ -33,6 +33,7 @@ const CASE_CONTENT: Record<string, React.LazyExoticComponent<() => React.ReactEl
   oscillatingCylinder: lazy(() => import('@/content/cases/oscillatingCylinder').then(m => ({ default: m.OscillatingCylinderContent }))),
   pressurizedCylinder: lazy(() => import('@/content/cases/pressurizedCylinder').then(m => ({ default: m.PressurizedCylinderContent }))),
   flexibleBottomCavity: lazy(() => import('@/content/cases/flexibleBottomCavity').then(m => ({ default: m.FlexibleBottomCavityContent }))),
+  layeredPipe:      lazy(() => import('@/content/cases/layeredPipe').then(m => ({ default: m.LayeredPipeContent }))),
 };
 
 /** Format an ISO date string as "DD Month YYYY" */
