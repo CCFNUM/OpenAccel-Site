@@ -101,6 +101,12 @@
   --key-title-fg: #04231D;
   --key-body-fg:  #9FE1CB;
 
+  /* Case-information box (V&V tutorials, DESIGN-BRIEF §24.2) — AUB maroon
+     (#7A003C). Border lightened for legibility on the dark page; faint
+     maroon-tint fill. */
+  --caseinfo-border: #B24A6E;
+  --caseinfo-bg:     rgba(122,0,60,0.16);
+
   /* Source / implementation box — quiet slate */
   --src:    #7FA8D0;
   --src-bg: rgba(59,130,246,0.06);
@@ -198,6 +204,11 @@
   --key-bg:       #E1F5EE;
   --key-title-fg: #FFFFFF;
   --key-body-fg:  #04342C;
+
+  /* Case-information box (V&V tutorials, DESIGN-BRIEF §24.2) — AUB maroon
+     (#7A003C) border, pale maroon-tint fill. */
+  --caseinfo-border: #7A003C;
+  --caseinfo-bg:     rgba(122,0,60,0.06);
 
   /* Source / implementation box — quiet slate */
   --src:    #1F3A5F;

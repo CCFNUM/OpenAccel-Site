@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 
 interface Row {
-  label: string;
+  label: ReactNode;
   value: ReactNode;
 }
 
 interface Group {
-  heading: string;
+  heading: ReactNode;
   rows: Row[];
 }
 
@@ -15,15 +15,25 @@ interface SetupTableProps {
   groups: Group[];
 }
 
+const groupHeaderStyle = {
+  color: 'var(--table-header-fg)',
+  background: 'var(--table-header-bg)',
+} as const;
+
 /**
  * Renders the structured setup table found in every OpenAccel tutorial case.
  * Each group becomes its own <tbody> — valid HTML5, avoids tbody-in-tbody.
+ *
+ * Styling per DESIGN-BRIEF §24.1 / §18: colour-filled (slate) group-header
+ * rows with white text, NO zebra striping on body rows, cell text in the body
+ * font (Source Serif 4) — callers mark input.i keywords/values as <code> for
+ * the mono font, and physical/mathematical symbols render via KaTeX.
  */
 export function SetupTable({ caption, groups }: SetupTableProps) {
   return (
     <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
       <table className="w-full text-sm border-collapse">
-        <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
+        <caption className="text-left text-xs text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
           {caption}
         </caption>
         {groups.map((group, gi) => (
@@ -31,20 +41,18 @@ export function SetupTable({ caption, groups }: SetupTableProps) {
             <tr>
               <td
                 colSpan={2}
-                className="px-4 py-1.5 text-xs font-mono font-semibold uppercase tracking-widest text-[var(--cold)] bg-[var(--surface-2)] border-t border-[var(--hairline)]"
+                className="px-4 py-1.5 text-xs font-semibold uppercase tracking-widest"
+                style={groupHeaderStyle}
               >
                 {group.heading}
               </td>
             </tr>
             {group.rows.map((row, ri) => (
-              <tr
-                key={`r-${ri}`}
-                className={ri % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}
-              >
-                <td className="px-4 py-2 text-[var(--text-dim)] font-medium align-top w-48 shrink-0">
+              <tr key={`r-${ri}`} style={{ borderBottom: '1px solid var(--table-border)' }}>
+                <td className="px-4 py-2 text-[var(--text-dim)] font-medium align-top w-56 shrink-0">
                   {row.label}
                 </td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs leading-relaxed">
+                <td className="px-4 py-2 text-[var(--text)] leading-relaxed align-top">
                   {row.value}
                 </td>
               </tr>

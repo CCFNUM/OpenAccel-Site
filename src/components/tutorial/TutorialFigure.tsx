@@ -1,6 +1,18 @@
 import { useState } from 'react';
 
-interface FigureProps {
+/** LaTeX \includegraphics trim, in cm, in source order: [left, bottom, right, top]. */
+export type Trim = [left: number, bottom: number, right: number, top: number];
+/** Natural size of the source figure, in cm: [width, height]. */
+export type TrimBase = [widthCm: number, heightCm: number];
+
+interface CropProps {
+  /** LaTeX trim=LEFT BOTTOM RIGHT TOP (cm). Omit for no crop (full image). */
+  trim?: Trim;
+  /** Source figure size in cm (from the PDF page size). Required with `trim`. */
+  trimBase?: TrimBase;
+}
+
+interface FigureProps extends CropProps {
   src: string;
   alt: string;
   caption: React.ReactNode;
@@ -9,14 +21,57 @@ interface FigureProps {
   width?: 'narrow' | 'normal' | 'wide' | 'full';
 }
 
-interface SubfigureProps {
+interface SubfigureProps extends CropProps {
   src: string;
   alt: string;
   subcaption: React.ReactNode;
 }
 
+/**
+ * CroppedImage — reproduces a LaTeX \includegraphics[trim=…, clip] crop on the
+ * web (DESIGN-BRIEF §24.4). The trim (cm from each side) is converted to a
+ * fraction of the source figure's width/height and the equivalent region is
+ * shown via an overflow:hidden viewport with the image scaled up and offset,
+ * so the framing matches the manual exactly and stays fully responsive.
+ * Without a trim it renders the full image unchanged.
+ */
+function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: string } & CropProps) {
+  if (!trim || !trimBase) {
+    return <img src={src} alt={alt} className="w-full h-auto object-contain" loading="lazy" />;
+  }
+  const [l, b, r, t] = trim;
+  const [W, H] = trimBase;
+  const fL = l / W, fR = r / W, fT = t / H, fB = b / H;
+  const cropW = Math.max(1e-3, 1 - fL - fR);
+  const cropH = Math.max(1e-3, 1 - fT - fB);
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        aspectRatio: `${cropW * W} / ${cropH * H}`,
+        overflow: 'hidden',
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        style={{
+          position: 'absolute',
+          top: `${-(fT / cropH) * 100}%`,
+          left: `${-(fL / cropW) * 100}%`,
+          width: `${100 / cropW}%`,
+          height: 'auto',
+          maxWidth: 'none', // override the global img{max-width:100%} reset
+        }}
+      />
+    </div>
+  );
+}
+
 /** Single figure with numbered caption */
-export function TutorialFigure({ src, alt, caption, width = 'normal' }: FigureProps) {
+export function TutorialFigure({ src, alt, caption, width = 'normal', trim, trimBase }: FigureProps) {
   const [enlarged, setEnlarged] = useState(false);
   const maxW = { narrow: 'max-w-md', normal: 'max-w-2xl', wide: 'max-w-3xl', full: 'max-w-full' }[width];
 
@@ -28,7 +83,7 @@ export function TutorialFigure({ src, alt, caption, width = 'normal' }: FigurePr
           onClick={() => setEnlarged(true)}
           aria-label={`Enlarge: ${alt}`}
         >
-          <img src={src} alt={alt} className="w-full h-auto object-contain" loading="lazy" />
+          <CroppedImage src={src} alt={alt} trim={trim} trimBase={trimBase} />
         </button>
         <figcaption className="mt-2 text-sm text-[var(--text-dim)] text-center leading-relaxed px-2">
           {caption}
@@ -71,7 +126,7 @@ export function TutorialSubfigureRow({ left, right, caption }: {
                 onClick={() => setEnlarged(sub.src)}
                 aria-label={`Enlarge: ${sub.alt}`}
               >
-                <img src={sub.src} alt={sub.alt} className="w-full h-auto object-contain" loading="lazy" />
+                <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
               </button>
               <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
             </div>
@@ -113,7 +168,7 @@ export function TutorialSubfigureStack({ items, caption }: {
                 onClick={() => setEnlarged(sub.src)}
                 aria-label={`Enlarge: ${sub.alt}`}
               >
-                <img src={sub.src} alt={sub.alt} className="w-full h-auto object-contain" loading="lazy" />
+                <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
               </button>
               <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
             </div>
