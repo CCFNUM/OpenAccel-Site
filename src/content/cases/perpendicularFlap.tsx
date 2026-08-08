@@ -27,7 +27,7 @@ export function PerpendicularFlapContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/flap_schematic.png"
+          src="/figures/flap_schematic.svg"
           alt="Perpendicular flap schematic"
           caption="Perpendicular flap: a thin elastic flap of height 1 m and thickness 0.1 m on the lower wall of a L × H = 6 × 4 m channel."
         />
@@ -79,7 +79,7 @@ export function PerpendicularFlapContent() {
       <section id="results">
         <h2>4. Results</h2>
         <TutorialFigure
-          src="/figures/displacement-flap.png"
+          src="/figures/displacement-flap.svg"
           alt="Flap tip displacement"
           caption="Time history of horizontal tip displacement δ_x^tip(t) of the perpendicular flap, compared against the preCICE reference toolchain combinations."
         />

@@ -67,8 +67,8 @@ export function FlangeContent() {
       <section id="results">
         <h2>3. Results</h2>
         <TutorialSubfigureRow
-          left={{ src: '/figures/temp_contour_flange_0.1.png', alt: 'Early transient temperature', subcaption: 'Temperature field at an early time (transient).' }}
-          right={{ src: '/figures/temp_contour_flange_3.png',  alt: 'Steady-state temperature',    subcaption: 'Steady-state temperature field at t = 3 s.' }}
+          left={{ src: '/figures/temp_contour_flange_0.1.svg', alt: 'Early transient temperature', subcaption: 'Temperature field at an early time (transient).' }}
+          right={{ src: '/figures/temp_contour_flange_3.svg',  alt: 'Steady-state temperature',    subcaption: 'Steady-state temperature field at t = 3 s.' }}
           caption="Temperature evolution in the flange. The thermal field smoothly bridges the two prescribed-temperature patches; adiabatic boundaries are silent (zero normal flux) at convergence."
         />
       </section>

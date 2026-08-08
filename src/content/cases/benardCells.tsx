@@ -30,7 +30,7 @@ export function BenardCellsContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/bernard.png"
+          src="/figures/bernard.svg"
           alt="Rayleigh–Bénard cavity schematic"
           label="Figure 1"
           caption="Rayleigh–Bénard cavity (not to scale). The hot floor and cold ceiling drive buoyant motion; side walls are adiabatic no-slip."
@@ -84,8 +84,8 @@ export function BenardCellsContent() {
         <TutorialSubfigureStack
           label="Figure 2"
           items={[
-            { src: '/figures/velocity_cells.png',     alt: 'y-velocity contour', subcaption: 'y-velocity contour at steady state, showing six counter-rotating roll pairs.' },
-            { src: '/figures/temperature_cells.png',  alt: 'Temperature contour', subcaption: <>Temperature contour: hot plumes rise from the floor and cold plumes descend from the ceiling. The double-headed arrow marks one convection wavelength <M math="\lambda_r = 1.5~\mathrm{m}" />.</> },
+            { src: '/figures/velocity_cells.svg',     alt: 'y-velocity contour', subcaption: 'y-velocity contour at steady state, showing six counter-rotating roll pairs.' },
+            { src: '/figures/temperature_cells.svg',  alt: 'Temperature contour', subcaption: <>Temperature contour: hot plumes rise from the floor and cold plumes descend from the ceiling. The double-headed arrow marks one convection wavelength <M math="\lambda_r = 1.5~\mathrm{m}" />.</> },
           ]}
           caption={<>Steady-state Rayleigh&ndash;Bénard solution at <M math="\mathrm{Ra} = 9810" />, <M math="\mathrm{Pr} = 1" />.</>}
         />

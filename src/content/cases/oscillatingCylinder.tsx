@@ -41,8 +41,8 @@ export function OscillatingCylinderContent() {
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialSubfigureStack
           items={[
-            { src: '/figures/oscillating_cylinder.png', alt: 'Geometry and BCs', subcaption: 'Schematic of the circular far-field domain, boundary conditions, and prescribed cylinder motion.' },
-            { src: '/figures/mesh_osc_cylinder.png', alt: 'Near-wall mesh close-up', subcaption: 'Close-up of the body-fitted O-grid at the cylinder surface (first cell height 10⁻³D).' },
+            { src: '/figures/oscillating_cylinder.svg', alt: 'Geometry and BCs', subcaption: 'Schematic of the circular far-field domain, boundary conditions, and prescribed cylinder motion.' },
+            { src: '/figures/mesh_osc_cylinder.svg', alt: 'Near-wall mesh close-up', subcaption: 'Close-up of the body-fitted O-grid at the cylinder surface (first cell height 10⁻³D).' },
           ]}
           caption="Geometry and computational mesh for the in-line oscillating-cylinder case."
         />
@@ -138,17 +138,17 @@ export function OscillatingCylinderContent() {
       <section id="results">
         <h2>5. Results</h2>
         <TutorialFigure
-          src="/figures/F_x_cycle.png"
+          src="/figures/F_x_cycle.svg"
           alt="In-line force over 10 periods"
           caption="In-line hydrodynamic force per unit length F₁(t) over ten oscillation periods. The start-up transient decays within the first cycle; the remaining cycles are periodic to plotting accuracy."
         />
         <TutorialFigure
-          src="/figures/inline_force_osc_cylinder.png"
+          src="/figures/inline_force_osc_cylinder.svg"
           alt="In-line force history — one period"
           caption="In-line force over the last highlighted period. OpenAccel (solid) tracks the Dütsch reference (dashed) closely, including the twin peaks near flow reversal. The Morison reconstruction (dotted) captures only the fundamental harmonic."
         />
         <TutorialFigure
-          src="/figures/velocity_osc_cylinder.png"
+          src="/figures/velocity_osc_cylinder.svg"
           alt="Phase-averaged velocity profiles"
           caption="Phase-averaged velocity profiles at two cross-stream stations. (a) Streamwise component u. (b) Cross-stream component v. OpenAccel overlays the reference numerical solution and the laser-Doppler measurements of Dütsch et al. (1998)."
         />

@@ -2,7 +2,7 @@ import { TutorialFigure, TutorialSubfigureStack } from '@/components/tutorial/Tu
 import { SetupTable } from '@/components/tutorial/SetupTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
-const F = (name: string) => `/figures/${name}.png`;
+const F = (name: string) => `/figures/${name}.svg`;
 
 export function PitzDailyContent() {
   return (

@@ -28,7 +28,7 @@ export function CircularArcContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/bump.png"
+          src="/figures/bump.svg"
           alt="Circular bump geometry"
           caption="Computational domain for flow over a circular bump. Channel height H = 1 m, length L = 3 m, arc height-to-chord ratio h/C = 0.1."
         />
@@ -112,14 +112,14 @@ export function CircularArcContent() {
           caption="Subsonic case (M_in = 0.5): predicted Mach number along the upper and lower walls compared with Favini et al. (1996)."
         />
         <TutorialFigure
-          src="/figures/sonic.png"
+          src="/figures/sonic.svg"
           alt="Transonic Mach wall distribution"
           caption="Transonic case (M_in = 0.675): predicted Mach number along the upper and lower walls compared with Favini et al. The recompression shock at x ≈ 1.7 m is captured."
         />
         <TutorialSubfigureStack
           items={[
-            { src: '/figures/contour-subsonic.png', alt: 'Subsonic Mach contour', subcaption: 'Subsonic (M_in = 0.5): smooth acceleration over the crest, flow remains subsonic throughout.' },
-            { src: '/figures/contour_trans.png',    alt: 'Transonic Mach contour', subcaption: 'Transonic (M_in = 0.675): supersonic pocket above the crest terminating in a recompression shock.' },
+            { src: '/figures/contour-subsonic.svg', alt: 'Subsonic Mach contour', subcaption: 'Subsonic (M_in = 0.5): smooth acceleration over the crest, flow remains subsonic throughout.' },
+            { src: '/figures/contour_trans.svg',    alt: 'Transonic Mach contour', subcaption: 'Transonic (M_in = 0.675): supersonic pocket above the crest terminating in a recompression shock.' },
           ]}
           caption="Mach number contours for the bump cases."
         />

@@ -52,7 +52,7 @@ export function LayeredPipeContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure
-          src="/figures/layered_pipe.png"
+          src="/figures/layered_pipe.svg"
           alt="Bi-material thick-walled cylinder, quarter-symmetric model"
           width="narrow"
           label="Figure 1"
@@ -164,8 +164,8 @@ export function LayeredPipeContent() {
         <TutorialSubfigureStack
           label="Figure 2"
           items={[
-            { src: '/figures/stress_radial_layered_pipe.png', alt: 'Radial stress profile', subcaption: <>Radial stress <M math="\sigma_r(r)" /> across the wall thickness (continuous at the interface).</> },
-            { src: '/figures/stress_circum_layered_pipe.png', alt: 'Circumferential stress profile', subcaption: <>Circumferential stress <M math="\sigma_\theta(r)" /> across the wall thickness (discontinuous at the interface).</> },
+            { src: '/figures/stress_radial_layered_pipe.svg', alt: 'Radial stress profile', subcaption: <>Radial stress <M math="\sigma_r(r)" /> across the wall thickness (continuous at the interface).</> },
+            { src: '/figures/stress_circum_layered_pipe.svg', alt: 'Circumferential stress profile', subcaption: <>Circumferential stress <M math="\sigma_\theta(r)" /> across the wall thickness (discontinuous at the interface).</> },
           ]}
           caption={<>Bi-material thick-walled cylinder: in-plane stress components along a radial cut from <M math="r = r_1" /> to <M math="r = r_3" />, compared with the compound-cylinder analytical solution. Symbols: OpenAccel (cell centres); solid lines: analytical. The inner and outer layers are plotted as separate series so that the hoop-stress discontinuity at <M math="r_2" /> is represented without an interpolated ramp.</>}
         />

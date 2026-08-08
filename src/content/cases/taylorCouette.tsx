@@ -28,7 +28,7 @@ export function TaylorCouetteContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/taylor.png"
+          src="/figures/taylor.svg"
           alt="Taylor–Couette–Poiseuille setup"
           caption="Taylor–Couette–Poiseuille validation case. Top: r–θ plane showing the 90° annular sector. Bottom: r–z plane showing the annular gap and the axial velocity profile v_z(r) driven by the imposed pressure gradient."
         />
@@ -108,14 +108,14 @@ export function TaylorCouetteContent() {
       <section id="results">
         <h2>5. Results</h2>
         <TutorialSubfigureRow
-          left={{ src: '/figures/vy-taylor.png',        alt: 'Axial velocity contour',     subcaption: 'Axial velocity v_z contour.' }}
-          right={{ src: '/figures/vx-taylor-vector.png', alt: 'Azimuthal velocity contour', subcaption: 'Relative azimuthal velocity v_θ,rel contour.' }}
+          left={{ src: '/figures/vy-taylor.svg',        alt: 'Axial velocity contour',     subcaption: 'Axial velocity v_z contour.' }}
+          right={{ src: '/figures/vx-taylor-vector.svg', alt: 'Azimuthal velocity contour', subcaption: 'Relative azimuthal velocity v_θ,rel contour.' }}
           caption="Velocity contours over the 90° annular sector. Strict azimuthal symmetry confirms the rotational periodic interface."
         />
         <TutorialSubfigureStack
           items={[
-            { src: '/figures/vz-taylor.png',      alt: 'Axial velocity profile',     subcaption: 'Axial velocity v_z(r) vs. analytical annular Poiseuille profile.' },
-            { src: '/figures/v-theta-taylor.png', alt: 'Azimuthal velocity profile', subcaption: 'Relative azimuthal velocity v_θ,rel(r) vs. analytical Taylor–Couette profile.' },
+            { src: '/figures/vz-taylor.svg',      alt: 'Axial velocity profile',     subcaption: 'Axial velocity v_z(r) vs. analytical annular Poiseuille profile.' },
+            { src: '/figures/v-theta-taylor.svg', alt: 'Azimuthal velocity profile', subcaption: 'Relative azimuthal velocity v_θ,rel(r) vs. analytical Taylor–Couette profile.' },
           ]}
           caption="Radial velocity profiles at the axial midplane z = L/2."
         />

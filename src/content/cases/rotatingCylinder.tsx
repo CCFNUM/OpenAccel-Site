@@ -38,8 +38,8 @@ export function RotatingCylinderContent() {
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialSubfigureStack
           items={[
-            { src: '/figures/rotating_cylinder.png', alt: 'Domain layout and boundary conditions', subcaption: 'Computational domain and boundary conditions (not to scale). The rotating sub-domain (rotor) and stationary far field (stator) are joined by a non-conformal sliding interface (AMI) at r = 1.5.' },
-            { src: '/figures/mesh_cylinder.png',     alt: 'Near-field mesh detail', subcaption: 'Close-up view of the mesh near the cylinder, showing the rotor O-grid and the sliding interface with the stator.' },
+            { src: '/figures/rotating_cylinder.svg', alt: 'Domain layout and boundary conditions', subcaption: 'Computational domain and boundary conditions (not to scale). The rotating sub-domain (rotor) and stationary far field (stator) are joined by a non-conformal sliding interface (AMI) at r = 1.5.' },
+            { src: '/figures/mesh_cylinder.svg',     alt: 'Near-field mesh detail', subcaption: 'Close-up view of the mesh near the cylinder, showing the rotor O-grid and the sliding interface with the stator.' },
           ]}
           caption="Rotating-cylinder validation case."
         />

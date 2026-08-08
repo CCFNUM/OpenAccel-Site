@@ -34,7 +34,7 @@ export function BumpSSTContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/bump2D_schematic.png"
+          src="/figures/bump2D_schematic.svg"
           alt="2D bump-in-channel geometry"
           caption="Geometry and boundary conditions for the NASA TMR 2-D bump-in-channel benchmark. Full domain x ∈ [−25, 26.5], y ∈ [0, 5] (top); close-up of the sin⁴ bump profile with peak height 0.05 at x = 0.75 (bottom)."
         />
@@ -96,28 +96,28 @@ export function BumpSSTContent() {
         <h2>5. Results</h2>
 
         <TutorialSubfigureRow
-          left={{ src: '/figures/mu_bump_openaccel.png', alt: 'Eddy viscosity – OpenAccel', subcaption: 'μ_t/μ_ref — OpenAccel (705×321, 2nd finest grid)' }}
-          right={{ src: '/figures/mu_bump_CFL3d.png', alt: 'Eddy viscosity – CFL3D', subcaption: 'μ_t/μ_ref — CFL3D (1409×641, finest grid)' }}
+          left={{ src: '/figures/mu_bump_openaccel.svg', alt: 'Eddy viscosity – OpenAccel', subcaption: 'μ_t/μ_ref — OpenAccel (705×321, 2nd finest grid)' }}
+          right={{ src: '/figures/mu_bump_CFL3d.svg', alt: 'Eddy viscosity – CFL3D', subcaption: 'μ_t/μ_ref — CFL3D (1409×641, finest grid)' }}
           caption="Turbulent eddy-viscosity ratio μ_t/μ_ref over the bump."
         />
         <TutorialSubfigureRow
-          left={{ src: '/figures/omega_bump_openaccel.png', alt: 'Specific dissipation rate – OpenAccel', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — OpenAccel (705×321)' }}
-          right={{ src: '/figures/omega_bump_CFL3d.png', alt: 'Specific dissipation rate – CFL3D', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — CFL3D (1409×641)' }}
+          left={{ src: '/figures/omega_bump_openaccel.svg', alt: 'Specific dissipation rate – OpenAccel', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — OpenAccel (705×321)' }}
+          right={{ src: '/figures/omega_bump_CFL3d.svg', alt: 'Specific dissipation rate – CFL3D', subcaption: 'ω μ_ref/(ρ_ref a_ref²) — CFL3D (1409×641)' }}
           caption="Specific dissipation rate (normalised per NASA TMR convention). The freestream value is 10⁻⁶ at the inlet."
         />
 
         <TutorialFigure
-          src="/figures/Cp_bump.png"
+          src="/figures/Cp_bump.svg"
           alt="Surface Cp distribution"
           caption="Surface pressure coefficient C_p along the lower wall. OpenAccel on the 2nd-finest NASA TMR grid (705×321) vs. FUN3D reference on the finest grid (1409×641)."
         />
         <TutorialFigure
-          src="/figures/Cf_bump.png"
+          src="/figures/Cf_bump.svg"
           alt="Surface Cf distribution"
           caption="Surface skin-friction coefficient C_f along the lower wall. Localised anomalies near x = 0 (turbulence-model activation) and x = 1.5 (trailing-edge numerical influence) are common to all SST codes on this benchmark."
         />
         <TutorialFigure
-          src="/figures/velocity_profile_bump.png"
+          src="/figures/velocity_profile_bump.svg"
           alt="Streamwise velocity profiles"
           caption="Streamwise velocity profiles U_x/U∞ vs. wall-normal distance at two stations: x = 0.75 (bump apex) and x = 1.20148 (leeward recovery). OpenAccel on the 2nd-finest grid vs. CFL3D on the finest grid."
         />

@@ -27,7 +27,7 @@ export function PlateHoleContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/hole.png"
+          src="/figures/hole.svg"
           alt="Plate with hole geometry"
           caption="Plate with a circular hole: quarter-plate model, L = 4 m side length and hole radius R = 0.5 m. Uniform far-field tensile traction on the right face; symmetry on the left and bottom faces."
         />
@@ -82,7 +82,7 @@ export function PlateHoleContent() {
         <TutorialSubfigureStack
           items={[
             { src: '/figures/sigma%20xx.png', alt: 'σ_xx contour', subcaption: 'Contour of σ_xx over the quarter-plate domain, showing the stress concentration localised at the hole boundary.' },
-            { src: '/figures/stress.png',      alt: 'σ_xx profile',  subcaption: 'σ_xx along the left symmetry plane x = 0 vs. the Kirsch infinite-plate solution.' },
+            { src: '/figures/stress.svg',      alt: 'σ_xx profile',  subcaption: 'σ_xx along the left symmetry plane x = 0 vs. the Kirsch infinite-plate solution.' },
           ]}
           caption="Plate with a circular hole: stress contour and profile along the symmetry plane."
         />

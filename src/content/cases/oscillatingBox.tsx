@@ -69,7 +69,7 @@ export function OscillatingBoxContent() {
       <section id="results">
         <h2>3. Results</h2>
         <TutorialFigure
-          src="/figures/y-disp-box.png"
+          src="/figures/y-disp-box.svg"
           alt="Box vertical displacement"
           caption="Probe-point vertical displacement for the oscillating box. The OpenAccel ALE solution (symbols) is compared against the prescribed sinusoidal motion y(t) = 0.1 sin(2πt) with f = 1 Hz and A = 0.1 m (solid line). The two curves overlap to within 10⁻⁴ m over one full cycle."
         />
@@ -80,11 +80,11 @@ export function OscillatingBoxContent() {
 
         <div className="my-4 flex gap-4 justify-center">
           <div className="flex flex-col items-center gap-1">
-            <img src="/figures/legend_velo_box.png" alt="Velocity legend" className="max-h-16 object-contain" />
+            <img src="/figures/legend_velo_box.svg" alt="Velocity legend" className="max-h-16 object-contain" />
             <span className="text-xs font-mono text-[var(--text-dim)]">Velocity</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <img src="/figures/legend_press_box.png" alt="Pressure legend" className="max-h-16 object-contain" />
+            <img src="/figures/legend_press_box.svg" alt="Pressure legend" className="max-h-16 object-contain" />
             <span className="text-xs font-mono text-[var(--text-dim)]">Pressure</span>
           </div>
         </div>

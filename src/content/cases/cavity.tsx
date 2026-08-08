@@ -3,7 +3,7 @@ import { SetupTable } from '@/components/tutorial/SetupTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 import { Equation } from '@/components/tutorial/Equation';
 
-const F = (name: string) => `/figures/${name}.png`;
+const F = (name: string) => `/figures/${name}.svg`;
 
 export function CavityContent() {
   return (

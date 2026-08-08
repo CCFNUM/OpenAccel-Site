@@ -33,7 +33,7 @@ export function SlabContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/slab.png"
+          src="/figures/slab.svg"
           alt="CHT slab geometry"
           caption="CHT validation case (not to scale). A solid slab is embedded centrally in the floor of the fluid channel; the bottom face of the slab is held at T_hot = 310 K, and the slab side walls are adiabatic."
         />
@@ -76,19 +76,19 @@ export function SlabContent() {
         <p>where x̃ is measured from the leading edge of the slab, Re_x̃ = ρ u_in x̃ / μ = 500 x̃, and Pr = 0.01.</p>
 
         <TutorialFigure
-          src="/figures/nusselt_slab.png"
+          src="/figures/nusselt_slab.svg"
           alt="Local Nusselt number distribution"
           caption="Local Nusselt number Nu(x̃) along the fluid–solid interface, compared with the Pohlhausen correlation for an isothermal flat plate at Pr = 0.01."
         />
         <TutorialSubfigureStack
           items={[
-            { src: '/figures/temp_slab.png',          alt: 'Dimensionless interface temperature', subcaption: 'Dimensionless interface temperature θ = (T − T_in)/(T_hot − T_in).' },
-            { src: '/figures/temp_gradient_slab.png', alt: 'Wall-normal temperature gradient',    subcaption: 'Dimensionless wall-normal temperature gradient ∂θ/∂y.' },
+            { src: '/figures/temp_slab.svg',          alt: 'Dimensionless interface temperature', subcaption: 'Dimensionless interface temperature θ = (T − T_in)/(T_hot − T_in).' },
+            { src: '/figures/temp_gradient_slab.svg', alt: 'Wall-normal temperature gradient',    subcaption: 'Dimensionless wall-normal temperature gradient ∂θ/∂y.' },
           ]}
           caption="CHT validation: comparison of the dimensionless interface temperature and its wall-normal gradient with Vynnycky et al. (1998)."
         />
         <TutorialFigure
-          src="/figures/temp_contour_slab.png"
+          src="/figures/temp_contour_slab.svg"
           alt="Steady-state temperature contour"
           caption="Steady-state temperature contour of the CHT case."
         />

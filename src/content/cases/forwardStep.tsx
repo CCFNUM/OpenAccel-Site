@@ -53,7 +53,7 @@ export function ForwardStepContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure
-          src="/figures/forward.png"
+          src="/figures/forward.svg"
           alt="Supersonic forward-facing step geometry"
           width="full"
           label="Figure 1"
@@ -172,24 +172,24 @@ export function ForwardStepContent() {
         </p>
 
         <TutorialSubfigureRow
-          left={{ src: '/figures/fs-0.5-mach.png',  alt: 'Mach number, t* = 0.5',  subcaption: <>Mach number, <M math="t^{*} = 0.5" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
-          right={{ src: '/figures/fs-0.5-press.png', alt: 'Pressure, t* = 0.5', subcaption: <>Pressure, <M math="t^{*} = 0.5" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          left={{ src: '/figures/fs-0.5-mach.svg',  alt: 'Mach number, t* = 0.5',  subcaption: <>Mach number, <M math="t^{*} = 0.5" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          right={{ src: '/figures/fs-0.5-press.svg', alt: 'Pressure, t* = 0.5', subcaption: <>Pressure, <M math="t^{*} = 0.5" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
           caption={<><M math="t^{*} = 0.5" />: bow shock forming, strongly curved.</>}
         />
         <TutorialSubfigureRow
-          left={{ src: '/figures/fs-1-mach.png',  alt: 'Mach number, t* = 1.0',  subcaption: <>Mach number, <M math="t^{*} = 1.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
-          right={{ src: '/figures/fs-1-press.png', alt: 'Pressure, t* = 1.0', subcaption: <>Pressure, <M math="t^{*} = 1.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          left={{ src: '/figures/fs-1-mach.svg',  alt: 'Mach number, t* = 1.0',  subcaption: <>Mach number, <M math="t^{*} = 1.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          right={{ src: '/figures/fs-1-press.svg', alt: 'Pressure, t* = 1.0', subcaption: <>Pressure, <M math="t^{*} = 1.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
           caption={<><M math="t^{*} = 1.0" />: shock reaching upper wall, reflection begins.</>}
         />
         <TutorialSubfigureRow
-          left={{ src: '/figures/fs-2-mach.png',  alt: 'Mach number, t* = 2.0',  subcaption: <>Mach number, <M math="t^{*} = 2.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
-          right={{ src: '/figures/fs-2-press.png', alt: 'Pressure, t* = 2.0', subcaption: <>Pressure, <M math="t^{*} = 2.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          left={{ src: '/figures/fs-2-mach.svg',  alt: 'Mach number, t* = 2.0',  subcaption: <>Mach number, <M math="t^{*} = 2.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          right={{ src: '/figures/fs-2-press.svg', alt: 'Pressure, t* = 2.0', subcaption: <>Pressure, <M math="t^{*} = 2.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
           caption={<><M math="t^{*} = 2.0" />: Mach reflection established at upper wall.</>}
         />
         <TutorialSubfigureRow
           label="Figure 2"
-          left={{ src: '/figures/fs-4-mach.png',  alt: 'Mach number, t* = 4.0',  subcaption: <>Mach number, <M math="t^{*} = 4.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
-          right={{ src: '/figures/fs-4-press.png', alt: 'Pressure, t* = 4.0', subcaption: <>Pressure, <M math="t^{*} = 4.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          left={{ src: '/figures/fs-4-mach.svg',  alt: 'Mach number, t* = 4.0',  subcaption: <>Mach number, <M math="t^{*} = 4.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          right={{ src: '/figures/fs-4-press.svg', alt: 'Pressure, t* = 4.0', subcaption: <>Pressure, <M math="t^{*} = 4.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
           caption={<>Development of the wave system over the forward-facing step at <M math="\mathit{Ma}_\infty = 3" />. Left column: Mach number. Right column: pressure. The final row (<M math="t^{*} = 4.0" />): triple point migrated, slip line rolling up.</>}
         />
 
@@ -200,8 +200,8 @@ export function ForwardStepContent() {
         </p>
         <TutorialSubfigureRow
           label="Figure 3"
-          left={{ src: '/figures/fs-14-mach.png',  alt: 'Mach number, t* = 14',  subcaption: <>Mach number, <M math="t^{*} = 14" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
-          right={{ src: '/figures/fs-14-press.png', alt: 'Pressure, t* = 14', subcaption: <>Pressure, <M math="t^{*} = 14" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          left={{ src: '/figures/fs-14-mach.svg',  alt: 'Mach number, t* = 14',  subcaption: <>Mach number, <M math="t^{*} = 14" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          right={{ src: '/figures/fs-14-press.svg', alt: 'Pressure, t* = 14', subcaption: <>Pressure, <M math="t^{*} = 14" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
           caption={<>Near-steady wave system over the forward-facing step at <M math="\mathit{Ma}_\infty = 3" />, at <M math="t^{*} = 14" />. Left: Mach number. Right: pressure.</>}
         />
       </section>

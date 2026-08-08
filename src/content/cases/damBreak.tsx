@@ -26,7 +26,7 @@ export function DamBreakContent() {
       <section id="geometry">
         <h2>2. Geometry &amp; Boundary Conditions</h2>
         <TutorialFigure
-          src="/figures/dam_schematic.png"
+          src="/figures/dam_schematic.svg"
           alt="Rigid dam break schematic"
           caption="Rigid dam-break configuration. Point B on the upstream face of the obstacle at mid-height serves as a pressure probe."
         />
@@ -73,36 +73,36 @@ export function DamBreakContent() {
         <p>Simulation (top row) vs experiment — Koshizuka et al. (bottom row):</p>
 
         <TutorialSubfigureRow
-          left={{ src: '/figures/0.1_sec_rigid_dam.png', alt: 'Simulation t=0.1s', subcaption: 'Simulation, t = 0.1 s' }}
+          left={{ src: '/figures/0.1_sec_rigid_dam.svg', alt: 'Simulation t=0.1s', subcaption: 'Simulation, t = 0.1 s' }}
           right={{ src: '/figures/exp_0.1.png',           alt: 'Experiment t=0.1s', subcaption: 'Experiment, t = 0.1 s' }}
           caption="Free surface at t = 0.1 s."
         />
         <TutorialSubfigureRow
-          left={{ src: '/figures/0.2_sec_rigid_dam.png', alt: 'Simulation t=0.2s', subcaption: 'Simulation, t = 0.2 s' }}
+          left={{ src: '/figures/0.2_sec_rigid_dam.svg', alt: 'Simulation t=0.2s', subcaption: 'Simulation, t = 0.2 s' }}
           right={{ src: '/figures/exp_0.2.png',           alt: 'Experiment t=0.2s', subcaption: 'Experiment, t = 0.2 s' }}
           caption="Free surface at t = 0.2 s."
         />
         <TutorialSubfigureRow
-          left={{ src: '/figures/0.3_sec_rigid_dam.png', alt: 'Simulation t=0.3s', subcaption: 'Simulation, t = 0.3 s' }}
+          left={{ src: '/figures/0.3_sec_rigid_dam.svg', alt: 'Simulation t=0.3s', subcaption: 'Simulation, t = 0.3 s' }}
           right={{ src: '/figures/exp_0.3.png',           alt: 'Experiment t=0.3s', subcaption: 'Experiment, t = 0.3 s' }}
           caption="Free surface at t = 0.3 s."
         />
         <TutorialSubfigureRow
-          left={{ src: '/figures/0.5_sec_rigid_dam.png', alt: 'Simulation t=0.5s', subcaption: 'Simulation, t = 0.5 s' }}
+          left={{ src: '/figures/0.5_sec_rigid_dam.svg', alt: 'Simulation t=0.5s', subcaption: 'Simulation, t = 0.5 s' }}
           right={{ src: '/figures/exp_0.5.png',           alt: 'Experiment t=0.5s', subcaption: 'Experiment, t = 0.5 s' }}
           caption="Free surface at t = 0.5 s — note the entrapped air pocket near the lower-right corner."
         />
 
         <TutorialFigure
-          src="/figures/pressure_rigid_dam.png"
+          src="/figures/pressure_rigid_dam.svg"
           alt="Pressure history at probe B"
           caption="Pressure history at probe point B (centre of the upstream face of the obstacle) compared with Hänsch et al. (2012)."
         />
 
         <TutorialSubfigureStack
           items={[
-            { src: '/figures/water_height.png',     alt: 'Water column height', subcaption: 'Water-column height at the left wall vs. Koshizuka et al.' },
-            { src: '/figures/water_distance_x.png', alt: 'Water front distance', subcaption: 'Horizontal water-front displacement at the bottom wall vs. Walhorn et al.' },
+            { src: '/figures/water_height.svg',     alt: 'Water column height', subcaption: 'Water-column height at the left wall vs. Koshizuka et al.' },
+            { src: '/figures/water_distance_x.svg', alt: 'Water front distance', subcaption: 'Horizontal water-front displacement at the bottom wall vs. Walhorn et al.' },
           ]}
           caption="Time-resolved validation quantities for the rigid dam break."
         />
