@@ -1,10 +1,14 @@
 import { TutorialFigure, TutorialSubfigureRow } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
-import { Equation } from '@/components/tutorial/Equation';
+import { Equation, M } from '@/components/tutorial/Equation';
 
 const F = (name: string) => `/figures/${name}.svg`;
-const SVG = (name: string) => `/figures/${name}.svg`;
+
+// Letter-landscape plates (792×612 pt → cm).
+const LAND: [number, number] = [27.94, 21.59];
+// Cp_airfoil.pdf natural page size 772.214×547.81 pt → cm.
+const CP_BASE: [number, number] = [27.24, 19.32];
 
 export function AirfoilContent() {
   return (
@@ -13,31 +17,34 @@ export function AirfoilContent() {
         { label: 'Case ID',         value: 'VC004' },
         { label: 'References',      value: 'Nakayama (1985); NASA Turbulence Modelling Resource' },
         { label: 'Solver mode',     value: 'Steady-state, segregated (SIMPLE)' },
-        { label: 'Physics',         value: '2-D incompressible RANS, k–ω SST' },
-        { label: 'Reynolds number', value: 'Re_C = 1.2 × 10⁶, Ma = 0.088' },
+        { label: 'Physics / models', value: <>2-D incompressible RANS, <M math="k" />–<M math="\omega" /> SST</> },
+        { label: 'Reynolds number', value: <><M math="\mathit{Re}_C = 1.2\times10^6" />, <M math="\mathit{Ma} = 0.088" /></> },
       ]} />
 
       <section id="problem" className="mb-12 scroll-mt-24">
-        <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">1. Problem Description</h2>
+        <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">1. Problem description</h2>
         <p className="mb-4">
-          This case validates the SST k–ω model for attached external aerodynamic flow. The Nakayama
-          Model-A airfoil with a sharpened trailing edge is placed at zero angle of attack at a
-          chord-based Reynolds number of 1.2 × 10⁶.
+          This case validates the SST <M math="k" />–<M math="\omega" /> model for attached external
+          aerodynamic flow. The Nakayama Model-A airfoil with a sharpened trailing edge is placed at
+          zero angle of attack at a chord-based Reynolds number of <M math="1.2\times10^6" />.
         </p>
         <p>
           Two complementary quantities are compared with reference data: the surface pressure
-          coefficient <em>C</em><sub>p</sub> against the NASA Turbulence Modelling Resource CFL3D
+          coefficient <M math="C_p" /> against the NASA Turbulence Modelling Resource CFL3D
           benchmark, and the near-wake velocity profiles at several downstream stations against the
           experimental measurements of Nakayama (1985).
         </p>
       </section>
 
       <section id="geometry" className="mb-12 scroll-mt-24">
-        <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry &amp; Boundary Conditions</h2>
+        <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
           src={F('airfoil_schematic')}
           alt="Computational domain for the airfoil near-wake validation"
-          caption="Computational domain for the airfoil near-wake validation. Outer boundaries are placed sufficiently far from the airfoil to avoid blockage. The inset shows the Nakayama Model-A profile at zero angle of attack with chord C = 1 m."
+          caption={<>Computational domain for the airfoil near-wake validation. Outer boundaries are
+            placed sufficiently far from the airfoil to avoid blockage, with inlet, outlet, and
+            lateral symmetry. The inset shows the Nakayama Model-A profile at zero angle of attack
+            with chord <M math="C = 1~\mathrm{m}" />.</>}
           width="normal"
         />
       </section>
@@ -50,26 +57,26 @@ export function AirfoilContent() {
             {
               heading: 'Geometry and conditions',
               rows: [
-                { label: 'Chord C',          value: '1 m' },
-                { label: 'Mach number',      value: 'Ma = 0.088' },
-                { label: 'Reynolds number',  value: 'Re_C = 1.2 × 10⁶' },
-                { label: 'Angle of attack',  value: 'α = 0°' },
+                { label: <>Chord <M math="C" /></>, value: <M math="1~\mathrm{m}" /> },
+                { label: 'Mach number',      value: <M math="\mathit{Ma} = 0.088" /> },
+                { label: 'Reynolds number',  value: <M math="\mathit{Re}_C = 1.2\times10^6" /> },
+                { label: 'Angle of attack',  value: <M math="\alpha = 0^\circ" /> },
               ],
             },
             {
               heading: 'Fluid properties',
               rows: [
-                { label: 'Density ρ',            value: '1.0 kg/m³' },
-                { label: 'Dynamic viscosity μ',   value: '2.546 × 10⁻⁵ Pa·s' },
-                { label: 'Free-stream velocity',  value: 'U∞ = 30.56 m/s' },
-                { label: 'Inlet k',               value: '1.085 × 10⁻³ m²/s²' },
-                { label: 'Inlet ω',               value: '4 734.87 s⁻¹' },
+                { label: <>Density <M math="\rho" /></>,           value: <M math="1.0~\mathrm{kg\,m^{-3}}" /> },
+                { label: <>Dynamic viscosity <M math="\mu" /></>,  value: <M math="2.546\times10^{-5}~\mathrm{Pa\,s}" /> },
+                { label: 'Free-stream velocity', value: <M math="U_\infty = 30.56~\mathrm{m/s}" /> },
+                { label: <>Inlet <M math="k" /></>,  value: <M math="1.085\times10^{-3}~\mathrm{m^2\,s^{-2}}" /> },
+                { label: <>Inlet <M math="\omega" /></>, value: <M math="4734.87~\mathrm{s^{-1}}" /> },
               ],
             },
             {
               heading: 'Boundary conditions',
               rows: [
-                { label: 'Inlet',           value: 'Velocity inlet at U∞' },
+                { label: 'Inlet',           value: <>Velocity inlet at <M math="U_\infty" /></> },
                 { label: 'Outlet',          value: 'Zero-gauge static pressure' },
                 { label: 'Lateral',         value: 'Symmetry' },
                 { label: 'Airfoil surface', value: 'No-slip wall' },
@@ -81,15 +88,15 @@ export function AirfoilContent() {
                 { label: 'Algorithm',              value: 'SIMPLE (steady-state)' },
                 { label: 'Advection (momentum)',   value: 'High-resolution Barth–Jespersen' },
                 { label: 'Advection (turbulence)', value: 'First-order upwind' },
-                { label: 'Under-relaxation',       value: 'λᵛ = 0.5, λᵖ = 0.3' },
-                { label: 'Pseudo-time-scale',      value: 'Δtₚₛ = 1 s' },
+                { label: 'Under-relaxation',       value: <><M math="\lambda^v = 0.5" />, <M math="\lambda^p = 0.3" /></> },
+                { label: 'Pseudo-time-scale',      value: <M math="\Delta t_{\mathrm{ps}} = 1~\mathrm{s}" /> },
               ],
             },
             {
               heading: 'Convergence',
               rows: [
-                { label: 'RMS residual target', value: '10⁻⁶' },
-                { label: 'Maximum outer iters', value: '1 500' },
+                { label: 'RMS residual target', value: <M math="10^{-6}" /> },
+                { label: 'Maximum outer iters', value: '1500' },
               ],
             },
           ]}
@@ -107,29 +114,38 @@ export function AirfoilContent() {
         <TutorialFigure label="Figure 2"
           src={F('Cp_airfoil')}
           alt="Pressure coefficient on Nakayama Model-A airfoil"
-          caption="Pressure coefficient C_p on the Nakayama Model-A airfoil at Re_C = 1.2 × 10⁶, α = 0°."
+          caption={<>Pressure coefficient <M math="C_p" /> on the Nakayama Model-A airfoil at{' '}
+            <M math="\mathit{Re}_C = 1.2\times10^6" />, <M math="\alpha = 0^\circ" />.</>}
           width="normal"
+          trim={[0, 1, 0, 1]}
+          trimBase={CP_BASE}
         />
 
         <TutorialFigure label="Figure 3"
-          src={SVG('wake_detail')}
+          src={F('wake_detail')}
           alt="Near-wake velocity profiles at several downstream stations"
-          caption="Near-wake velocity profiles Uₓ/U∞ at several downstream stations behind the Nakayama Model-A airfoil at Re = 1.2 × 10⁶, α = 0°. Red solid lines: OpenAccel SST k–ω simulation. Black dashed lines: FUN3D numerical results. Symbols: experimental data of Nakayama (1985)."
+          caption={<>Near-wake velocity profiles <M math="U_x/U_\infty" /> at several downstream
+            stations behind the Nakayama Model-A airfoil at <M math="\mathit{Re} = 1.2\times10^6" />,{' '}
+            <M math="\alpha = 0^\circ" />. Red solid lines: OpenAccel SST <M math="k" />–<M math="\omega" />{' '}
+            simulation. Black dashed lines: FUN3D numerical results. Symbols: experimental data of
+            Nakayama (1985).</>}
           width="normal"
         />
 
         <TutorialSubfigureRow label="Figure 4"
-          left={{  src: F('velocity_airfoil'), alt: 'Velocity magnitude contour', subcaption: 'Velocity magnitude |U|/U∞.' }}
-          right={{ src: F('pressure_airfoil'), alt: 'Pressure contour',            subcaption: 'Pressure.' }}
-          caption="Flow field at Re_C = 1.2 × 10⁶, α = 0°. The pressure distribution is nearly symmetric about the chord, as expected at zero incidence."
+          left={{  src: F('velocity_airfoil'), alt: 'Velocity magnitude contour', subcaption: <>Velocity magnitude <M math="|\mathbf{U}|/U_\infty" />.</>, trim: [4, 1, 4, 1.2], trimBase: LAND }}
+          right={{ src: F('pressure_airfoil'), alt: 'Pressure contour',            subcaption: 'Pressure.', trim: [4, 1, 4, 1.2], trimBase: LAND }}
+          caption={<>Flow field at <M math="\mathit{Re}_C = 1.2\times10^6" />, <M math="\alpha = 0^\circ" />.
+            The pressure distribution is nearly symmetric about the chord, as expected at zero
+            incidence.</>}
         />
 
         <Takeaway>
           <p>
-            The <em>C</em><sub>p</sub> distribution matches the CFL3D reference closely over the
-            full chord, and the predicted near-wake velocity defect tracks the experimental data of
-            Nakayama (1985). This is the classical sweet spot of k–ω SST: attached,
-            mild-pressure-gradient external flow. Any deviation would point to either
+            The <M math="C_p" /> distribution matches the CFL3D reference closely over the full
+            chord, and the predicted near-wake velocity defect tracks the experimental data of
+            Nakayama (1985). This is the classical sweet spot of <M math="k" />–<M math="\omega" />{' '}
+            SST: attached, mild-pressure-gradient external flow. Any deviation would point to either
             inlet-turbulence specification or insufficient streamwise resolution near the trailing
             edge.
           </p>
@@ -137,9 +153,9 @@ export function AirfoilContent() {
 
         <AcceptanceCriterion>
           <p>
-            The surface <em>C</em><sub>p</sub> shall match the NASA-TMR CFL3D benchmark in graphical
-            agreement, and the near-wake <em>U</em>/<em>U</em><sub>∞</sub> profiles shall match the
-            experiments of Nakayama (1985) at the reported stations.
+            The surface <M math="C_p" /> shall match the NASA-TMR CFL3D benchmark in graphical
+            agreement, and the near-wake <M math="U/U_\infty" /> profiles shall match the experiments
+            of Nakayama (1985) at the reported stations.
           </p>
         </AcceptanceCriterion>
       </section>

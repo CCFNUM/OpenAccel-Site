@@ -33,7 +33,7 @@ interface SubfigureProps extends CropProps {
  * shown via an overflow:hidden viewport with the image scaled up and offset,
  * so the framing matches the manual. Without a trim it renders the full image.
  */
-function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: string } & CropProps) {
+export function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: string } & CropProps) {
   if (!trim || !trimBase) {
     return <img src={src} alt={alt} className="w-full h-auto object-contain" loading="lazy" />;
   }
