@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 /** LaTeX \includegraphics trim, in cm, in source order: [left, bottom, right, top]. */
 export type Trim = [left: number, bottom: number, right: number, top: number];
 /** Natural size of the source figure, in cm: [width, height]. */
@@ -16,6 +14,7 @@ interface FigureProps extends CropProps {
   src: string;
   alt: string;
   caption: React.ReactNode;
+  /** e.g. "Figure 1" — simple per-case numbering (DESIGN-BRIEF §25.4). */
   label?: string;
   /** narrow | normal | wide — controls max-width */
   width?: 'narrow' | 'normal' | 'wide' | 'full';
@@ -32,8 +31,7 @@ interface SubfigureProps extends CropProps {
  * web (DESIGN-BRIEF §24.4). The trim (cm from each side) is converted to a
  * fraction of the source figure's width/height and the equivalent region is
  * shown via an overflow:hidden viewport with the image scaled up and offset,
- * so the framing matches the manual exactly and stays fully responsive.
- * Without a trim it renders the full image unchanged.
+ * so the framing matches the manual. Without a trim it renders the full image.
  */
 function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: string } & CropProps) {
   if (!trim || !trimBase) {
@@ -70,124 +68,68 @@ function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: string }
   );
 }
 
-/** Single figure with numbered caption */
-export function TutorialFigure({ src, alt, caption, width = 'normal', trim, trimBase }: FigureProps) {
-  const [enlarged, setEnlarged] = useState(false);
-  const maxW = { narrow: 'max-w-md', normal: 'max-w-2xl', wide: 'max-w-3xl', full: 'max-w-full' }[width];
-
+/** Bold "Figure N." label + caption text, below the figure (§25.4). */
+function FigCaption({ label, children }: { label?: string; children: React.ReactNode }) {
   return (
-    <>
-      <figure className={`my-8 ${maxW} mx-auto`}>
-        <button
-          className="w-full block rounded-lg overflow-hidden border border-[var(--hairline)] bg-white cursor-zoom-in hover:border-[var(--cold)] transition-colors"
-          onClick={() => setEnlarged(true)}
-          aria-label={`Enlarge: ${alt}`}
-        >
-          <CroppedImage src={src} alt={alt} trim={trim} trimBase={trimBase} />
-        </button>
-        <figcaption className="mt-2 text-sm text-[var(--text-dim)] text-center leading-relaxed px-2">
-          {caption}
-        </figcaption>
-      </figure>
-
-      {enlarged && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-          onClick={() => setEnlarged(false)}
-        >
-          <img src={src} alt={alt} className="max-w-full max-h-full object-contain rounded-lg" />
-          <button
-            className="absolute top-4 right-4 text-white text-2xl leading-none"
-            onClick={() => setEnlarged(false)}
-            aria-label="Close"
-          >✕</button>
-        </div>
-      )}
-    </>
+    <figcaption className="mt-2 text-sm text-[var(--text-dim)] text-center leading-relaxed px-2">
+      {label && <strong style={{ color: 'var(--text)' }}>{label}.</strong>} {children}
+    </figcaption>
   );
 }
 
-/** Two subfigures side by side, sharing a single caption */
-export function TutorialSubfigureRow({ left, right, caption }: {
+/**
+ * Single figure. Figures blend into the page — no border, no background panel,
+ * no click-to-zoom / lightbox (DESIGN-BRIEF §25.3). Caption below, "Figure N."
+ */
+export function TutorialFigure({ src, alt, caption, label, width = 'normal', trim, trimBase }: FigureProps) {
+  const maxW = { narrow: 'max-w-md', normal: 'max-w-2xl', wide: 'max-w-3xl', full: 'max-w-full' }[width];
+  return (
+    <figure className={`my-8 ${maxW} mx-auto`}>
+      <CroppedImage src={src} alt={alt} trim={trim} trimBase={trimBase} />
+      <FigCaption label={label}>{caption}</FigCaption>
+    </figure>
+  );
+}
+
+/** Two subfigures side by side, sharing a single caption. */
+export function TutorialSubfigureRow({ left, right, caption, label }: {
   left: SubfigureProps;
   right: SubfigureProps;
   caption: React.ReactNode;
+  label?: string;
 }) {
-  const [enlarged, setEnlarged] = useState<string | null>(null);
-
   return (
-    <>
-      <figure className="my-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[left, right].map((sub, i) => (
-            <div key={i}>
-              <button
-                className="w-full block rounded-lg overflow-hidden border border-[var(--hairline)] bg-white cursor-zoom-in hover:border-[var(--cold)] transition-colors"
-                onClick={() => setEnlarged(sub.src)}
-                aria-label={`Enlarge: ${sub.alt}`}
-              >
-                <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
-              </button>
-              <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
-            </div>
-          ))}
-        </div>
-        <figcaption className="mt-3 text-sm text-[var(--text-dim)] text-center leading-relaxed px-2">
-          {caption}
-        </figcaption>
-      </figure>
-
-      {enlarged && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-          onClick={() => setEnlarged(null)}
-        >
-          <img src={enlarged} alt="" className="max-w-full max-h-full object-contain rounded-lg" />
-          <button className="absolute top-4 right-4 text-white text-2xl leading-none" onClick={() => setEnlarged(null)} aria-label="Close">✕</button>
-        </div>
-      )}
-    </>
+    <figure className="my-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {[left, right].map((sub, i) => (
+          <div key={i}>
+            <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
+            <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
+          </div>
+        ))}
+      </div>
+      <FigCaption label={label}>{caption}</FigCaption>
+    </figure>
   );
 }
 
-/** Stacked subfigures (one per row), sharing a single caption */
-export function TutorialSubfigureStack({ items, caption }: {
+/** Stacked subfigures (one per row), sharing a single caption. */
+export function TutorialSubfigureStack({ items, caption, label }: {
   items: SubfigureProps[];
   caption: React.ReactNode;
+  label?: string;
 }) {
-  const [enlarged, setEnlarged] = useState<string | null>(null);
-
   return (
-    <>
-      <figure className="my-8">
-        <div className="flex flex-col gap-4">
-          {items.map((sub, i) => (
-            <div key={i}>
-              <button
-                className="w-full block rounded-lg overflow-hidden border border-[var(--hairline)] bg-white cursor-zoom-in hover:border-[var(--cold)] transition-colors"
-                onClick={() => setEnlarged(sub.src)}
-                aria-label={`Enlarge: ${sub.alt}`}
-              >
-                <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
-              </button>
-              <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
-            </div>
-          ))}
-        </div>
-        <figcaption className="mt-3 text-sm text-[var(--text-dim)] text-center leading-relaxed px-2">
-          {caption}
-        </figcaption>
-      </figure>
-
-      {enlarged && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-          onClick={() => setEnlarged(null)}
-        >
-          <img src={enlarged} alt="" className="max-w-full max-h-full object-contain rounded-lg" />
-          <button className="absolute top-4 right-4 text-white text-2xl leading-none" onClick={() => setEnlarged(null)} aria-label="Close">✕</button>
-        </div>
-      )}
-    </>
+    <figure className="my-8">
+      <div className="flex flex-col gap-4">
+        {items.map((sub, i) => (
+          <div key={i}>
+            <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
+            <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
+          </div>
+        ))}
+      </div>
+      <FigCaption label={label}>{caption}</FigCaption>
+    </figure>
   );
 }
