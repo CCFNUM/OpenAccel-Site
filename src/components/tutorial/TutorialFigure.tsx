@@ -78,6 +78,22 @@ function FigCaption({ label, children }: { label?: string; children: React.React
 }
 
 /**
+ * Sub-caption for a panel of a multi-panel figure — prefixed with the LaTeX
+ * \subcaption letter "(a)", "(b)", "(c)" … (DESIGN-BRIEF §27.3). The main
+ * "Figure N." caption sits below via FigCaption.
+ */
+function SubCaption({ index, children }: { index: number; children: React.ReactNode }) {
+  return (
+    <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">
+      <span className="not-italic font-medium" style={{ color: 'var(--text)' }}>
+        ({String.fromCharCode(97 + index)})
+      </span>{' '}
+      {children}
+    </p>
+  );
+}
+
+/**
  * Single figure. Figures blend into the page — no border, no background panel,
  * no click-to-zoom / lightbox (DESIGN-BRIEF §25.3). Caption below, "Figure N."
  */
@@ -104,7 +120,7 @@ export function TutorialSubfigureRow({ left, right, caption, label }: {
         {[left, right].map((sub, i) => (
           <div key={i}>
             <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
-            <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
+            <SubCaption index={i}>{sub.subcaption}</SubCaption>
           </div>
         ))}
       </div>
@@ -125,7 +141,7 @@ export function TutorialSubfigureStack({ items, caption, label }: {
         {items.map((sub, i) => (
           <div key={i}>
             <CroppedImage src={sub.src} alt={sub.alt} trim={sub.trim} trimBase={sub.trimBase} />
-            <p className="mt-1 text-xs text-[var(--text-dim)] text-center italic">{sub.subcaption}</p>
+            <SubCaption index={i}>{sub.subcaption}</SubCaption>
           </div>
         ))}
       </div>
