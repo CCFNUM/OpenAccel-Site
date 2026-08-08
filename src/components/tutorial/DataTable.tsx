@@ -38,7 +38,7 @@ export function DataTable({ label, caption, headers, rows, ruleBefore = [] }: Da
           {label && <strong style={{ color: 'var(--text)' }}>{label}.</strong>} {caption}
         </figcaption>
       )}
-      <div className="overflow-x-auto rounded-lg border border-[var(--hairline)]">
+      <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse" style={{ borderBottom: strong }}>
           <thead>
             <tr>

@@ -54,10 +54,10 @@ export function CaseInfoBlock({ rows }: { rows: { label: ReactNode; value: React
   const visible = rows.filter(r => r.label !== 'Input file' && r.label !== 'Input File');
   return (
     <div
-      className="my-6 rounded px-4 py-3"
+      className="my-6 rounded px-4 py-2.5"
       style={{ border: '1px solid var(--caseinfo-border)', background: 'var(--caseinfo-bg)' }}
     >
-      <dl className="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-x-4 gap-y-1 text-sm leading-snug">
+      <dl className="grid grid-cols-1 sm:grid-cols-[10rem_1fr] items-baseline gap-x-4 gap-y-1 text-sm leading-tight">
         {visible.map((r, i) => (
           <Fragment key={i}>
             <dt className="font-semibold text-[var(--text)]">{r.label}</dt>

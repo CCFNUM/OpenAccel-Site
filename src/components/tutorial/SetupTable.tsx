@@ -39,7 +39,7 @@ export function SetupTable({ label, caption, groups }: SetupTableProps) {
       <figcaption className="text-sm mb-2" style={{ color: 'var(--text-dim)' }}>
         {label && <strong style={{ color: 'var(--text)' }}>{label}.</strong>} {caption}
       </figcaption>
-      <div className="overflow-x-auto rounded-lg border border-[var(--hairline)]">
+      <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse" style={{ borderBottom: '2px solid var(--text-dim)' }}>
           {groups.map((group, gi) => (
             <tbody key={`group-${gi}`}>

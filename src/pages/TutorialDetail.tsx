@@ -212,7 +212,7 @@ export function TutorialDetail() {
       </header>
 
       {/* Content */}
-      <article className="prose prose-invert max-w-none text-[var(--text)]">
+      <article className="prose max-w-none case-prose">
         {ContentComponent ? (
           <Suspense fallback={<ContentSkeleton />}>
             <ContentComponent />
