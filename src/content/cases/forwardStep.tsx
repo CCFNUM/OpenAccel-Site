@@ -1,15 +1,15 @@
 import { TutorialSubfigureRow, TutorialFigure } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Equation, M } from '@/components/tutorial/Equation';
-import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
+import { Takeaway, Note, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
-// Slate header fill, matching User Guide / Theory / SetupTable (DESIGN-BRIEF §18/§24.1).
-const thStyle = { color: 'var(--table-header-fg)', background: 'var(--table-header-bg)' } as const;
-
-// Source figure page size (letter, 612×792 pt → cm) and the LaTeX trim used by
-// every fs-*-mach/press result plate: trim=2cm 10cm 1cm 6cm (L B R T). §24.4.
+// Source figure page size (letter, 612×792 pt → cm). The source LaTeX trim for
+// every fs-*-mach/press plate is 2cm 10cm 1cm 6cm (L B R T); per DESIGN-BRIEF
+// §25.3 the framing is corrected to take LESS off the bottom (keep the contour
+// colourbar) and MORE off the top (drop empty space): 2cm 6cm 1cm 10cm.
 const FS_BASE: [number, number] = [21.59, 27.94];
-const FS_TRIM: [number, number, number, number] = [2, 10, 1, 6];
+const FS_TRIM: [number, number, number, number] = [2, 6, 1, 10];
 
 export function ForwardStepContent() {
   return (
@@ -20,7 +20,6 @@ export function ForwardStepContent() {
         { label: 'Solver mode',    value: 'Transient, segregated (SIMPLEC)' },
         { label: 'Physics / models', value: '2-D inviscid compressible Euler, ideal gas, total energy' },
         { label: 'Inflow Mach',    value: <M math="\mathit{Ma}_\infty = 3" /> },
-        { label: 'Input file',     value: <code>cases/compressible/forward_step/input.i</code> },
       ]} />
 
       <section id="problem">
@@ -57,6 +56,7 @@ export function ForwardStepContent() {
           src="/figures/forward.png"
           alt="Supersonic forward-facing step geometry"
           width="full"
+          label="Figure 1"
           caption={<>Supersonic forward-facing step <em>(not to scale)</em>. The detached bow shock generated ahead of the step face is indicated schematically.</>}
         />
       </section>
@@ -78,42 +78,26 @@ export function ForwardStepContent() {
           <M math="u_\infty/L = 347.28~\mathrm{s^{-1}}" />, giving the correspondence below.
         </p>
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Correspondence between the dimensionless time <M math="t^{*}" /> used throughout this
-              case and the physical time of the present simulation.
-            </caption>
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left font-semibold" style={thStyle}>Stage of development</th>
-                <th className="px-4 py-2 text-left font-semibold" style={thStyle}><M math="t^{*}" /></th>
-                <th className="px-4 py-2 text-left font-semibold" style={thStyle}>Physical time [s]</th>
-              </tr>
-            </thead>
-            <tbody>
-              {([
-                ['Bow shock forming, strongly curved', '0.5', <M math="1.440\times10^{-3}" />],
-                ['Shock reaching upper wall, reflection begins', '1.0', <M math="2.880\times10^{-3}" />],
-                ['Mach reflection established at upper wall', '2.0', <M math="5.759\times10^{-3}" />],
-                ['Triple point migrated, slip line rolling up', '4.0', <M math="1.152\times10^{-2}" />],
-                ['Quasi-steady wave system (snapshot shown)', '14.0', <M math="4.031\times10^{-2}" />],
-                ['Total simulated time', '15.63', <M math="4.500\times10^{-2}" />],
-              ] as [string, string, React.ReactNode][]).map(([s, t, p], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid var(--table-border)' }}>
-                  <td className="px-4 py-2 text-[var(--text-dim)]">{s}</td>
-                  <td className="px-4 py-2 text-[var(--text)]">{t}</td>
-                  <td className="px-4 py-2 text-[var(--text)]">{p}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 1"
+          caption={<>Correspondence between the dimensionless time <M math="t^{*}" /> used throughout this case and the physical time of the present simulation.</>}
+          headers={['Stage of development', <M math="t^{*}" />, 'Physical time [s]']}
+          ruleBefore={[5]}
+          rows={[
+            ['Bow shock forming, strongly curved', '0.5', <M math="1.440\times10^{-3}" />],
+            ['Shock reaching upper wall, reflection begins', '1.0', <M math="2.880\times10^{-3}" />],
+            ['Mach reflection established at upper wall', '2.0', <M math="5.759\times10^{-3}" />],
+            ['Triple point migrated, slip line rolling up', '4.0', <M math="1.152\times10^{-2}" />],
+            ['Quasi-steady wave system (snapshot shown)', '14.0', <M math="4.031\times10^{-2}" />],
+            ['Total simulated time', '15.63', <M math="4.500\times10^{-2}" />],
+          ]}
+        />
       </section>
 
       <section id="setup">
         <h2>4. Setup</h2>
         <SetupTable
+          label="Table 2"
           caption="Supersonic forward-facing step — complete case setup."
           groups={[
             { heading: 'Geometry and mesh', rows: [
@@ -167,7 +151,7 @@ export function ForwardStepContent() {
         />
       </section>
 
-      <Takeaway>
+      <Note>
         <p><strong style={{ color: 'var(--text)' }}>Note on the numerical settings.</strong></p>
         <p>
           This case is run with the high-resolution advection scheme rather than first-order
@@ -176,7 +160,7 @@ export function ForwardStepContent() {
           neither of which survives the numerical diffusion of a first-order scheme on this grid.
           The consequences for the sampled post-shock state are discussed below.
         </p>
-      </Takeaway>
+      </Note>
 
       <section id="results">
         <h2>5. Results</h2>
@@ -203,14 +187,26 @@ export function ForwardStepContent() {
           caption={<><M math="t^{*} = 2.0" />: Mach reflection established at upper wall.</>}
         />
         <TutorialSubfigureRow
+          label="Figure 2"
           left={{ src: '/figures/fs-4-mach.png',  alt: 'Mach number, t* = 4.0',  subcaption: <>Mach number, <M math="t^{*} = 4.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
           right={{ src: '/figures/fs-4-press.png', alt: 'Pressure, t* = 4.0', subcaption: <>Pressure, <M math="t^{*} = 4.0" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
-          caption={<>Development of the wave system over the forward-facing step at <M math="\mathit{Ma}_\infty = 3" />. Left column: Mach number. Right column: pressure. <M math="t^{*} = 4.0" />: triple point migrated, slip line rolling up.</>}
+          caption={<>Development of the wave system over the forward-facing step at <M math="\mathit{Ma}_\infty = 3" />. Left column: Mach number. Right column: pressure. The final row (<M math="t^{*} = 4.0" />): triple point migrated, slip line rolling up.</>}
+        />
+
+        <p>
+          The near-steady state reached toward the end of the run, at <M math="t^{*} = 14" />, is
+          shown below. The configuration is quasi-steady rather than perfectly steady &mdash; the
+          slip line trailing from the triple point continues to shed vortices.
+        </p>
+        <TutorialSubfigureRow
+          label="Figure 3"
+          left={{ src: '/figures/fs-14-mach.png',  alt: 'Mach number, t* = 14',  subcaption: <>Mach number, <M math="t^{*} = 14" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          right={{ src: '/figures/fs-14-press.png', alt: 'Pressure, t* = 14', subcaption: <>Pressure, <M math="t^{*} = 14" /></>, trim: FS_TRIM, trimBase: FS_BASE }}
+          caption={<>Near-steady wave system over the forward-facing step at <M math="\mathit{Ma}_\infty = 3" />, at <M math="t^{*} = 14" />. Left: Mach number. Right: pressure.</>}
         />
       </section>
 
       <Takeaway>
-        <p><strong style={{ color: 'var(--text)' }}>Discussion.</strong></p>
         <p>
           <strong style={{ color: 'var(--text)' }}>Development of the wave system.</strong> The
           sequence reproduces the stages long documented for this benchmark (Emery, 1968; Woodward

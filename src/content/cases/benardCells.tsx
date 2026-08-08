@@ -1,6 +1,7 @@
 import { TutorialFigure, TutorialSubfigureStack } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
-import { Equation } from '@/components/tutorial/Equation';
+import { DataTable } from '@/components/tutorial/DataTable';
+import { Equation, M } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
 export function BenardCellsContent() {
@@ -31,6 +32,7 @@ export function BenardCellsContent() {
         <TutorialFigure
           src="/figures/bernard.png"
           alt="Rayleigh–Bénard cavity schematic"
+          label="Figure 1"
           caption="Rayleigh–Bénard cavity (not to scale). The hot floor and cold ceiling drive buoyant motion; side walls are adiabatic no-slip."
         />
       </section>
@@ -38,7 +40,8 @@ export function BenardCellsContent() {
       <section id="setup">
         <h2>3. Setup</h2>
         <SetupTable
-          caption="Rayleigh–Bénard convection — complete case setup"
+          label="Table 1"
+          caption="Rayleigh–Bénard convection — complete case setup."
           groups={[
             { heading: 'Geometry and mesh', rows: [
               { label: 'Aspect ratio L/H',   value: '9:1' },
@@ -79,43 +82,23 @@ export function BenardCellsContent() {
         <Equation math="\mathrm{Nu} = \frac{q\,H}{\lambda\,\Delta T}" />
 
         <TutorialSubfigureStack
+          label="Figure 2"
           items={[
             { src: '/figures/velocity_cells.png',     alt: 'y-velocity contour', subcaption: 'y-velocity contour at steady state, showing six counter-rotating roll pairs.' },
-            { src: '/figures/temperature_cells.png',  alt: 'Temperature contour', subcaption: 'Temperature contour: hot plumes rise from the floor and cold plumes descend from the ceiling. The double-headed arrow marks one convection wavelength λ_r = 1.5 m.' },
+            { src: '/figures/temperature_cells.png',  alt: 'Temperature contour', subcaption: <>Temperature contour: hot plumes rise from the floor and cold plumes descend from the ceiling. The double-headed arrow marks one convection wavelength <M math="\lambda_r = 1.5~\mathrm{m}" />.</> },
           ]}
-          caption="Steady-state Rayleigh–Bénard solution at Ra = 9810, Pr = 1."
+          caption={<>Steady-state Rayleigh&ndash;Bénard solution at <M math="\mathrm{Ra} = 9810" />, <M math="\mathrm{Pr} = 1" />.</>}
         />
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Nusselt number compared with the spectral benchmark of Clever &amp; Busse (1974).
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['Source', 'Ra', 'k', 'Pr', 'Nu'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-[var(--surface)]">
-                <td className="px-4 py-2 text-[var(--text-dim)] font-medium">Clever &amp; Busse (1974)</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">10 000</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">3.117</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">0.71</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">2.661</td>
-              </tr>
-              <tr className="bg-[var(--surface-stripe)]">
-                <td className="px-4 py-2 text-[var(--text-dim)] font-medium">Present work</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">9 810</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">4.18</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">1.0</td>
-                <td className="px-4 py-2 text-[var(--text)] font-mono text-xs font-semibold text-[var(--signal)]">2.67</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption={<>Nusselt number compared with the spectral benchmark of Clever &amp; Busse (1974).</>}
+          headers={['Source', <M math="\mathrm{Ra}" />, <M math="k" />, <M math="\mathrm{Pr}" />, <M math="\mathrm{Nu}" />]}
+          rows={[
+            ['Clever & Busse (1974)', '10 000', '3.117', '0.71', '2.661'],
+            ['Present work', '9 810', '4.18', '1.0', <span className="font-semibold" style={{ color: 'var(--signal)' }}>2.67</span>],
+          ]}
+        />
       </section>
 
       <Takeaway>
