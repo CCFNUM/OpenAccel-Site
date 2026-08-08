@@ -1,5 +1,6 @@
 import { TutorialFigure, TutorialSubfigureStack } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Equation } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
@@ -88,34 +89,16 @@ export function RotatingCylinderContent() {
         <p>With ρ = 1, U∞ = 1, D = 1, and spanwise thickness L<sub>z</sub> = 0.1:</p>
         <Equation math="C_D = \frac{F_x}{\tfrac{1}{2}\rho U_\infty^2 D L_z} = 20\,F_x, \qquad C_L = 20\,F_y" />
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Mean force coefficients at Re = 200. Reference values from Mittal &amp; Kumar (2003).
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['α', 'C_D,avg (M&K)', 'C_L,avg (M&K)', 'St (M&K)'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['1.0', '1.05',   '−2.65',  '0.192'],
-                ['3.0', '0.04',   '−10.33', '—'],
-                ['4.5', '−0.36',  '−22.35', '0.025'],
-              ].map(([a, cd, cl, st], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium font-mono">{a}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{cd}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{cl}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{st}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption="Mean force coefficients at Re = 200. Reference values from Mittal & Kumar (2003)."
+          headers={['α', 'C_D,avg (M&K)', 'C_L,avg (M&K)', 'St (M&K)']}
+          rows={[
+            ['1.0', '1.05', '−2.65', '0.192'],
+            ['3.0', '0.04', '−10.33', '—'],
+            ['4.5', '−0.36', '−22.35', '0.025'],
+          ]}
+        />
         <p className="text-sm text-[var(--text-dim)] italic">
           OpenAccel results are being computed. The table currently shows Mittal &amp; Kumar reference values only.
         </p>

@@ -1,5 +1,6 @@
 import { TutorialFigure, TutorialSubfigureRow } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Equation } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
@@ -79,36 +80,17 @@ export function StaticDropletContent() {
           E(ΔP) = |ΔP<sub>num</sub> − ΔP<sub>exact</sub>| / ΔP<sub>exact</sub> × 100%.
         </p>
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Static droplet: pressure-jump metrics and maximum spurious velocity. Analytical: Δp_exact = 365 Pa.
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                <th className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">Metric</th>
-                <th className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">Analytical (Pa)</th>
-                <th className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">Numerical (Pa)</th>
-                <th className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">Error (%)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['ΔP_total',   '365', '333.1', '8.7'],
-                ['ΔP_partial', '365', '350.8', '3.8'],
-                ['ΔP_max',     '365', '352.0', '3.5'],
-                ['‖U‖_max [m/s]', '0', '0.07', '—'],
-              ].map(([m, a, n, e], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium">{m}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{a}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{n}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{e}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption="Static droplet: pressure-jump metrics and maximum spurious velocity. Analytical: Δp_exact = 365 Pa."
+          headers={['Metric', 'Analytical (Pa)', 'Numerical (Pa)', 'Error (%)']}
+          rows={[
+            ['ΔP_total', '365', '333.1', '8.7'],
+            ['ΔP_partial', '365', '350.8', '3.8'],
+            ['ΔP_max', '365', '352.0', '3.5'],
+            ['‖U‖_max [m/s]', '0', '0.07', '—'],
+          ]}
+        />
 
         <TutorialFigure label="Figure 2"
           src="/figures/pressure_droplet_distribution.svg"

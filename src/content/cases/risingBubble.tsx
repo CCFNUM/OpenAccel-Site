@@ -1,5 +1,6 @@
 import { TutorialFigure } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Equation } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
@@ -101,33 +102,16 @@ export function RisingBubbleContent() {
           minimum value min<sub>t</sub> c(t).
         </p>
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Hysing Test Case 1 benchmark quantities. Centre-of-mass height and minimum circularity at t = 3; rise velocity is the peak value over t ∈ [0, 3].
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['Quantity', 'OpenAccel', 'Reference (TP2D)'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['Centre-of-mass height y_c(t=3)',    '1.083',  '1.081'],
-                ['Peak rise velocity max_t |U_c,y|',  '0.2413', '0.2417'],
-                ['Minimum circularity min_t c̊',       '0.8971', '0.9013'],
-              ].map(([q, oa, ref], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium">{q}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs font-semibold text-[var(--signal)]">{oa}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{ref}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption="Hysing Test Case 1 benchmark quantities. Centre-of-mass height and minimum circularity at t = 3; rise velocity is the peak value over t ∈ [0, 3]."
+          headers={['Quantity', 'OpenAccel', 'Reference (TP2D)']}
+          rows={[
+            ['Centre-of-mass height y_c(t=3)', <span className="font-semibold" style={{ color: 'var(--signal)' }}>1.083</span>, '1.081'],
+            ['Peak rise velocity max_t |U_c,y|', <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.2413</span>, '0.2417'],
+            ['Minimum circularity min_t c̊', <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.8971</span>, '0.9013'],
+          ]}
+        />
       </section>
 
       <section id="results">

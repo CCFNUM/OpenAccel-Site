@@ -1,5 +1,6 @@
 import { TutorialFigure, TutorialSubfigureRow } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 import { Equation } from '@/components/tutorial/Equation';
 
@@ -128,32 +129,15 @@ export function T3AContent() {
           width="normal"
         />
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Identified transition extent on the T3A plate.
-            </caption>
-            <thead>
-              <tr className="bg-[var(--cold)] text-white">
-                <th className="px-4 py-2 text-left font-semibold">Event</th>
-                <th className="px-4 py-2 text-left font-mono font-normal">Re_x</th>
-                <th className="px-4 py-2 text-left font-mono font-normal">x [m]</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-[var(--surface)]">
-                <td className="px-4 py-2">Transition onset (min of C_f)</td>
-                <td className="px-4 py-2 font-mono text-xs">≈ 1.5 × 10⁵</td>
-                <td className="px-4 py-2 font-mono text-xs">≈ 0.42</td>
-              </tr>
-              <tr className="bg-[var(--surface-stripe)]">
-                <td className="px-4 py-2">Transition complete (peak of C_f)</td>
-                <td className="px-4 py-2 font-mono text-xs">≈ 3.0 × 10⁵</td>
-                <td className="px-4 py-2 font-mono text-xs">≈ 0.83</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption="Identified transition extent on the T3A plate."
+          headers={['Event', 'Re_x', 'x [m]']}
+          rows={[
+            ['Transition onset (min of C_f)', '≈ 1.5 × 10⁵', '≈ 0.42'],
+            ['Transition complete (peak of C_f)', '≈ 3.0 × 10⁵', '≈ 0.83'],
+          ]}
+        />
 
         <p className="mb-6 text-sm text-[var(--text-dim)]">
           To inspect the boundary-layer structure across the three regimes, velocity profiles are

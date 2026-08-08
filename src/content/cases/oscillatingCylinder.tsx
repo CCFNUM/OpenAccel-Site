@@ -1,5 +1,6 @@
 import { TutorialFigure, TutorialSubfigureStack } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Equation } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
@@ -105,34 +106,16 @@ export function OscillatingCylinderContent() {
         <p>The mass (added-mass) coefficient is c<sub>m</sub> = c<sub>i</sub> + 1. The coefficients are extracted from the fundamental Fourier components over the last period:</p>
         <Equation math="c_d = \frac{3\pi\,a_1}{4\rho D\,U_{\max}^2}, \qquad c_i = -\frac{2\,b_1}{\pi^2 f\rho D^2 U_{\max}}, \qquad c_m = c_i + 1" />
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Morison coefficients at Re = 100, KC = 5, compared with Dütsch et al. (1998).
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['Coefficient', 'OpenAccel', 'Ref. (Dütsch)', 'Diff. (%)'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['c_d', '2.11', '2.10', '+0.5'],
-                ['c_i', '1.50', '1.45', '+3.4'],
-                ['c_m', '2.50', '2.45', '+2.0'],
-              ].map(([c, oa, ref, d], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium font-mono">{c}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs font-semibold text-[var(--signal)]">{oa}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{ref}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{d}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption="Morison coefficients at Re = 100, KC = 5, compared with Dütsch et al. (1998)."
+          headers={['Coefficient', 'OpenAccel', 'Ref. (Dütsch)', 'Diff. (%)']}
+          rows={[
+            ['c_d', <span className="font-semibold" style={{ color: 'var(--signal)' }}>2.11</span>, '2.10', '+0.5%'],
+            ['c_i', <span className="font-semibold" style={{ color: 'var(--signal)' }}>1.50</span>, '1.45', '+3.4%'],
+            ['c_m', <span className="font-semibold" style={{ color: 'var(--signal)' }}>2.50</span>, '2.45', '+2.0%'],
+          ]}
+        />
       </section>
 
       <section id="results">

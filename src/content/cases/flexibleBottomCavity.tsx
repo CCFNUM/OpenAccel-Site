@@ -1,5 +1,6 @@
 import { TutorialFigure, TutorialSubfigureRow } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
+import { DataTable } from '@/components/tutorial/DataTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
 export function FlexibleBottomCavityContent() {
@@ -96,34 +97,16 @@ export function FlexibleBottomCavityContent() {
           caption="Plate midpoint displacement with mass-proportional Rayleigh damping (α = 0.1 s⁻¹). The persistent oscillation is eliminated and the plate reaches its asymptotic deflection monotonically."
         />
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Steady-state metrics at point A = (4, −1.4) and integrated vertical FSI force.
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['Quantity', 'OpenAccel (undamped)', 'OpenAccel (damped)', 'Reference'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['u_x,A [mm]  (s4f coarse)', '−0.00016', '−0.00015', '−0.00018'],
-                ['u_y,A [mm]  (Tuković et al.)', '−0.253', '−0.251', '−0.250'],
-                ['F_y [N/m]  (s4f coarse)', '−5.129', '−5.030', '−5.176'],
-              ].map(([q, u, d, r], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium">{q}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{u}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs font-semibold text-[var(--signal)]">{d}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{r}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption="Steady-state metrics at point A = (4, −1.4) and integrated vertical FSI force."
+          headers={['Quantity', 'OpenAccel (undamped)', 'OpenAccel (damped)', 'Reference']}
+          rows={[
+            ['u_x,A [mm]  (s4f coarse)', '−0.00016', <span className="font-semibold" style={{ color: 'var(--signal)' }}>−0.00015</span>, '−0.00018'],
+            ['u_y,A [mm]  (Tuković et al.)', '−0.253', <span className="font-semibold" style={{ color: 'var(--signal)' }}>−0.251</span>, '−0.250'],
+            ['F_y [N/m]  (s4f coarse)', '−5.129', <span className="font-semibold" style={{ color: 'var(--signal)' }}>−5.030</span>, '−5.176'],
+          ]}
+        />
         <p className="text-xs text-[var(--text-dim)] -mt-4 mb-6 px-1">
           u_y,A reference from the fine-mesh Tuković et al. study; u_x,A and F_y from the solids4foam coarse-mesh tutorial.
         </p>

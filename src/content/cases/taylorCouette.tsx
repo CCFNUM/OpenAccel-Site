@@ -1,6 +1,7 @@
 import { TutorialFigure, TutorialSubfigureRow, TutorialSubfigureStack } from '@/components/tutorial/TutorialFigure';
 import { SetupTable } from '@/components/tutorial/SetupTable';
-import { Equation } from '@/components/tutorial/Equation';
+import { DataTable } from '@/components/tutorial/DataTable';
+import { Equation, M } from '@/components/tutorial/Equation';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 
 export function TaylorCouetteContent() {
@@ -76,33 +77,16 @@ export function TaylorCouetteContent() {
         <Equation math="v_z(r) = -47.40\,r^2 + 205.16\,\ln r + 47.40~\text{m/s}" />
         <p>vanishing at both walls and reaching ≈ 24 m/s at r ≈ 1.47 m.</p>
 
-        <div className="my-6 overflow-x-auto rounded-lg border border-[var(--hairline)]">
-          <table className="w-full text-sm border-collapse">
-            <caption className="text-left text-xs font-mono text-[var(--text-dim)] px-4 py-2 border-b border-[var(--hairline)] bg-[var(--surface-2)] caption-top">
-              Error metrics for the simulated profiles at z = L/2.
-            </caption>
-            <thead>
-              <tr className="bg-[var(--surface-2)]">
-                {['Metric', 'v_θ,rel(r) [m/s]', 'v_z(r) [m/s]'].map(h => (
-                  <th key={h} className="px-4 py-2 text-left text-xs font-mono text-[var(--cold)]">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ['E_L²',           '0.0032', '0.0401'],
-                ['E_L∞',           '0.0203', '0.1168'],
-                ['Ē_rel [%]',      '0.06',   '0.45'],
-              ].map(([m, a, b], i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[var(--surface)]' : 'bg-[var(--surface-stripe)]'}>
-                  <td className="px-4 py-2 text-[var(--text-dim)] font-medium font-mono">{m}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{a}</td>
-                  <td className="px-4 py-2 text-[var(--text)] font-mono text-xs">{b}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          label="Table 2"
+          caption={<>Error metrics for the simulated profiles at <M math="z = L/2" />.</>}
+          headers={['Metric', <M math="v_{\theta,\mathrm{rel}}(r)~[\mathrm{m/s}]" />, <M math="v_z(r)~[\mathrm{m/s}]" />]}
+          rows={[
+            [<M math="E_{L^2}" />, '0.0032', '0.0401'],
+            [<M math="E_{L^\infty}" />, '0.0203', '0.1168'],
+            [<M math="\bar{E}_{\mathrm{rel}}~[\%]" />, '0.06', '0.45'],
+          ]}
+        />
       </section>
 
       <section id="results">
