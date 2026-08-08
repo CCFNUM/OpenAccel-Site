@@ -1,15 +1,20 @@
 /**
- * Tutorials.tsx — Restructured Tutorials page.
+ * Tutorials.tsx — Tutorials (V&V) landing page.
  *
  * Layout:
  *   1. Hero band
  *   2. Getting Started callout (links to /get-started)
- *   3. Pipeline row: Geometry · Mesh · Setup · Solution · Post-Processing (static; href slots ready)
- *   4. Search + filter bar (search input, physics chips, difficulty chips) — synced to URL
- *   5. Tutorial groups, each with a card grid driven by tutorial.group field
+ *   3. Validation Manual PDF download
+ *   4. Search + "Filter by" dropdown (DESIGN-BRIEF §24.6): default shows all
+ *      tutorials with no filter blocks visible; the user opens "Filter by" and
+ *      picks one or more criteria (Dimension, Physics, Difficulty — multi-select),
+ *      revealing only those criteria's blocks. Blocks are themselves multi-select
+ *      and keep their per-physics / per-difficulty colours. Physics lays out in a
+ *      2×4 grid (no horizontal scrollbar). Block/label font is the site body font.
+ *   5. Tutorial groups, each a card grid driven by tutorial.group.
  */
-import { useMemo, useEffect, useRef } from 'react';
-import { Link, useLocation, useSearch } from 'wouter';
+import { useMemo, useState, useEffect, useRef } from 'react';
+import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
@@ -20,7 +25,7 @@ import {
   displayTime,
 } from '@/content/tutorials';
 import { physicsColor } from '@/lib/physics-colors';
-import { ArrowRight, Clock, ChevronRight, Search, X, FileText } from 'lucide-react';
+import { ArrowRight, Clock, ChevronRight, ChevronDown, Search, X, FileText, SlidersHorizontal, Check } from 'lucide-react';
 
 // Human-readable label for a physics tag
 function physicsLabel(tag: string): string {
@@ -36,11 +41,10 @@ function physicsLabel(tag: string): string {
   return LABELS[tag] ?? tag;
 }
 
-type PhysicsTag = string;
 type DifficultyTag = 'beginner' | 'intermediate' | 'advanced';
 type DimTag = '2D' | '3D';
+type Criterion = 'dimension' | 'physics' | 'difficulty';
 
-// ── Difficulty badge ─────────────────────────────────────────────────────────
 const DIFF_COLOR: Record<string, string> = {
   beginner:     'var(--signal)',
   intermediate: 'var(--warm)',
@@ -48,32 +52,18 @@ const DIFF_COLOR: Record<string, string> = {
 };
 
 const ALL_DIFFICULTIES: DifficultyTag[] = ['beginner', 'intermediate', 'advanced'];
-
-// ── Physics filter chips ─────────────────────────────────────────────────────
-const ALL_PHYSICS = [...new Set(tutorials.flatMap(t => t.physics))].sort() as PhysicsTag[];
-
-// ── Dim filter chips ─────────────────────────────────────────────────────────
+const ALL_PHYSICS = [...new Set(tutorials.flatMap(t => t.physics))].sort() as string[];
 const ALL_DIMS: DimTag[] = ['2D', '3D'];
 
-// ── URL helpers ──────────────────────────────────────────────────────────────
-function parseSearch(search: string) {
-  const p = new URLSearchParams(search);
-  return {
-    q:       p.get('q') ?? '',
-    physics: p.get('physics') ?? 'all',
-    diff:    p.get('diff') ?? 'all',
-    dim:     p.get('dim') ?? 'all',
-  };
-}
+const CRITERIA: { key: Criterion; label: string }[] = [
+  { key: 'dimension',  label: 'Dimension' },
+  { key: 'physics',    label: 'Physics' },
+  { key: 'difficulty', label: 'Difficulty' },
+];
 
-function buildSearch(q: string, physics: string, diff: string, dim: string): string {
-  const p = new URLSearchParams();
-  if (q)                 p.set('q', q);
-  if (physics !== 'all') p.set('physics', physics);
-  if (diff !== 'all')    p.set('diff', diff);
-  if (dim !== 'all')     p.set('dim', dim);
-  const s = p.toString();
-  return s ? `?${s}` : '';
+/** Toggle a value in/out of a string[] selection. */
+function toggle(list: string[], value: string): string[] {
+  return list.includes(value) ? list.filter(v => v !== value) : [...list, value];
 }
 
 // ── Tutorial card ─────────────────────────────────────────────────────────────
@@ -98,7 +88,7 @@ function TutorialCard({ tut }: { tut: Tutorial }) {
         {tut.physics.map(tag => {
           const color = physicsColor(tag);
           return (
-            <span key={tag} className="text-[11px] px-2 py-0.5 rounded-full font-mono"
+            <span key={tag} className="text-[11px] px-2 py-0.5 rounded-full"
               style={{ background: `color-mix(in srgb, ${color} 12%, transparent)`, color, border: `1px solid color-mix(in srgb, ${color} 30%, transparent)` }}>
               {physicsLabel(tag)}
             </span>
@@ -107,7 +97,7 @@ function TutorialCard({ tut }: { tut: Tutorial }) {
       </div>
 
       <div className="mt-3 flex items-center justify-between">
-        <span className="text-[11px] font-mono px-2 py-0.5 rounded-full" style={{ color: diffColor, background: `${diffColor}18`, border: `1px solid ${diffColor}30` }}>
+        <span className="text-[11px] px-2 py-0.5 rounded-full capitalize" style={{ color: diffColor, background: `${diffColor}18`, border: `1px solid ${diffColor}30` }}>
           {tut.difficulty}
         </span>
         <span className="text-xs text-[var(--text-dim)] flex items-center gap-1">
@@ -118,40 +108,72 @@ function TutorialCard({ tut }: { tut: Tutorial }) {
   );
 }
 
+// ── Filter block (pill) ───────────────────────────────────────────────────────
+function FilterBlock({ label, count, color, active, onClick }: {
+  label: string; count: number; color: string; active: boolean; onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="px-4 py-1.5 rounded-full text-sm border transition-all text-center capitalize"
+      style={{
+        minHeight: 36,
+        background: active ? color : 'var(--surface)',
+        color: active ? '#fff' : color,
+        borderColor: active ? color : `color-mix(in srgb, ${color} 35%, transparent)`,
+      }}>
+      {label} ({count})
+    </button>
+  );
+}
+
 // ── Page component ────────────────────────────────────────────────────────────
 export function Tutorials() {
   useDocumentTitle('Tutorials');
-  const [location, setLocation] = useLocation();
-  const searchStr = useSearch();
 
-  // Parse filter state from URL
-  const { q, physics: physicsFilter, diff: diffFilter, dim: dimFilter } = useMemo(
-    () => parseSearch(searchStr),
-    [searchStr],
-  );
+  const [q, setQ] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [shown, setShown] = useState<Record<Criterion, boolean>>({ dimension: false, physics: false, difficulty: false });
+  const [selDim, setSelDim] = useState<string[]>([]);
+  const [selPhysics, setSelPhysics] = useState<string[]>([]);
+  const [selDiff, setSelDiff] = useState<string[]>([]);
 
-  // Push a new URL whenever any filter changes — replace so back-button stays sane
-  function updateFilters(
-    newQ: string,
-    newPhysics: string,
-    newDiff: string,
-    newDim: string,
-  ) {
-    const qs = buildSearch(newQ, newPhysics, newDiff, newDim);
-    setLocation(`${location.split('?')[0]}${qs}`, { replace: true });
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close the "Filter by" menu on outside-click / Escape.
+  useEffect(() => {
+    const onDown = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
+  }, []);
+
+  // Toggle whether a criterion's blocks are shown; clear its selection when hidden.
+  function toggleCriterion(key: Criterion) {
+    setShown(s => {
+      const next = { ...s, [key]: !s[key] };
+      if (s[key]) {
+        if (key === 'dimension') setSelDim([]);
+        if (key === 'physics') setSelPhysics([]);
+        if (key === 'difficulty') setSelDiff([]);
+      }
+      return next;
+    });
   }
 
-  // Filtered + grouped tutorials
   const grouped = useMemo(() => {
     const needle = q.trim().toLowerCase();
     const active = tutorials.filter(t => {
-      if (physicsFilter !== 'all' && !t.physics.includes(physicsFilter)) return false;
-      if (diffFilter    !== 'all' && t.difficulty !== diffFilter)         return false;
-      if (dimFilter     !== 'all' && t.dim !== dimFilter)                 return false;
+      if (selDim.length && !selDim.includes(t.dim)) return false;
+      if (selPhysics.length && !t.physics.some(p => selPhysics.includes(p))) return false;
+      if (selDiff.length && !selDiff.includes(t.difficulty)) return false;
       if (needle && !(
         t.displayTitle.toLowerCase().includes(needle) ||
-        t.description.toLowerCase().includes(needle)  ||
-        t.caseId.toLowerCase().includes(needle)       ||
+        t.description.toLowerCase().includes(needle) ||
+        t.caseId.toLowerCase().includes(needle) ||
         t.slug.toLowerCase().includes(needle)
       )) return false;
       return true;
@@ -160,13 +182,15 @@ export function Tutorials() {
       group,
       items: active.filter(t => t.group === group),
     })).filter(g => g.items.length > 0);
-  }, [q, physicsFilter, diffFilter, dimFilter]);
+  }, [q, selDim, selPhysics, selDiff]);
 
   const totalVisible = grouped.reduce((n, g) => n + g.items.length, 0);
-  const anyFilter = q !== '' || physicsFilter !== 'all' || diffFilter !== 'all' || dimFilter !== 'all';
+  const anyFilter = q !== '' || selDim.length > 0 || selPhysics.length > 0 || selDiff.length > 0;
+  const anyCriterion = shown.dimension || shown.physics || shown.difficulty;
 
   function clearAll() {
-    updateFilters('', 'all', 'all', 'all');
+    setQ(''); setSelDim([]); setSelPhysics([]); setSelDiff([]);
+    setShown({ dimension: false, physics: false, difficulty: false });
   }
 
   return (
@@ -226,138 +250,125 @@ export function Tutorials() {
           <ArrowRight size={18} className="shrink-0 text-[var(--cold)] opacity-70 group-hover:opacity-100 transition-opacity" />
         </a>
 
-        {/* 4. Search + filter bar */}
+        {/* 4. Search + Filter-by dropdown */}
         <div className="mb-10 space-y-4">
 
-          {/* Search input */}
-          <div className="relative">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-dim)] pointer-events-none" />
-            <input
-              type="search"
-              value={q}
-              onChange={e => updateFilters(e.target.value, physicsFilter, diffFilter, dimFilter)}
-              placeholder="Search tutorials by title or description…"
-              className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] text-[var(--text)] placeholder:text-[var(--text-dim)] text-sm focus:outline-none focus:border-[var(--cold)] transition-colors"
-            />
-            {q && (
+          <div className="flex flex-col sm:flex-row gap-3">
+            {/* Search input */}
+            <div className="relative flex-grow">
+              <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-dim)] pointer-events-none" />
+              <input
+                type="search"
+                value={q}
+                onChange={e => setQ(e.target.value)}
+                placeholder="Search tutorials by title or description…"
+                className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] text-[var(--text)] placeholder:text-[var(--text-dim)] text-sm focus:outline-none focus:border-[var(--cold)] transition-colors"
+              />
+              {q && (
+                <button
+                  onClick={() => setQ('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+
+            {/* Filter-by dropdown */}
+            <div className="relative shrink-0" ref={menuRef}>
               <button
-                onClick={() => updateFilters('', physicsFilter, diffFilter, dimFilter)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
-                aria-label="Clear search"
-              >
-                <X size={14} />
+                onClick={() => setMenuOpen(o => !o)}
+                aria-expanded={menuOpen}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border text-sm transition-colors"
+                style={{
+                  minHeight: 44,
+                  borderColor: anyCriterion ? 'var(--cold)' : 'var(--hairline)',
+                  background: 'var(--surface)',
+                  color: anyCriterion ? 'var(--cold)' : 'var(--text-dim)',
+                }}>
+                <SlidersHorizontal size={15} /> Filter by
+                <ChevronDown size={14} className={`transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
               </button>
-            )}
+
+              {menuOpen && (
+                <div className="absolute right-0 z-30 mt-2 w-56 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] shadow-lg p-1.5">
+                  {CRITERIA.map(c => (
+                    <button
+                      key={c.key}
+                      onClick={() => toggleCriterion(c.key)}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 rounded text-sm text-left text-[var(--text)] hover:bg-[var(--surface-2)] transition-colors"
+                    >
+                      <span
+                        className="w-4 h-4 rounded flex items-center justify-center shrink-0 border"
+                        style={{
+                          borderColor: shown[c.key] ? 'var(--cold)' : 'var(--hairline)',
+                          background: shown[c.key] ? 'var(--cold)' : 'transparent',
+                        }}>
+                        {shown[c.key] && <Check size={11} className="text-white" />}
+                      </span>
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Physics filter chips */}
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-[0.12em] text-[var(--text-dim)] mb-2">Physics</p>
-            <div className="overflow-x-auto pb-1 -mx-4 px-4">
-              <div className="flex flex-nowrap gap-2 min-w-max">
-                <button
-                  onClick={() => updateFilters(q, 'all', diffFilter, dimFilter)}
-                  className="px-4 py-1.5 rounded-full text-sm font-mono border transition-all"
-                  style={{
-                    minHeight: 36,
-                    background: physicsFilter === 'all' ? 'var(--cold)' : 'var(--surface)',
-                    color: physicsFilter === 'all' ? '#fff' : 'var(--text-dim)',
-                    borderColor: physicsFilter === 'all' ? 'var(--cold)' : 'var(--hairline)',
-                  }}>
-                  All ({tutorials.length})
-                </button>
-                {ALL_PHYSICS.map(tag => {
-                  const color = physicsColor(tag);
-                  const count = tutorials.filter(t => t.physics.includes(tag)).length;
-                  const active = physicsFilter === tag;
-                  return (
-                    <button key={tag}
-                      onClick={() => updateFilters(q, active ? 'all' : tag, diffFilter, dimFilter)}
-                      className="px-4 py-1.5 rounded-full text-sm font-mono border transition-all"
-                      style={{
-                        minHeight: 36,
-                        background: active ? color : 'var(--surface)',
-                        color: active ? '#fff' : color,
-                        borderColor: active ? color : `color-mix(in srgb, ${color} 35%, transparent)`,
-                      }}>
-                      {physicsLabel(tag)} ({count})
-                    </button>
-                  );
-                })}
+          {/* Revealed criterion blocks */}
+          {shown.dimension && (
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-dim)] mb-2">Dimension</p>
+              <div className="flex flex-wrap gap-2">
+                {ALL_DIMS.map(dim => (
+                  <FilterBlock
+                    key={dim}
+                    label={dim}
+                    count={tutorials.filter(t => t.dim === dim).length}
+                    color="var(--cold)"
+                    active={selDim.includes(dim)}
+                    onClick={() => setSelDim(s => toggle(s, dim))}
+                  />
+                ))}
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Difficulty filter chips */}
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-[0.12em] text-[var(--text-dim)] mb-2">Difficulty</p>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => updateFilters(q, physicsFilter, 'all', dimFilter)}
-                className="px-4 py-1.5 rounded-full text-sm font-mono border transition-all"
-                style={{
-                  minHeight: 36,
-                  background: diffFilter === 'all' ? 'var(--cold)' : 'var(--surface)',
-                  color: diffFilter === 'all' ? '#fff' : 'var(--text-dim)',
-                  borderColor: diffFilter === 'all' ? 'var(--cold)' : 'var(--hairline)',
-                }}>
-                All
-              </button>
-              {ALL_DIFFICULTIES.map(diff => {
-                const color = DIFF_COLOR[diff];
-                const count = tutorials.filter(t => t.difficulty === diff).length;
-                const active = diffFilter === diff;
-                return (
-                  <button key={diff}
-                    onClick={() => updateFilters(q, physicsFilter, active ? 'all' : diff, dimFilter)}
-                    className="px-4 py-1.5 rounded-full text-sm font-mono border capitalize transition-all"
-                    style={{
-                      minHeight: 36,
-                      background: active ? color : 'var(--surface)',
-                      color: active ? '#fff' : color,
-                      borderColor: active ? color : `color-mix(in srgb, ${color} 35%, transparent)`,
-                    }}>
-                    {diff} ({count})
-                  </button>
-                );
-              })}
+          {shown.physics && (
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-dim)] mb-2">Physics</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {ALL_PHYSICS.map(tag => (
+                  <FilterBlock
+                    key={tag}
+                    label={physicsLabel(tag)}
+                    count={tutorials.filter(t => t.physics.includes(tag)).length}
+                    color={physicsColor(tag)}
+                    active={selPhysics.includes(tag)}
+                    onClick={() => setSelPhysics(s => toggle(s, tag))}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Dimension filter chips */}
-          <div>
-            <p className="text-[10px] font-mono uppercase tracking-[0.12em] text-[var(--text-dim)] mb-2">Dimension</p>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => updateFilters(q, physicsFilter, diffFilter, 'all')}
-                className="px-4 py-1.5 rounded-full text-sm font-mono border transition-all"
-                style={{
-                  minHeight: 36,
-                  background: dimFilter === 'all' ? 'var(--cold)' : 'var(--surface)',
-                  color: dimFilter === 'all' ? '#fff' : 'var(--text-dim)',
-                  borderColor: dimFilter === 'all' ? 'var(--cold)' : 'var(--hairline)',
-                }}>
-                All
-              </button>
-              {ALL_DIMS.map(dim => {
-                const count = tutorials.filter(t => t.dim === dim).length;
-                const active = dimFilter === dim;
-                return (
-                  <button key={dim}
-                    onClick={() => updateFilters(q, physicsFilter, diffFilter, active ? 'all' : dim)}
-                    className="px-4 py-1.5 rounded-full text-sm font-mono border transition-all"
-                    style={{
-                      minHeight: 36,
-                      background: active ? 'var(--cold)' : 'var(--surface)',
-                      color: active ? '#fff' : 'var(--text-dim)',
-                      borderColor: active ? 'var(--cold)' : 'var(--hairline)',
-                    }}>
-                    {dim} ({count})
-                  </button>
-                );
-              })}
+          {shown.difficulty && (
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--text-dim)] mb-2">Difficulty</p>
+              <div className="flex flex-wrap gap-2">
+                {ALL_DIFFICULTIES.map(diff => (
+                  <FilterBlock
+                    key={diff}
+                    label={diff}
+                    count={tutorials.filter(t => t.difficulty === diff).length}
+                    color={DIFF_COLOR[diff]}
+                    active={selDiff.includes(diff)}
+                    onClick={() => setSelDiff(s => toggle(s, diff))}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Active filter summary + clear all */}
           {anyFilter && (
