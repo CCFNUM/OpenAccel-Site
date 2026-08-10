@@ -73,9 +73,13 @@ export function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: s
 // Prefix the Vite base path so figures resolve on GitHub Pages (/OpenAccel-Site/).
 function withBase(src: string): string {
   if (/^https?:\/\//.test(src)) return src;              // external URL, leave as-is
-  const base = import.meta.env.BASE_URL || '/';
-  const clean = src.replace(/^\//, '');                    // drop leading slash
-  return base.replace(/\/$/, '/') + clean.replace(/^figures\//, 'figures/');
+  const base = import.meta.env.BASE_URL || '/';           // e.g. "/OpenAccel-Site/"
+  const clean = src.replace(/^\//, '');                    // drop any leading slash
+  const baseNoSlash = base.replace(/\/$/, '');             // "/OpenAccel-Site"
+  // If the path already carries the base segment, don't add it again
+  // (prevents the /OpenAccel-Site/OpenAccel-Site/ double-prefix -> 404).
+  if (('/' + clean).startsWith(baseNoSlash + '/')) return '/' + clean;
+  return base.replace(/\/$/, '/') + clean;
 }
 
 function FigCaption({ label, children }: { label?: string; children: React.ReactNode }) {
