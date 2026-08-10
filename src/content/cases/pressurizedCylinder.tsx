@@ -37,7 +37,7 @@ export function PressurizedCylinderContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/pressurized_cylinder.svg"
+          src={`${import.meta.env.BASE_URL}figures/pressurized_cylinder.svg`}
           alt="Pressurised cylinder geometry"
           caption={<>Internally pressurised thick-walled cylinder: quarter-symmetric model with inner
             radius <M math="r_i = 7~\mathrm{m}" /> and outer radius <M math="r_o = 18.625~\mathrm{m}" />.
@@ -114,7 +114,7 @@ export function PressurizedCylinderContent() {
             solution (Equations 1 and 2).</>}
         />
         <TutorialFigure label="Figure 3"
-          src="/figures/displacement_pressurized_tank.svg"
+          src={`${import.meta.env.BASE_URL}figures/displacement_pressurized_tank.svg`}
           alt="Radial displacement u_r(r)"
           caption={<>Pressurised thick-walled cylinder: radial displacement <M math="u_r(r)" /> across
             the wall thickness, compared with the Lamé analytical solution (Equation 3).</>}

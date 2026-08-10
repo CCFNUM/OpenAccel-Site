@@ -75,7 +75,7 @@ export function BumpSSTContent() {
           <M math="y = 5.0" />, are symmetry planes.
         </p>
         <TutorialFigure label="Figure 1"
-          src="/figures/bump2D_schematic.svg"
+          src={`${import.meta.env.BASE_URL}figures/bump2D_schematic.svg`}
           alt="2D bump-in-channel geometry"
           caption={<>Geometry and boundary conditions for the NASA TMR 2-D bump-in-channel benchmark.
             Top: full computational domain drawn to scale, <M math="x \in [-25, 26.5]" />,{' '}
@@ -173,14 +173,14 @@ export function BumpSSTContent() {
         />
 
         <TutorialFigure label="Figure 4"
-          src="/figures/Cp_bump.svg"
+          src={`${import.meta.env.BASE_URL}figures/Cp_bump.svg`}
           alt="Surface Cp distribution"
           caption={<>Surface pressure coefficient <M math="C_p" /> along the lower wall. OpenAccel on
             the 2nd-finest NASA TMR grid (<M math="705 \times 321" />) vs. FUN3D reference on the finest
             grid (<M math="1409 \times 641" />).</>}
         />
         <TutorialFigure label="Figure 5"
-          src="/figures/Cf_bump.svg"
+          src={`${import.meta.env.BASE_URL}figures/Cf_bump.svg`}
           alt="Surface Cf distribution"
           caption={<>Surface skin-friction coefficient <M math="C_f" /> along the lower wall. Localised
             anomalies near <M math="x = 0" /> (turbulence-model activation) and <M math="x = 1.5" />{' '}
@@ -188,7 +188,7 @@ export function BumpSSTContent() {
             participating codes.</>}
         />
         <TutorialFigure label="Figure 6"
-          src="/figures/velocity_profile_bump.svg"
+          src={`${import.meta.env.BASE_URL}figures/velocity_profile_bump.svg`}
           alt="Streamwise velocity profiles"
           caption={<>Streamwise velocity profiles <M math="U_x/U_\infty" /> versus wall-normal distance
             at two stations: <M math="x=0.75" /> (bump apex, favourable pressure-gradient region) and{' '}

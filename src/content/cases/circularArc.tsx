@@ -35,7 +35,7 @@ export function CircularArcContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/bump.svg"
+          src={`${import.meta.env.BASE_URL}figures/bump.svg`}
           alt="Circular bump geometry"
           caption={<>Computational domain for flow over a circular bump. Channel height{' '}
             <M math="H = 1~\mathrm{m}" />, length <M math="L = 3~\mathrm{m}" />, arc
@@ -116,13 +116,13 @@ export function CircularArcContent() {
       <section id="results">
         <h2>4. Results</h2>
         <TutorialFigure label="Figure 2"
-          src="/figures/mach%20distribution.svg"
+          src={`${import.meta.env.BASE_URL}figures/mach%20distribution.svg`}
           alt="Subsonic Mach wall distribution"
           caption={<>Subsonic case (<M math="\mathit{Ma}_{\mathrm{in}} = 0.5" />): predicted Mach
             number along the upper and lower walls compared with Favini et al. (1996).</>}
         />
         <TutorialFigure label="Figure 3"
-          src="/figures/sonic.svg"
+          src={`${import.meta.env.BASE_URL}figures/sonic.svg`}
           alt="Transonic Mach wall distribution"
           caption={<>Transonic case (<M math="\mathit{Ma}_{\mathrm{in}} = 0.675" />): predicted Mach
             number along the upper and lower walls compared with Favini et al. The recompression

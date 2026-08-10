@@ -4,7 +4,7 @@ import { DataTable } from '@/components/tutorial/DataTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 import { Equation, M } from '@/components/tutorial/Equation';
 
-const F = (name: string) => `/figures/${name}.svg`;
+const F = (name: string) => `${import.meta.env.BASE_URL}figures/${name}.svg`;
 
 /** Filename has a typo in the source ("flateplate") — preserved as-is. */
 const uPlusFig = F('u+-flateplate');

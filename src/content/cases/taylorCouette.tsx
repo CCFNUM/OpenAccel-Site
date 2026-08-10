@@ -42,7 +42,7 @@ export function TaylorCouetteContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/taylor.svg"
+          src={`${import.meta.env.BASE_URL}figures/taylor.svg`}
           alt="Taylor–Couette–Poiseuille setup"
           caption={<>Taylor–Couette–Poiseuille validation case. Top: <M math="r" />–<M math="\theta" />{' '}
             plane showing the <M math="90^\circ" /> annular sector with the rotating frame{' '}

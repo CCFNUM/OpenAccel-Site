@@ -58,7 +58,7 @@ export function Ch12WorkedExample() {
       <H2 id="problem" num="12.1">The problem</H2>
 
       <TutorialFigure
-        src="/figures/cavity_schematic.png"
+        src={`${import.meta.env.BASE_URL}figures/cavity_schematic.png`}
         alt="The lid-driven cavity: a square domain with three stationary walls and one translating lid"
         caption={<><strong style={{ color: 'var(--text)' }}>Figure 12.1.</strong> The lid-driven cavity. Three walls are stationary and no-slip; the fourth translates at constant velocity, driving a primary vortex.</>}
       />

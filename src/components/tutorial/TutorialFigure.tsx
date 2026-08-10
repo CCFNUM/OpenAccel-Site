@@ -35,7 +35,7 @@ interface SubfigureProps extends CropProps {
  */
 export function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: string } & CropProps) {
   if (!trim || !trimBase) {
-    return <img src={src} alt={alt} className="w-full h-auto object-contain" loading="lazy" />;
+    return <img src={withBase(src)} alt={alt} className="w-full h-auto object-contain" loading="lazy" />;
   }
   const [l, b, r, t] = trim;
   const [W, H] = trimBase;
@@ -52,7 +52,7 @@ export function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: s
       }}
     >
       <img
-        src={src}
+        src={withBase(src)}
         alt={alt}
         loading="lazy"
         style={{
@@ -69,6 +69,15 @@ export function CroppedImage({ src, alt, trim, trimBase }: { src: string; alt: s
 }
 
 /** Bold "Figure N." label + caption text, below the figure (§25.4). */
+
+// Prefix the Vite base path so figures resolve on GitHub Pages (/OpenAccel-Site/).
+function withBase(src: string): string {
+  if (/^https?:\/\//.test(src)) return src;              // external URL, leave as-is
+  const base = import.meta.env.BASE_URL || '/';
+  const clean = src.replace(/^\//, '');                    // drop leading slash
+  return base.replace(/\/$/, '/') + clean.replace(/^figures\//, 'figures/');
+}
+
 function FigCaption({ label, children }: { label?: string; children: React.ReactNode }) {
   return (
     <figcaption className="mt-2 text-sm text-[var(--text-dim)] text-center leading-relaxed px-2">

@@ -209,7 +209,7 @@ export function OscillatingCylinderContent() {
           periodic and indistinguishable from cycle to cycle within plotting resolution.
         </p>
         <TutorialFigure label="Figure 2"
-          src="/figures/F_x_cycle.svg"
+          src={`${import.meta.env.BASE_URL}figures/F_x_cycle.svg`}
           alt="In-line force over 10 periods"
           caption={<>In-line hydrodynamic force per unit length, <M math="F_1(t)" />, over ten
             oscillation periods. The impulsive start-up transient decays within the first cycle; the
@@ -227,7 +227,7 @@ export function OscillatingCylinderContent() {
           higher-harmonic content is largest.
         </p>
         <TutorialFigure label="Figure 3"
-          src="/figures/inline_force_osc_cylinder.svg"
+          src={`${import.meta.env.BASE_URL}figures/inline_force_osc_cylinder.svg`}
           alt="In-line force history — one period"
           caption={<>In-line hydrodynamic force on the oscillating cylinder at <M math="\mathit{Re} = 100" />,
             <M math="\mathit{KC} = 5" />, over the last highlighted period in Figure 2. The Morison
@@ -244,7 +244,7 @@ export function OscillatingCylinderContent() {
           within the measurement scatter.
         </p>
         <TutorialFigure label="Figure 4"
-          src="/figures/velocity_osc_cylinder.svg"
+          src={`${import.meta.env.BASE_URL}figures/velocity_osc_cylinder.svg`}
           alt="Phase-averaged velocity profiles"
           caption={<>Phase-averaged velocity profiles at two cross-stream stations of constant{' '}
             <M math="x" />. (a) Streamwise component <M math="u" />. (b) Cross-stream component{' '}

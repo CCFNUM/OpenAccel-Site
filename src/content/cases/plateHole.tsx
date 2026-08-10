@@ -39,7 +39,7 @@ export function PlateHoleContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/hole.svg"
+          src={`${import.meta.env.BASE_URL}figures/hole.svg`}
           alt="Plate with hole geometry"
           caption={<>Plate with a circular hole: quarter-plate model, <M math="L = 4~\mathrm{m}" /> side
             length and hole radius <M math="R = 0.5~\mathrm{m}" />. Uniform far-field tensile traction

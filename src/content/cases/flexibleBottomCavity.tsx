@@ -46,7 +46,7 @@ export function FlexibleBottomCavityContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/flexible_bottom_cavity.svg"
+          src={`${import.meta.env.BASE_URL}figures/flexible_bottom_cavity.svg`}
           alt="Channel-cavity geometry"
           caption={<>Channel–cavity geometry: a <M math="14 \times 1~\mathrm{m}" /> channel feeds a{' '}
             <M math="4 \times 1~\mathrm{m}" /> square cavity whose floor is a clamped elastic plate of

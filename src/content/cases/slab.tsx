@@ -44,7 +44,7 @@ export function SlabContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/slab.svg"
+          src={`${import.meta.env.BASE_URL}figures/slab.svg`}
           alt="CHT slab geometry"
           caption={<>CHT validation case (not to scale). A solid slab is embedded centrally in the
             floor of the fluid channel; the bottom face of the slab is held at{' '}
@@ -99,7 +99,7 @@ export function SlabContent() {
         </p>
 
         <TutorialFigure label="Figure 2"
-          src="/figures/nusselt_slab.svg"
+          src={`${import.meta.env.BASE_URL}figures/nusselt_slab.svg`}
           alt="Local Nusselt number distribution"
           caption={<>Local Nusselt number <M math="\mathit{Nu}(\tilde{x})" /> along the fluid–solid
             interface, compared with the Pohlhausen correlation for an isothermal flat plate at{' '}
@@ -116,7 +116,7 @@ export function SlabContent() {
             its wall-normal gradient with the numerical benchmark of Vynnycky et al. (1998).</>}
         />
         <TutorialFigure label="Figure 4"
-          src="/figures/temp_contour_slab.svg"
+          src={`${import.meta.env.BASE_URL}figures/temp_contour_slab.svg`}
           alt="Steady-state temperature contour"
           caption="Steady-state temperature contour of the CHT case."
           trim={[2.7, 5, 2.7, 1]}

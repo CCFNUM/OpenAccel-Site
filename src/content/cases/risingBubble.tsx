@@ -81,7 +81,7 @@ export function RisingBubbleContent() {
           system is non-singular.
         </p>
         <TutorialFigure label="Figure 1"
-          src="/figures/rising_bubble.svg"
+          src={`${import.meta.env.BASE_URL}figures/rising_bubble.svg`}
           alt="Rising bubble geometry"
           caption="Geometry and boundary conditions for the rising-bubble benchmark (Hysing Test Case 1)."
         />
@@ -202,7 +202,7 @@ export function RisingBubbleContent() {
           transitions through a phase of nearly linear rise, and approaches its final position.
         </p>
         <TutorialFigure label="Figure 2"
-          src="/figures/bubble_yc.svg"
+          src={`${import.meta.env.BASE_URL}figures/bubble_yc.svg`}
           alt="Centre-of-mass trajectory"
           caption={<>Centre-of-mass trajectory <M math="y_c(t)" /> over the benchmark window{' '}
             <M math="t \in [0, 3]" /> for the Hysing Test 1 configuration.</>}
@@ -216,7 +216,7 @@ export function RisingBubbleContent() {
           terminal-like velocity, and a slow decay as the deformed shape continues to evolve.
         </p>
         <TutorialFigure label="Figure 3"
-          src="/figures/bubble_rise_velocity.svg"
+          src={`${import.meta.env.BASE_URL}figures/bubble_rise_velocity.svg`}
           alt="Bubble rise velocity"
           caption={<>Bubble rise velocity <M math="U_{c,y}(t)" /> over the benchmark window.</>}
         />
@@ -229,7 +229,7 @@ export function RisingBubbleContent() {
           low-Eötvös regime in which surface tension keeps the deformation moderate.
         </p>
         <TutorialFigure label="Figure 4"
-          src="/figures/bubble_shape.svg"
+          src={`${import.meta.env.BASE_URL}figures/bubble_shape.svg`}
           alt="Final bubble shape"
           caption={<>Bubble shape at the final benchmark time <M math="t = 3" /> for the Hysing Test 1
             configuration, compared against the reference contours.</>}

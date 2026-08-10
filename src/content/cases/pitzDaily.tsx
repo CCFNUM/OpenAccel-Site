@@ -3,7 +3,7 @@ import { SetupTable } from '@/components/tutorial/SetupTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 import { M } from '@/components/tutorial/Equation';
 
-const F = (name: string) => `/figures/${name}.svg`;
+const F = (name: string) => `${import.meta.env.BASE_URL}figures/${name}.svg`;
 
 // Contour plates are letter-landscape (792×612 pt → cm); source LaTeX trim for
 // the pitzdaily u-velocity contours is 2.7cm 7.5cm 2.7cm 5cm (L B R T).

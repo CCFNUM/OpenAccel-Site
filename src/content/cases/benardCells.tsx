@@ -32,7 +32,7 @@ export function BenardCellsContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure
-          src="/figures/bernard.svg"
+          src={`${import.meta.env.BASE_URL}figures/bernard.svg`}
           alt="Rayleigh–Bénard cavity schematic"
           label="Figure 1"
           caption="Rayleigh–Bénard cavity (not to scale). The hot floor and cold ceiling drive buoyant motion; side walls are adiabatic no-slip."

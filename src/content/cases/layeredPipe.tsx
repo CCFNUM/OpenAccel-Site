@@ -52,7 +52,7 @@ export function LayeredPipeContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure
-          src="/figures/layered_pipe.svg"
+          src={`${import.meta.env.BASE_URL}figures/layered_pipe.svg`}
           alt="Bi-material thick-walled cylinder, quarter-symmetric model"
           width="narrow"
           label="Figure 1"

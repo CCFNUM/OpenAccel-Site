@@ -44,7 +44,7 @@ export function StaticDropletContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/droplet.svg"
+          src={`${import.meta.env.BASE_URL}figures/droplet.svg`}
           alt="Static droplet geometry"
           caption={<>Static droplet of radius <M math="R = 0.2~\mathrm{m}" /> centred in a unit-square
             domain. Inward arrows mark the direction of the surface-tension force.</>}
@@ -120,7 +120,7 @@ export function StaticDropletContent() {
         />
 
         <TutorialFigure label="Figure 2"
-          src="/figures/pressure_droplet_distribution.svg"
+          src={`${import.meta.env.BASE_URL}figures/pressure_droplet_distribution.svg`}
           alt="Pressure centreline distribution"
           caption={<>Pressure distribution along the horizontal centreline <M math="y = 0.5~\mathrm{m}" />,
             compared against the analytical Young–Laplace solution

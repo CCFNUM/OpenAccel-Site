@@ -3,7 +3,7 @@ import { SetupTable } from '@/components/tutorial/SetupTable';
 import { Takeaway, AcceptanceCriterion, CaseInfoBlock } from '@/components/tutorial/TutorialCallouts';
 import { Equation, M } from '@/components/tutorial/Equation';
 
-const F = (name: string) => `/figures/${name}.svg`;
+const F = (name: string) => `${import.meta.env.BASE_URL}figures/${name}.svg`;
 
 // Letter-landscape plates (792×612 pt → cm).
 const LAND: [number, number] = [27.94, 21.59];

@@ -53,7 +53,7 @@ export function ForwardStepContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure
-          src="/figures/forward.svg"
+          src={`${import.meta.env.BASE_URL}figures/forward.svg`}
           alt="Supersonic forward-facing step geometry"
           width="full"
           label="Figure 1"

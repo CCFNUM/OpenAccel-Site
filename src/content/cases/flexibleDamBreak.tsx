@@ -34,7 +34,7 @@ export function FlexibleDamBreakContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/flelxible_dam_schematic.svg"
+          src={`${import.meta.env.BASE_URL}figures/flelxible_dam_schematic.svg`}
           alt="Flexible dam break schematic"
           caption={<>Flexible dam-break configuration: a water column of dimensions{' '}
             <M math="w \times b = 0.146 \times 0.292~\mathrm{m}" /> sits at the lower-left of a{' '}
@@ -97,7 +97,7 @@ export function FlexibleDamBreakContent() {
       <section id="results">
         <h2>4. Results</h2>
         <TutorialFigure label="Figure 2"
-          src="/figures/flexibleDam_tipDisplacement.png"
+          src={`${import.meta.env.BASE_URL}figures/flexibleDam_tipDisplacement.png`}
           alt="Flexible dam tip displacement"
           caption={<>Horizontal tip displacement <M math="\delta_x(t)" /> of the flexible obstacle
             compared with reference results from the literature.</>}

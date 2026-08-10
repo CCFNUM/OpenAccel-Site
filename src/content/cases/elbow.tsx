@@ -85,7 +85,7 @@ export function ElbowContent() {
       <section id="results">
         <h2>3. Results</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/velocity_elbow.svg"
+          src={`${import.meta.env.BASE_URL}figures/velocity_elbow.svg`}
           alt="Velocity magnitude in elbow"
           caption={<>Velocity magnitude. The stronger vertical inlet (<M math="v = 3~\mathrm{m/s}" />)
             dominates the merged stream after the junction.</>}

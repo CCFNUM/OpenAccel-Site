@@ -40,7 +40,7 @@ export function DamBreakContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/dam_schematic.svg"
+          src={`${import.meta.env.BASE_URL}figures/dam_schematic.svg`}
           alt="Rigid dam break schematic"
           caption="Rigid dam-break configuration. Point B on the upstream face of the obstacle at mid-height serves as a pressure probe."
         />
@@ -115,7 +115,7 @@ export function DamBreakContent() {
         />
 
         <TutorialFigure label="Figure 6"
-          src="/figures/pressure_rigid_dam2.svg"
+          src={`${import.meta.env.BASE_URL}figures/pressure_rigid_dam2.svg`}
           alt="Pressure history at probe B"
           caption="Pressure history at probe point B (centre of the upstream face of the obstacle) compared with Hänsch et al. (2012)."
         />

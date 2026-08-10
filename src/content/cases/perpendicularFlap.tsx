@@ -32,7 +32,7 @@ export function PerpendicularFlapContent() {
       <section id="geometry">
         <h2>2. Geometry and boundary conditions</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/flap_schematic.svg"
+          src={`${import.meta.env.BASE_URL}figures/flap_schematic.svg`}
           alt="Perpendicular flap schematic"
           caption={<>Perpendicular flap: a thin elastic flap of height <M math="1~\mathrm{m}" /> and
             thickness <M math="0.1~\mathrm{m}" /> on the lower wall of a{' '}
@@ -89,13 +89,13 @@ export function PerpendicularFlapContent() {
       <section id="results">
         <h2>4. Results</h2>
         <TutorialFigure label="Figure 2"
-          src="/figures/displacement-flap.svg"
+          src={`${import.meta.env.BASE_URL}figures/displacement-flap.svg`}
           alt="Flap tip displacement"
           caption={<>Time history of horizontal tip displacement <M math="\delta_x^{\mathrm{tip}}(t)" />{' '}
             of the perpendicular flap, compared against the preCICE reference toolchain combinations.</>}
         />
         <TutorialFigure label="Figure 3"
-          src="/figures/velocity.png"
+          src={`${import.meta.env.BASE_URL}figures/velocity.png`}
           alt="Velocity magnitude around flap"
           caption={<>Velocity magnitude around the perpendicular flap at <M math="t = 2~\mathrm{s}" />.
             The flow accelerates around the flap tip and forms a recirculation zone in the wake.</>}

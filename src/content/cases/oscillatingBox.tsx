@@ -105,7 +105,7 @@ export function OscillatingBoxContent() {
       <section id="results">
         <h2>3. Results</h2>
         <TutorialFigure label="Figure 1"
-          src="/figures/y-disp-box.svg"
+          src={`${import.meta.env.BASE_URL}figures/y-disp-box.svg`}
           alt="Box vertical displacement"
           caption={<>Probe-point vertical displacement for the oscillating box. The OpenAccel ALE
             solution (symbols) is compared against the prescribed sinusoidal motion{' '}
@@ -118,11 +118,11 @@ export function OscillatingBoxContent() {
         <figure className="my-8">
           <div className="grid grid-cols-2 gap-4 mb-2 max-w-md mx-auto">
             <div className="flex flex-col items-center">
-              <CroppedImage src="/figures/legend_velo_box.svg" alt="Velocity legend" trim={LEGEND_TRIM} trimBase={LAND} />
+              <CroppedImage src={`${import.meta.env.BASE_URL}figures/legend_velo_box.svg`} alt="Velocity legend" trim={LEGEND_TRIM} trimBase={LAND} />
               <span className="text-xs font-semibold mt-1" style={{ color: 'var(--text)' }}>Velocity</span>
             </div>
             <div className="flex flex-col items-center">
-              <CroppedImage src="/figures/legend_press_box.svg" alt="Pressure legend" trim={LEGEND_TRIM} trimBase={LAND} />
+              <CroppedImage src={`${import.meta.env.BASE_URL}figures/legend_press_box.svg`} alt="Pressure legend" trim={LEGEND_TRIM} trimBase={LAND} />
               <span className="text-xs font-semibold mt-1" style={{ color: 'var(--text)' }}>Pressure</span>
             </div>
           </div>
