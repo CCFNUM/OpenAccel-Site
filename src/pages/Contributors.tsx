@@ -37,7 +37,7 @@ const MAINTAINERS = [
     name: 'Lucian Hanimann',
     role: 'Project Maintainer',
     institution: 'Lucerne University of Applied Sciences and Arts (HSLU)',
-    github: 'https://github.com/lucianHanimann',
+    github: 'https://github.com/hlucian',
     orcid: null,
     scholar: null,
     site: null,
@@ -146,11 +146,7 @@ export function Contributors() {
                         <Globe size={14} /> Personal site
                       </a>
                     )}
-                    {!person.orcid && (
-                      <span className="text-[10px] font-mono text-[var(--text-dim)] italic self-center">
-                        [TODO: maintainers — ORCID / Scholar link]
-                      </span>
-                    )}
+                    
                   </div>
                 </div>
               </div>
@@ -164,39 +160,68 @@ export function Contributors() {
             <Github size={22} /> Code Contributors
           </h2>
 
-          {ghContributors ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {ghContributors.map(c => (
-                <a
-                  key={c.login}
-                  href={c.profileUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-4 bg-[var(--surface)] border border-[var(--hairline)] rounded-lg flex flex-col items-center text-center hover:bg-[var(--surface-2)] transition-colors group"
-                  style={{ minHeight: 44 }}
-                >
-                  <img
-                    src={c.avatarUrl}
-                    alt={c.login}
-                    className="w-14 h-14 rounded-full mb-3 border border-[var(--hairline)] group-hover:border-[var(--cold)] transition-colors"
-                  />
-                  <span className="text-sm font-medium truncate w-full">{c.login}</span>
-                  <span className="text-xs text-[var(--text-dim)] font-mono">{c.contributions} commits</span>
-                </a>
-              ))}
-            </div>
-          ) : (
-            <div className="p-8 text-center text-[var(--text-dim)] border border-[var(--hairline)] border-dashed rounded bg-[var(--surface)]">
-              Loading contributors from GitHub…
-            </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              { name: 'Mhamad Mahdi Alloush', github: 'https://github.com/mmalloush' },
+              { name: 'Fabian Wermelinger', github: 'https://github.com/fab4100' },
+              { name: 'David Roos Launchbury', github: 'https://github.com/gitg0n' },
+              { name: 'Adam Fares', github: 'https://github.com/AdamFares96' },
+            ].map(c => (
+              <a key={c.name} href={c.github} target="_blank" rel="noreferrer"
+                className="p-4 bg-[var(--surface)] border border-[var(--hairline)] rounded-lg flex items-center gap-3 hover:bg-[var(--surface-2)] transition-colors group">
+                <img src={`${c.github}.png?size=80`} alt={c.name}
+                  className="w-11 h-11 rounded-full border border-[var(--hairline)] group-hover:border-[var(--cold)] transition-colors shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-sm font-medium leading-snug">{c.name}</div>
+                  <div className="text-xs text-[var(--text-dim)] font-mono flex items-center gap-1 mt-0.5">
+                    <Github size={12} /> {c.github.split('/').pop()}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+          <h3 className="text-sm font-mono uppercase tracking-wider text-[var(--text-dim)] mt-8 mb-4">Minor Code Contributors</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              { name: 'Mohammad Ali Nasreddine', github: 'https://github.com/mohalinasre' },
+              { name: 'Moustafa Hattab', github: 'https://github.com/moustapha-h' },
+            ].map(c => (
+              <a key={c.name} href={c.github} target="_blank" rel="noreferrer"
+                className="p-4 bg-[var(--surface)] border border-[var(--hairline)] rounded-lg flex items-center gap-3 hover:bg-[var(--surface-2)] transition-colors group">
+                <img src={`${c.github}.png?size=80`} alt={c.name}
+                  className="w-11 h-11 rounded-full border border-[var(--hairline)] group-hover:border-[var(--cold)] transition-colors shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-sm font-medium leading-snug">{c.name}</div>
+                  <div className="text-xs text-[var(--text-dim)] font-mono flex items-center gap-1 mt-0.5">
+                    <Github size={12} /> {c.github.split('/').pop()}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
         </section>
 
         {/* Non-code contributors */}
         <section className="mb-20">
           <h2 className="text-2xl font-display font-semibold mb-6 pb-2 border-b border-[var(--hairline)]">Non-Code Contributors</h2>
-          <div className="p-6 bg-[var(--surface)] border border-[var(--hairline)] rounded-lg text-center font-mono text-[var(--text-dim)]">
-            [TODO: maintainers — add names of documentation, tutorial, mesh, and validation contributors here]
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              { name: 'Mohammad Ali Nasreddine', github: 'https://github.com/mohalinasre', areas: ['Code Validation','Validation Manual','User Guide','Theory Manual','Website'] },
+              { name: 'Adam Fares', github: 'https://github.com/AdamFares96', areas: ['Website'] },
+            ].map(c => (
+              <div key={c.name} className="p-5 bg-[var(--surface)] border border-[var(--hairline)] rounded-lg flex items-start gap-3">
+                <img src={`${c.github}.png?size=80`} alt={c.name}
+                  className="w-11 h-11 rounded-full border border-[var(--hairline)] shrink-0" />
+                <div className="min-w-0">
+                  <a href={c.github} target="_blank" rel="noreferrer" className="text-sm font-medium leading-snug hover:text-[var(--cold)] transition-colors">{c.name}</a>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {c.areas.map(a => (
+                      <span key={a} className="text-[10px] font-mono px-2 py-0.5 rounded-full" style={{ background: 'var(--callout-cold-bg)', color: 'var(--cold)' }}>{a}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -230,7 +255,7 @@ export function Contributors() {
             ))}
           </div>
           <p className="text-center text-xs text-[var(--text-dim)] mt-6">
-            Code contributors appear automatically via GitHub. Non-code contributors can be added via PR to the website repo.
+            Contributors can be added via PR to the website repository.
           </p>
         </section>
       </div>
