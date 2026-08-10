@@ -201,8 +201,8 @@ export function BumpSSTContent() {
           caption={<>Integrated lift and drag coefficients on the bump at <M math="\mathit{Re}_L = 3\times10^{6}" />, <M math="M_\infty = 0.2" />.</>}
           headers={['Quantity', 'OpenAccel', 'CFL3D', 'Diff (%)', 'FUN3D', 'Diff (%)']}
           rows={[
-            [<M math="C_D\ \text{(total)}" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.00361</span>, <M math="0.00360" />, <M math="0.27\,\%" />, <M math="0.00359" />, <M math="0.55\,\%" />],
-            [<M math="C_L\ \text{(total)}" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.02491</span>, <M math="0.02497" />, <M math="0.24\,\%" />, <M math="0.02508" />, <M math="0.67\,\%" />],
+            [<M math="C_D\ \text{(total)}" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="0.00361" /></span>, <M math="0.00360" />, <M math="0.27\,\%" />, <M math="0.00359" />, <M math="0.55\,\%" />],
+            [<M math="C_L\ \text{(total)}" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="0.02491" /></span>, <M math="0.02497" />, <M math="0.24\,\%" />, <M math="0.02508" />, <M math="0.67\,\%" />],
           ]}
         />
       </section>
@@ -225,7 +225,7 @@ export function BumpSSTContent() {
         TMR grid, shall match the FUN3D reference solution on the finest TMR grid to graphical accuracy.
         The integrated coefficients <M math="C_D" />, <M math="C_{D,p}" />, <M math="C_{D,v}" />, and{' '}
         <M math="C_L" />, evaluated at the same nominal grid resolution as the reference codes, shall
-        agree with the FUN3D reference values to within 1% and with the CFL3D values to within 10%.
+        agree with the FUN3D reference values to within <M math="1\%" /> and with the CFL3D values to within <M math="10\%" />.
       </AcceptanceCriterion>
     </>
   );

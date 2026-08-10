@@ -72,18 +72,18 @@ export function LayeredPipeContent() {
               { label: <>Outer radius <M math="r_3" /></>,     value: <M math="100~\mathrm{mm}" /> },
               { label: 'Mesh (inner layer)', value: <><M math="40 \times 240" /> structured 2-D cells</> },
               { label: 'Mesh (outer layer)', value: <><M math="60 \times 240" /> structured 2-D cells</> },
-              { label: 'Total',              value: '24 000 quadrilateral cells, 2 element blocks' },
+              { label: 'Total',              value: <><M math="24\,000" /> quadrilateral cells, <M math="2" /> element blocks</> },
             ]},
             { heading: 'Material — region 1, inner (linear elastic, plane stress)', rows: [
               { label: <>Density <M math="\rho_1" /></>,        value: <><M math="1000~\mathrm{kg\,m^{-3}}" /> (dummy; steady state)</> },
-              { label: <>Young's modulus <M math="E_1" /></>,   value: <><M math="2\times10^{10}~\mathrm{Pa}" /> (20 GPa)</> },
-              { label: <>Poisson's ratio <M math="\nu_1" /></>, value: '0.35' },
+              { label: <>Young's modulus <M math="E_1" /></>,   value: <><M math="2\times10^{10}~\mathrm{Pa}" /> (<M math="20~\mathrm{GPa}" />)</> },
+              { label: <>Poisson's ratio <M math="\nu_1" /></>, value: <M math="0.35" /> },
             ]},
             { heading: 'Material — region 2, outer (linear elastic, plane stress)', rows: [
               { label: <>Density <M math="\rho_2" /></>,        value: <><M math="1000~\mathrm{kg\,m^{-3}}" /> (dummy; steady state)</> },
-              { label: <>Young's modulus <M math="E_2" /></>,   value: <><M math="2\times10^{11}~\mathrm{Pa}" /> (200 GPa)</> },
-              { label: <>Poisson's ratio <M math="\nu_2" /></>, value: '0.30' },
-              { label: <>Stiffness ratio <M math="E_2/E_1" /></>, value: '10' },
+              { label: <>Young's modulus <M math="E_2" /></>,   value: <><M math="2\times10^{11}~\mathrm{Pa}" /> (<M math="200~\mathrm{GPa}" />)</> },
+              { label: <>Poisson's ratio <M math="\nu_2" /></>, value: <M math="0.30" /> },
+              { label: <>Stiffness ratio <M math="E_2/E_1" /></>, value: <M math="10" /> },
             ]},
             { heading: 'Boundary conditions', rows: [
               { label: 'Inner wall',  value: <>Uniform traction <M math="p_i = 1\times10^{5}~\mathrm{Pa}" /> (inward normal)</> },
@@ -96,7 +96,7 @@ export function LayeredPipeContent() {
             ]},
             { heading: 'Numerics', rows: [
               { label: 'Time mode',            value: 'Steady-state' },
-              { label: 'Maximum outer iters',  value: '250' },
+              { label: 'Maximum outer iters',  value: <M math="250" /> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'Displacement system', value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-4}" />)</> },
@@ -158,7 +158,7 @@ export function LayeredPipeContent() {
           To avoid averaging across the material interface, the data are sampled at element (cell)
           centres rather than at nodes, keeping every sample strictly inside a single material and
           away from the shared interface nodes. The results below are reported on a refined mesh of
-          24 000 cells, for which the profiles are mesh-converged.
+          <M math="24\,000" /> cells, for which the profiles are mesh-converged.
         </p>
 
         <TutorialSubfigureStack
@@ -172,11 +172,11 @@ export function LayeredPipeContent() {
 
         <DataTable
           label="Table 2"
-          caption={<>Error metrics for the in-plane stress profiles along the radial cut on the refined (24 000-cell) mesh, sampled at element centres (the interface line is excluded, where the hoop stress is discontinuous and a nodal value is not uniquely defined).</>}
+          caption={<>Error metrics for the in-plane stress profiles along the radial cut on the refined (<M math="24\,000" />-cell) mesh, sampled at element centres (the interface line is excluded, where the hoop stress is discontinuous and a nodal value is not uniquely defined).</>}
           headers={['Quantity', <><M math="E_{L^2}" /> [kPa]</>, <><M math="E_{L^\infty}" /> [kPa]</>]}
           rows={[
-            [<>Radial stress <M math="\sigma_r" /></>, '0.45', '2.42'],
-            [<>Circumferential stress <M math="\sigma_\theta" /></>, '0.47', '2.76'],
+            [<>Radial stress <M math="\sigma_r" /></>, <M math="0.45" />, <M math="2.42" />],
+            [<>Circumferential stress <M math="\sigma_\theta" /></>, <M math="0.47" />, <M math="2.76" />],
           ]}
         />
       </section>
@@ -190,7 +190,7 @@ export function LayeredPipeContent() {
           jump at <M math="r_2" /> set by the stiffness contrast. On the refined mesh the
           root-mean-square deviations are <M math="E_{L^2} = 0.45~\mathrm{kPa}" /> (
           <M math="\sigma_r" />) and <M math="0.47~\mathrm{kPa}" /> (<M math="\sigma_\theta" />), on
-          ranges of 100 and 196 kPa; the <M math="E_{L^\infty}" /> values of 2.42 and 2.76 kPa are a
+          ranges of <M math="100" /> and <M math="196~\mathrm{kPa}" />; the <M math="E_{L^\infty}" /> values of <M math="2.42" /> and <M math="2.76~\mathrm{kPa}" /> are a
           localised overshoot in the element adjacent to <M math="r_2" />, the expected signature of
           a node-based scheme resolving the hoop-stress discontinuity, not a coupling defect. A
           uniform <M math="2\times" /> refinement lowers <M math="E_{L^2}" /> by{' '}

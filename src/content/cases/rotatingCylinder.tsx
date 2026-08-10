@@ -154,7 +154,7 @@ export function RotatingCylinderContent() {
               { label: 'Transient scheme',    value: 'Second-order backward Euler (BDF2)' },
               { label: 'Advection',           value: 'High-resolution' },
               { label: 'Velocity / pressure URF', value: <M math="0.5\ /\ 0.2" /> },
-              { label: 'Outer iterations',    value: '2–20 per timestep' },
+              { label: 'Outer iterations',    value: <><M math="2" />–<M math="20" /> per timestep</> },
               { label: 'Linear solver (all systems)', value: <>Trilinos GMRES, RILU(<M math="k{=}2" />) preconditioner</> },
               { label: 'RMS target',          value: <M math="10^{-6}" /> },
               { label: 'Timestep',            value: <M math="\Delta t = 0.002" /> },

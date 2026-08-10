@@ -118,7 +118,7 @@ export function PitzDailyContent() {
               heading: 'Convergence',
               rows: [
                 { label: 'RMS residual target', value: <M math="10^{-8}" /> },
-                { label: 'Maximum outer iters', value: '2500' },
+                { label: 'Maximum outer iters', value: <M math="2500" /> },
               ],
             },
           ]}
@@ -129,7 +129,7 @@ export function PitzDailyContent() {
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">4. Results</h2>
         <p className="mb-6">
           The transient development of the recirculation pocket is summarised in Figure 3: at
-          iteration 300 the vortex is still forming behind the step corner, while by iteration 1000
+          iteration <M math="300" /> the vortex is still forming behind the step corner, while by iteration <M math="1000" />
           the steady-state recirculation has stretched to its final reattachment location. The
           streamwise velocity profiles at three downstream stations (Figure 2) show the
           negative-velocity envelope inside the recirculation pocket and the gradual recovery toward
@@ -154,8 +154,8 @@ export function PitzDailyContent() {
 
         <TutorialSubfigureStack label="Figure 3"
           items={[
-            { src: F('uvelocity1'), alt: 'u-velocity at iteration 300',  subcaption: 'Iteration 300 — the recirculation vortex is still developing.', trim: PD_TRIM, trimBase: PD_BASE },
-            { src: F('uvelocity2'), alt: 'u-velocity at iteration 1000', subcaption: 'Iteration 1000 — steady state. The vortex has reached its final reattachment location.', trim: PD_TRIM, trimBase: PD_BASE },
+            { src: F('uvelocity1'), alt: 'u-velocity at iteration 300',  subcaption: <>Iteration <M math="300" /> — the recirculation vortex is still developing.</>, trim: PD_TRIM, trimBase: PD_BASE },
+            { src: F('uvelocity2'), alt: 'u-velocity at iteration 1000', subcaption: <>Iteration <M math="1000" /> — steady state. The vortex has reached its final reattachment location.</>, trim: PD_TRIM, trimBase: PD_BASE },
           ]}
           caption={<>Streamwise velocity contours at <M math="\mathit{Re}_h = 25\,400" /> during the
             iterative development toward steady state.</>}

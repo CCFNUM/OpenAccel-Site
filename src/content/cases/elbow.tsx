@@ -66,17 +66,17 @@ export function ElbowContent() {
               { label: 'Advection scheme',   value: 'First-order upwind' },
               { label: 'Under-relaxation',   value: <><M math="\lambda^v = 0.8" />, <M math="\lambda^p = 0.2" /></> },
               { label: 'Physical timescale', value: <M math="\Delta t_{\mathrm{ps}} = 1~\mathrm{s}" /> },
-              { label: 'Outer iterations',   value: '1–250 per run' },
+              { label: 'Outer iterations',   value: <><M math="1" />–<M math="250" /> per run</> },
             ]},
             { heading: 'Linear solver', rows: [
-              { label: 'Default',            value: <>PETSc / FGMRES + block-Jacobi; rel. tol. <M math="10^{-1}" />, abs. tol. <M math="10^{-12}" />, 3–20 iters</> },
+              { label: 'Default',            value: <>PETSc / FGMRES + block-Jacobi; rel. tol. <M math="10^{-1}" />, abs. tol. <M math="10^{-12}" />, <M math="3" />–<M math="20" /> iters</> },
             ]},
             { heading: 'Convergence', rows: [
               { label: 'RMS residual target', value: <M math="10^{-6}" /> },
             ]},
             { heading: 'Output', rows: [
               { label: 'File / fields',      value: <><code>results.e</code> / <code>velocity</code>, <code>pressure</code></> },
-              { label: 'Output frequency',   value: 'every 10 outer iters' },
+              { label: 'Output frequency',   value: <>every <M math="10" /> outer iters</> },
             ]},
           ]}
         />
@@ -109,7 +109,7 @@ export function ElbowContent() {
       <AcceptanceCriterion>
         At convergence, the integrated mass flux at the outlet shall equal the sum of the integrated
         mass fluxes at the two inlets to within machine precision, and the RMS residual shall fall
-        below <M math="10^{-6}" /> within the 250-iteration outer cap.
+        below <M math="10^{-6}" /> within the <M math="250" />-iteration outer cap.
       </AcceptanceCriterion>
     </>
   );

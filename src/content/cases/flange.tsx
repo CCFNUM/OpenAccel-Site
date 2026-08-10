@@ -68,17 +68,17 @@ export function FlangeContent() {
               { label: 'Time integration',   value: 'First-order backward Euler' },
               { label: 'Time step / total time', value: <><M math="\Delta t = 5 \times 10^{-3}~\mathrm{s}" />, <M math="t_{\mathrm{end}} = 3~\mathrm{s}" /></> },
               { label: 'Temperature interpolation', value: <code>linear_linear</code> },
-              { label: 'Outer iterations',   value: <>1–5 per step (<code>min</code>/<code>max</code>)</> },
+              { label: 'Outer iterations',   value: <><M math="1" />–<M math="5" /> per step (<code>min</code>/<code>max</code>)</> },
             ]},
             { heading: 'Linear solver', rows: [
-              { label: 'Energy equation',    value: <>PETSc / FGMRES + block-Jacobi; rel. tol. <M math="10^{-1}" />, abs. tol. <M math="10^{-12}" />, max 20 iters</> },
+              { label: 'Energy equation',    value: <>PETSc / FGMRES + block-Jacobi; rel. tol. <M math="10^{-1}" />, abs. tol. <M math="10^{-12}" />, max <M math="20" /> iters</> },
             ]},
             { heading: 'Convergence', rows: [
               { label: 'RMS residual target', value: <M math="10^{-6}" /> },
             ]},
             { heading: 'Output', rows: [
               { label: 'File / fields',      value: <><code>results.e</code> / <code>temperature</code></> },
-              { label: 'Output frequency',   value: 'every 20 timesteps' },
+              { label: 'Output frequency',   value: <>every <M math="20" /> timesteps</> },
             ]},
           ]}
         />

@@ -78,14 +78,14 @@ export function StaticDropletContent() {
               { label: <>Initial <M math="\Delta t" /></>,         value: <><M math="10^{-4}~\mathrm{s}" />, adaptive with <M math="\mathrm{Co}_{\max} = 0.5" /></> },
               { label: <><M math="\Delta t" /> bounds</>,      value: <M math="[10^{-7},\,0.1]~\mathrm{s}" /> },
               { label: 'Advection',          value: 'High-resolution' },
-              { label: 'VoF smoothing',      value: <>6 iterations, <M math="\mathrm{Fo} = 0.25" />; body-force redistribution on</> },
+              { label: 'VoF smoothing',      value: <><M math="6" /> iterations, <M math="\mathrm{Fo} = 0.25" />; body-force redistribution on</> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'Momentum',            value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-2}" />)</> },
               { label: 'Pressure correction', value: <>Trilinos / GMRES + ILU (rel. tol. <M math="10^{-6}" />)</> },
             ]},
             { heading: 'Convergence', rows: [
-              { label: 'RMS target / outer iters', value: <><M math="10^{-7}" /> / up to 15 per step</> },
+              { label: 'RMS target / outer iters', value: <><M math="10^{-7}" /> / up to <M math="15" /> per step</> },
             ]},
           ]}
         />
@@ -112,10 +112,10 @@ export function StaticDropletContent() {
             <M math="\Delta p_{\mathrm{exact}} = 365~\mathrm{Pa}" />, <M math="\|\mathbf{U}\|_{\mathrm{exact}} = 0" />.</>}
           headers={['Metric', 'Analytical (Pa)', 'Numerical (Pa)', 'Error (%)']}
           rows={[
-            [<M math="\Delta P_{\mathrm{total}}" />, '365', '333.1', '8.7'],
-            [<M math="\Delta P_{\mathrm{partial}}" />, '365', '350.8', '3.8'],
-            [<M math="\Delta P_{\max}" />, '365', '352.0', '3.5'],
-            [<M math="\|\mathbf{U}\|_{\max}~[\mathrm{m/s}]" />, '0', '0.07', '—'],
+            [<M math="\Delta P_{\mathrm{total}}" />, <M math="365" />, <M math="333.1" />, <M math="8.7" />],
+            [<M math="\Delta P_{\mathrm{partial}}" />, <M math="365" />, <M math="350.8" />, <M math="3.8" />],
+            [<M math="\Delta P_{\max}" />, <M math="365" />, <M math="352.0" />, <M math="3.5" />],
+            [<M math="\|\mathbf{U}\|_{\max}~[\mathrm{m/s}]" />, <M math="0" />, <M math="0.07" />, '—'],
           ]}
         />
 
@@ -155,7 +155,7 @@ export function StaticDropletContent() {
 
       <AcceptanceCriterion>
         <M math="\Delta P_{\mathrm{partial}}" /> and <M math="\Delta P_{\max}" /> shall agree with the
-        Young–Laplace value of <M math="365~\mathrm{Pa}" /> to within 10%, and the maximum spurious
+        Young–Laplace value of <M math="365~\mathrm{Pa}" /> to within <M math="10\%" />, and the maximum spurious
         velocity shall remain <M math="\|\mathbf{U}\|_{\max} < 0.1~\mathrm{m/s}" /> on the{' '}
         <M math="100\times100" /> grid.
       </AcceptanceCriterion>

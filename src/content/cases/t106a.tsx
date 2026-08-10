@@ -105,7 +105,7 @@ export function T106AContent() {
               heading: 'Convergence',
               rows: [
                 { label: 'RMS residual target', value: <M math="10^{-8}" /> },
-                { label: 'Maximum outer iters', value: '2000' },
+                { label: 'Maximum outer iters', value: <M math="2000" /> },
               ],
             },
           ]}

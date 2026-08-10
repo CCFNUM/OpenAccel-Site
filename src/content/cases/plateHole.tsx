@@ -75,7 +75,7 @@ export function PlateHoleContent() {
             ]},
             { heading: 'Numerics', rows: [
               { label: 'Time mode',             value: 'Steady-state' },
-              { label: 'Maximum outer iters',   value: '500' },
+              { label: 'Maximum outer iters',   value: <M math="500" /> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'Displacement system',   value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-1}" />)</> },

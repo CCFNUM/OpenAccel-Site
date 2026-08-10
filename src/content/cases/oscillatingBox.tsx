@@ -84,11 +84,11 @@ export function OscillatingBoxContent() {
               { label: 'Time step / total time', value: <><M math="\Delta t = 0.1~\mathrm{s}" />, <M math="t_{\mathrm{end}} = 1~\mathrm{s}" /></> },
               { label: 'Advection scheme',     value: 'First-order upwind' },
               { label: 'Under-relaxation',     value: <><M math="\lambda^v = 0.8" />, <M math="\lambda^p = 0.2" /></> },
-              { label: 'Outer iterations',     value: '1–50 per step' },
+              { label: 'Outer iterations',     value: <><M math="1" />–<M math="50" /> per step</> },
             ]},
             { heading: 'Linear solver', rows: [
               { label: 'Default',              value: <>Trilinos / GMRES + RILUK; rel. tol. <M math="10^{-6}" />, abs. tol. <M math="10^{-12}" /></> },
-              { label: 'RILUK level-of-fill',  value: '2' },
+              { label: 'RILUK level-of-fill',  value: <M math="2" /> },
               { label: 'RILUK drop tolerance', value: <M math="10^{-3}" /> },
             ]},
             { heading: 'Convergence', rows: [
@@ -164,7 +164,7 @@ export function OscillatingBoxContent() {
       <AcceptanceCriterion>
         The mesh shall complete one full oscillation cycle without element inversion (positive
         Jacobians throughout); the prescribed boundary displacement shall be tracked exactly by the
-        mesh; and the RMS residual shall fall below <M math="10^{-6}" /> within the 50-iteration outer
+        mesh; and the RMS residual shall fall below <M math="10^{-6}" /> within the <M math="50" />-iteration outer
         cap on each timestep.
       </AcceptanceCriterion>
     </>

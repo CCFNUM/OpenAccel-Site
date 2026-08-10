@@ -94,7 +94,7 @@ export function CavityContent() {
               heading: 'Convergence',
               rows: [
                 { label: 'RMS residual target', value: <M math="10^{-7}" /> },
-                { label: 'Maximum outer iters', value: '1000' },
+                { label: 'Maximum outer iters', value: <M math="1000" /> },
               ],
             },
           ]}

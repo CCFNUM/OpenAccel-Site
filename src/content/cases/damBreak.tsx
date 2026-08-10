@@ -74,15 +74,15 @@ export function DamBreakContent() {
               { label: 'Time step',          value: <>Constant <M math="\Delta t = 5\times10^{-4}~\mathrm{s}" /></> },
               { label: 'End time',           value: <M math="0.6~\mathrm{s}" /> },
               { label: 'Advection',          value: 'High-resolution Barth–Jespersen' },
-              { label: 'VoF FCT',            value: <>Compression level 2; 2 <M math="\alpha" />-correction sweeps</> },
-              { label: 'VoF smoothing',      value: <>5 iterations, <M math="\mathrm{Fo} = 0.25" /></> },
+              { label: 'VoF FCT',            value: <>Compression level <M math="2" />; <M math="2" /> <M math="\alpha" />-correction sweeps</> },
+              { label: 'VoF smoothing',      value: <><M math="5" /> iterations, <M math="\mathrm{Fo} = 0.25" /></> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'Momentum',            value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-2}" />)</> },
               { label: 'Pressure correction', value: <>Trilinos / GMRES + ILU (rel. tol. <M math="10^{-2}" />)</> },
             ]},
             { heading: 'Convergence', rows: [
-              { label: 'RMS target / outer iters', value: <><M math="10^{-8}" /> / up to 20 per step</> },
+              { label: 'RMS target / outer iters', value: <><M math="10^{-8}" /> / up to <M math="20" /> per step</> },
             ]},
           ]}
         />

@@ -84,12 +84,12 @@ export function ForwardStepContent() {
           headers={['Stage of development', <M math="t^{*}" />, 'Physical time [s]']}
           ruleBefore={[5]}
           rows={[
-            ['Bow shock forming, strongly curved', '0.5', <M math="1.440\times10^{-3}" />],
-            ['Shock reaching upper wall, reflection begins', '1.0', <M math="2.880\times10^{-3}" />],
-            ['Mach reflection established at upper wall', '2.0', <M math="5.759\times10^{-3}" />],
-            ['Triple point migrated, slip line rolling up', '4.0', <M math="1.152\times10^{-2}" />],
-            ['Quasi-steady wave system (snapshot shown)', '14.0', <M math="4.031\times10^{-2}" />],
-            ['Total simulated time', '15.63', <M math="4.500\times10^{-2}" />],
+            ['Bow shock forming, strongly curved', <M math="0.5" />, <M math="1.440\times10^{-3}" />],
+            ['Shock reaching upper wall, reflection begins', <M math="1.0" />, <M math="2.880\times10^{-3}" />],
+            ['Mach reflection established at upper wall', <M math="2.0" />, <M math="5.759\times10^{-3}" />],
+            ['Triple point migrated, slip line rolling up', <M math="4.0" />, <M math="1.152\times10^{-2}" />],
+            ['Quasi-steady wave system (snapshot shown)', <M math="14.0" />, <M math="4.031\times10^{-2}" />],
+            ['Total simulated time', <M math="15.63" />, <M math="4.500\times10^{-2}" />],
           ]}
         />
       </section>
@@ -103,19 +103,19 @@ export function ForwardStepContent() {
             { heading: 'Geometry and mesh', rows: [
               { label: 'Channel size',       value: <><M math="L = 3~\mathrm{m}" />, <M math="H = 1~\mathrm{m}" /></> },
               { label: 'Step location',      value: <><M math="x_s = 0.6~\mathrm{m}" />, height <M math="h = 0.2~\mathrm{m}" /></> },
-              { label: 'Mesh',               value: '21 351 nodes / 21 000 hexahedral elements' },
+              { label: 'Mesh',               value: <><M math="21\,351" /> nodes / <M math="21\,000" /> hexahedral elements</> },
               { label: 'Decomposition',      value: <>Automatic, recursive coordinate bisection (<code>rcb</code>)</> },
             ]},
             { heading: 'Fluid properties (ideal gas, air)', rows: [
-              { label: <>Molar mass <M math="M" /></>,      value: '28.96 g/mol' },
+              { label: <>Molar mass <M math="M" /></>,      value: <M math="28.96~\mathrm{g/mol}" /> },
               { label: <>Specific heat <M math="c_p" /></>, value: <M math="1004.4~\mathrm{J\,kg^{-1}\,K^{-1}}" /> },
               { label: 'Thermal conductivity', value: <M math="\lambda = 2.61\times10^{-2}~\mathrm{W\,m^{-1}\,K^{-1}}" /> },
               { label: 'Dynamic viscosity',  value: <><M math="\mu = 10^{-16}~\mathrm{Pa\,s}" /> (Euler approximation)</> },
             ]},
             { heading: <>Inflow (<M math="\mathit{Ma}_\infty = 3" />)</>, rows: [
-              { label: <M math="u_\infty" />,  value: '1041.84 m/s' },
-              { label: <M math="p_\infty" />,  value: <>101 325 Pa (gauge <M math="0" />)</> },
-              { label: <M math="T_\infty" />,  value: '300 K' },
+              { label: <M math="u_\infty" />,  value: <M math="1041.84~\mathrm{m/s}" /> },
+              { label: <M math="p_\infty" />,  value: <><M math="101\,325~\mathrm{Pa}" /> (gauge <M math="0" />)</> },
+              { label: <M math="T_\infty" />,  value: <M math="300~\mathrm{K}" /> },
             ]},
             { heading: 'Boundary conditions', rows: [
               { label: 'Inlet',              value: 'Supersonic, velocity components and static pressure specified' },
@@ -127,7 +127,7 @@ export function ForwardStepContent() {
             { heading: 'Time integration', rows: [
               { label: 'Analysis',           value: 'Transient' },
               { label: 'Total time',         value: <><M math="4.5\times10^{-2}~\mathrm{s}" /> (<M math="t^{*} = 15.63" />)</> },
-              { label: 'Time step',          value: <><M math="\Delta t = 2.5\times10^{-6}~\mathrm{s}" /> (constant), 18 000 steps</> },
+              { label: 'Time step',          value: <><M math="\Delta t = 2.5\times10^{-6}~\mathrm{s}" /> (constant), <M math="18\,000" /> steps</> },
               { label: 'Transient scheme',   value: 'First-order backward Euler' },
               { label: 'Output interval',    value: <M math="2.5\times10^{-4}~\mathrm{s}" /> },
             ]},
@@ -137,12 +137,12 @@ export function ForwardStepContent() {
               { label: 'Advection',          value: 'High resolution (Barth–Jespersen limiter)' },
               { label: 'Velocity interpolation', value: <><code>linear_linear</code> (shifted integration point)</> },
               { label: 'Under-relaxation',   value: <><M math="\lambda^{v} = 0.6" />, <M math="\lambda^{h} = 0.6" />, <M math="\lambda^{p} = 0.4" /></> },
-              { label: 'Inner iterations',   value: '1–15 per time step' },
+              { label: 'Inner iterations',   value: <><M math="1" />–<M math="15" /> per time step</> },
             ]},
             { heading: 'Linear solvers', rows: [
-              { label: 'Momentum (default)', value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-4}" />, abs. tol. <M math="10^{-12}" />, 3–30 its.)</> },
-              { label: 'Pressure correction', value: <>HYPRE / GMRES + BoomerAMG (rel. tol. <M math="10^{-6}" />, abs. tol. <M math="10^{-12}" />, 3–30 its.)</> },
-              { label: 'BoomerAMG settings', value: <>HMIS coarsening, extended<M math="+i" /> interpolation, <M math="\ell_1" /> Gauss–Seidel relaxation, 2 sweeps, strong threshold 0.25, max. 20 levels</> },
+              { label: 'Momentum (default)', value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-4}" />, abs. tol. <M math="10^{-12}" />, <M math="3" />–<M math="30" /> its.)</> },
+              { label: 'Pressure correction', value: <>HYPRE / GMRES + BoomerAMG (rel. tol. <M math="10^{-6}" />, abs. tol. <M math="10^{-12}" />, <M math="3" />–<M math="30" /> its.)</> },
+              { label: 'BoomerAMG settings', value: <>HMIS coarsening, extended<M math="+i" /> interpolation, <M math="\ell_1" /> Gauss–Seidel relaxation, <M math="2" /> sweeps, strong threshold <M math="0.25" />, max. <M math="20" /> levels</> },
             ]},
             { heading: 'Convergence', rows: [
               { label: 'RMS target',         value: <><M math="10^{-6}" /> per time step</> },
@@ -246,7 +246,7 @@ export function ForwardStepContent() {
         </p>
         <p>
           The quantitative acceptance test on the post-shock pressure, density and temperature
-          ratios &mdash; agreement to within 2% of the analytical normal-shock relations at{' '}
+          ratios &mdash; agreement to within <M math="2\%" /> of the analytical normal-shock relations at{' '}
           <M math="\mathit{Ma}_\infty = 3" /> &mdash; applies to the first-order upwind
           configuration and is reinstated once the sampling procedure for the high-resolution
           configuration has been revised.

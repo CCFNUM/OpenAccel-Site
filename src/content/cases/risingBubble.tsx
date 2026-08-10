@@ -125,7 +125,7 @@ export function RisingBubbleContent() {
               { label: 'VoF advection',       value: 'Flux-corrected transport (FCT)' },
               { label: 'Interface compression level', value: <M math="2" /> },
               { label: <><M math="\alpha" />-correction passes</>, value: <M math="2" /> },
-              { label: <><M math="\alpha" /> smoothing (curvature)</>, value: <>5 iterations, Fourier number <M math="0.25" /></> },
+              { label: <><M math="\alpha" /> smoothing (curvature)</>, value: <><M math="5" /> iterations, Fourier number <M math="0.25" /></> },
               { label: 'Curvature smoothing passes', value: <M math="6" /> },
               { label: 'Body-force redistribution', value: 'Enabled (consistent CSF pressure–surface-tension balance)' },
             ]},
@@ -133,7 +133,7 @@ export function RisingBubbleContent() {
               { label: 'Algorithm',           value: 'Transient segregated pressure–velocity (two-phase VoF)' },
               { label: 'Transient scheme',    value: 'First-order backward Euler (BDF1)' },
               { label: 'Advection',           value: 'High-resolution' },
-              { label: 'Outer iterations',    value: '1–15 per timestep' },
+              { label: 'Outer iterations',    value: <><M math="1" />–<M math="15" /> per timestep</> },
               { label: 'RMS target',          value: <M math="10^{-7}" /> },
             ]},
             { heading: 'Linear solvers', rows: [
@@ -146,7 +146,7 @@ export function RisingBubbleContent() {
               { label: 'Total time',          value: <M math="t = 3.0" /> },
             ]},
             { heading: 'Post-processing', rows: [
-              { label: 'Output frequency',    value: <>Every 50 timesteps (<M math="\Delta t_{\mathrm{out}} = 0.05" />)</> },
+              { label: 'Output frequency',    value: <>Every <M math="50" /> timesteps (<M math="\Delta t_{\mathrm{out}} = 0.05" />)</> },
               { label: 'Benchmark quantities', value: <>Centre of mass <M math="y_c(t)" />, rise velocity <M math="U_{c,y}(t)" />, circularity <M math="\not c(t)" /></> },
             ]},
           ]}
@@ -181,9 +181,9 @@ export function RisingBubbleContent() {
             <M math="t = 3" />; the rise velocity is the peak value over <M math="t \in [0, 3]" />.</>}
           headers={['Quantity', 'OpenAccel', 'Reference (TP2D)']}
           rows={[
-            [<>Centre-of-mass height <M math="y_c(t{=}3)" /></>, <span className="font-semibold" style={{ color: 'var(--signal)' }}>1.083</span>, <M math="1.081" />],
-            [<>Peak rise velocity <M math="\max_t |U_{c,y}|" /></>, <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.2413</span>, <M math="0.2417" />],
-            [<>Minimum circularity <M math="\min_t \not c" /></>, <span className="font-semibold" style={{ color: 'var(--signal)' }}>0.8971</span>, <M math="0.9013" />],
+            [<>Centre-of-mass height <M math="y_c(t{=}3)" /></>, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="1.083" /></span>, <M math="1.081" />],
+            [<>Peak rise velocity <M math="\max_t |U_{c,y}|" /></>, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="0.2413" /></span>, <M math="0.2417" />],
+            [<>Minimum circularity <M math="\min_t \not c" /></>, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="0.8971" /></span>, <M math="0.9013" />],
           ]}
         />
       </section>
@@ -239,10 +239,10 @@ export function RisingBubbleContent() {
       <Takeaway>
         OpenAccel reproduces all three Hysing benchmark quantities in close agreement with the TP2D
         reference. The final centre-of-mass height <M math="y_c(t{=}3) \approx 1.083" /> lies within
-        0.14% of the reference value of 1.081, the vertical rise velocity peaks at{' '}
+        <M math="0.14\%" /> of the reference value of <M math="1.081" />, the vertical rise velocity peaks at{' '}
         <M math="\max_t |U_{c,y}| \approx 0.241" /> near <M math="t \approx 1.9" /> —
         indistinguishable from the TP2D curve to graphical accuracy — and the minimum circularity{' '}
-        <M math="\min_t \not c \approx 0.897" /> deviates from the reference value of 0.9013 by 0.45%.
+        <M math="\min_t \not c \approx 0.897" /> deviates from the reference value of <M math="0.9013" /> by <M math="0.45\%" />.
         The smooth ellipsoidal terminal shape and the clean rise-velocity trace confirm that the
         combination of volume-fraction smoothing and consistent CSF body-force redistribution
         suppresses the parasitic interface currents that otherwise contaminate two-phase computations
@@ -253,7 +253,7 @@ export function RisingBubbleContent() {
         The three Hysing Test Case 1 benchmark quantities — centre-of-mass height{' '}
         <M math="y_c(t = 3)" />, peak rise velocity <M math="\max_t |U_{c,y}|" />, and minimum
         circularity <M math="\min_t \not c" /> — should agree with the TP2D reference values
-        (<M math="1.081" />, <M math="0.2417" />, <M math="0.9013" />) to within 1%, and the bubble
+        (<M math="1.081" />, <M math="0.2417" />, <M math="0.9013" />) to within <M math="1\%" />, and the bubble
         shape at <M math="t = 3" /> matches the TP2D reference contour to graphical accuracy.
       </AcceptanceCriterion>
     </>

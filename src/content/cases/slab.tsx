@@ -82,7 +82,7 @@ export function SlabContent() {
               { label: 'All systems',        value: <>Trilinos / GMRES + ILU (rel. tol. <M math="10^{-2}" />)</> },
             ]},
             { heading: 'Convergence', rows: [
-              { label: 'RMS target / outer iters', value: <><M math="10^{-10}" /> / up to 1000</> },
+              { label: 'RMS target / outer iters', value: <><M math="10^{-10}" /> / up to <M math="1000" /></> },
             ]},
           ]}
         />

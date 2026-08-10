@@ -1,6 +1,7 @@
 import { SEO } from '@/components/SEO';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { CodeBlock } from '@/components/CodeBlock';
+import { DataFlow } from '@/components/DataFlow';
 import { ArrowRight, GitPullRequest, Settings, Terminal, FileText, CheckCircle2 } from 'lucide-react';
 import { Link } from 'wouter';
 
@@ -110,26 +111,7 @@ export function Develop() {
           </div>
 
           <h3 className="text-lg font-medium mb-4 text-[var(--text)]">Internal Solver Data Flow</h3>
-          <div className="p-4 bg-[var(--surface-2)] border border-[var(--hairline)] rounded-lg overflow-x-auto">
-            <div className="flex items-center min-w-max text-sm font-mono gap-2">
-              {[
-                'Mesh (Trilinos-STK)',
-                'Fields',
-                'Assembly',
-                'Linear System',
-              ].map(label => (
-                <span key={label} className="flex items-center gap-2">
-                  <span className="px-3 py-1.5 bg-[var(--surface)] border border-[var(--hairline)] rounded whitespace-nowrap">{label}</span>
-                  <ArrowRight className="text-[var(--hot)] shrink-0" size={14} />
-                </span>
-              ))}
-              <span className="px-3 py-1.5 rounded whitespace-nowrap border text-[var(--hot)] border-[var(--hot)] bg-[var(--hot)]/10">
-                Solver Backend (PETSc / HYPRE)
-              </span>
-              <ArrowRight className="text-[var(--hot)] shrink-0" size={14} />
-              <span className="px-3 py-1.5 bg-[var(--surface)] border border-[var(--hairline)] rounded whitespace-nowrap">Post-Processing</span>
-            </div>
-          </div>
+          <DataFlow />
         </section>
 
         {/* 3. Built on */}
@@ -158,7 +140,7 @@ export function Develop() {
                   </div>
                 </div>
                 <p className="text-sm text-[var(--text-dim)] leading-relaxed">{p.desc}</p>
-                <p className="text-xs font-mono mt-4 italic text-[var(--text-dim)]">[TODO: maintainers — add status update or link]</p>
+                
               </div>
             ))}
           </div>
@@ -183,8 +165,8 @@ export function Develop() {
             <h3 className="text-base font-medium mb-4 text-[var(--text)]">Developer checklist before opening a PR</h3>
             <div className="space-y-4">
               <div>
-                <p className="text-sm text-[var(--text-dim)] mb-2">Run the regression suite to confirm no regressions:</p>
-                <CodeBlock lang="bash" code={`$ cd examples && ./run_all.sh`} />
+                <p className="text-sm text-[var(--text-dim)] mb-2">Run the regression suite to confirm all validation cases still converge and pass:</p>
+                <CodeBlock lang="bash" code={`$ python3 tools/python/regression_tests/quick_test.py`} />
               </div>
               <div>
                 <p className="text-sm text-[var(--text-dim)] mb-2">Format all changed C++ source files:</p>

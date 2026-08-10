@@ -119,9 +119,9 @@ export function TaylorCouetteContent() {
             <M math="z = L/2" />.</>}
           headers={['Metric', <M math="v_{\theta,\mathrm{rel}}(r)~[\mathrm{m/s}]" />, <M math="v_z(r)~[\mathrm{m/s}]" />]}
           rows={[
-            [<M math="E_{L^2}" />, '0.0032', '0.0401'],
-            [<M math="E_{L^\infty}" />, '0.0203', '0.1168'],
-            [<M math="\bar{E}_{\mathrm{rel}}~[\%]" />, '0.06', '0.45'],
+            [<M math="E_{L^2}" />, <M math="0.0032" />, <M math="0.0401" />],
+            [<M math="E_{L^\infty}" />, <M math="0.0203" />, <M math="0.1168" />],
+            [<M math="\bar{E}_{\mathrm{rel}}~[\%]" />, <M math="0.06" />, <M math="0.45" />],
           ]}
         />
 
@@ -141,7 +141,7 @@ export function TaylorCouetteContent() {
       </section>
 
       <Takeaway>
-        Mean relative errors below 0.5% on both velocity components confirm two independent features
+        Mean relative errors below <M math="0.5\%" /> on both velocity components confirm two independent features
         of the framework simultaneously: the implicit Coriolis source term recovers the exact balance
         with the pressure gradient and viscous shear, and the rotational periodic interface enforces{' '}
         <M math="\theta" />-symmetry without introducing numerical asymmetries. This is the foundation
@@ -149,7 +149,7 @@ export function TaylorCouetteContent() {
       </Takeaway>
 
       <AcceptanceCriterion>
-        The mean relative error against the analytical solution shall remain below 1% for both{' '}
+        The mean relative error against the analytical solution shall remain below <M math="1\%" /> for both{' '}
         <M math="v_{\theta,\mathrm{rel}}(r)" /> and <M math="v_z(r)" /> at the axial midplane.
       </AcceptanceCriterion>
     </>

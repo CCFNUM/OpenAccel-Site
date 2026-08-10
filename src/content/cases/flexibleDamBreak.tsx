@@ -74,21 +74,21 @@ export function FlexibleDamBreakContent() {
               { label: <><M math="\Delta t" /> bounds</>,       value: <M math="[10^{-6},\,1]~\mathrm{s}" /> },
               { label: 'End time',            value: <M math="0.5~\mathrm{s}" /> },
               { label: 'Advection',           value: 'High-resolution Barth–Jespersen' },
-              { label: 'VoF FCT',             value: <>Compression level 2; 2 <M math="\alpha" />-correction sweeps</> },
-              { label: 'VoF smoothing',       value: <>3 iterations, <M math="\mathrm{Fo} = 0.25" /></> },
-              { label: 'Mesh stiffness',      value: 'Inverse-volume (exponent 2), reference = initial mesh' },
-              { label: 'Mesh smoothing',      value: 'up to 25 iterations per step' },
+              { label: 'VoF FCT',             value: <>Compression level <M math="2" />; <M math="2" /> <M math="\alpha" />-correction sweeps</> },
+              { label: 'VoF smoothing',       value: <><M math="3" /> iterations, <M math="\mathrm{Fo} = 0.25" /></> },
+              { label: 'Mesh stiffness',      value: <>Inverse-volume (exponent <M math="2" />), reference = initial mesh</> },
+              { label: 'Mesh smoothing',      value: <>up to <M math="25" /> iterations per step</> },
             ]},
             { heading: 'FSI coupling', rows: [
               { label: 'Interface type',      value: <>General-connection, search tol. <M math="5\times10^{-4}" /></> },
               { label: 'Acceleration',        value: <>Aitken <M math="\Delta^2" />, <M math="\omega_0 = 0.1" />, <M math="\omega \in [0.01,\,0.5]" /></> },
-              { label: 'Pressure sub-iterations', value: '4 per outer loop' },
+              { label: 'Pressure sub-iterations', value: <><M math="4" /> per outer loop</> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'All systems',         value: <>Trilinos / GMRES + ILU (rel. tol. <M math="10^{-2}" />)</> },
             ]},
             { heading: 'Convergence', rows: [
-              { label: 'RMS target / outer iters', value: <><M math="10^{-8}" /> / 5 per step</> },
+              { label: 'RMS target / outer iters', value: <><M math="10^{-8}" /> / <M math="5" /> per step</> },
             ]},
           ]}
         />

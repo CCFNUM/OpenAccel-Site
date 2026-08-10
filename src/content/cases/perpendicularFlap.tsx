@@ -69,18 +69,18 @@ export function PerpendicularFlapContent() {
               { label: <><M math="\Delta t" />, end time</>,       value: <><M math="0.01~\mathrm{s}" />, <M math="5~\mathrm{s}" /></> },
               { label: 'Advection',          value: 'First-order upwind' },
               { label: 'Under-relaxation',   value: <><M math="\lambda^v = 0.7" />, <M math="\lambda^p = 0.3" /></> },
-              { label: 'Mesh stiffness',     value: 'Inverse-volume (exponent 2), 3 smoothing iters/step' },
+              { label: 'Mesh stiffness',     value: <>Inverse-volume (exponent <M math="2" />), <M math="3" /> smoothing iters/step</> },
             ]},
             { heading: 'FSI coupling', rows: [
               { label: 'Interface type',     value: <>General-connection, search tol. <M math="5\times10^{-3}" /></> },
               { label: 'Acceleration',       value: <>Aitken, <M math="\omega_0 = 0.5" />, <M math="\omega \in [0.1,\,1.0]" /></> },
-              { label: 'Sub-iterations',     value: '10 (flow) / 30 (solid) per outer loop' },
+              { label: 'Sub-iterations',     value: <><M math="10" /> (flow) / <M math="30" /> (solid) per outer loop</> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'All systems',        value: <>Trilinos / GMRES + ILU (rel. tol. <M math="10^{-2}" />)</> },
             ]},
             { heading: 'Convergence', rows: [
-              { label: 'RMS target / outer iters', value: <><M math="10^{-6}" /> / up to 50 per step</> },
+              { label: 'RMS target / outer iters', value: <><M math="10^{-6}" /> / up to <M math="50" /> per step</> },
             ]},
           ]}
         />
@@ -110,7 +110,7 @@ export function PerpendicularFlapContent() {
         total-Lagrangian linear-elastic solid formulation, coupled with incompressible Navier–Stokes
         through the partitioned interface and accelerated by Aitken <M math="\Delta^2" />, reproduces
         both the oscillation period and the steady-state deflection. The relatively wide
-        outer-iteration cap (50) is justified by the high-added-mass character of this configuration
+        outer-iteration cap (<M math="50" />) is justified by the high-added-mass character of this configuration
         — comparable to the flexible dam-break, but persistent rather than transient.
       </Takeaway>
 

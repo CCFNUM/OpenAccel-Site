@@ -83,8 +83,8 @@ export function OscillatingCylinderContent() {
           The computational domain is a concentric O-grid: a circular outer boundary of radius{' '}
           <M math="60\,D" /> surrounds the cylinder. The mesh is body-fitted with radial clustering
           towards the cylinder wall, the first cell height being <M math="10^{-3}\,D" />. The grid
-          corresponds to the medium resolution (Set B1) of Dütsch et al., with 192 cells around the
-          circumference and 128 in the radial direction (<M math="24\,576" /> quadrilateral cells). The
+          corresponds to the medium resolution (Set B1) of Dütsch et al., with <M math="192" /> cells around the
+          circumference and <M math="128" /> in the radial direction (<M math="24\,576" /> quadrilateral cells). The
           cylinder wall (<code>CYLINDER</code>) is a no-slip boundary whose position is prescribed by
           the periodic displacement of Equation (1). The outer boundary (<code>FARFIELD</code>) is held
           fixed and treated as a wall, pinning the mesh-deformation field at the domain edge. Grid
@@ -146,9 +146,9 @@ export function OscillatingCylinderContent() {
               { label: 'Transient scheme',       value: 'Second-order backward Euler (BDF2)' },
               { label: 'Advection scheme',       value: 'High-resolution' },
               { label: <>Timestep <M math="\Delta t" /></>,     value: <M math="6.876\times10^{-3}~\mathrm{s}\,(= T/720)" /> },
-              { label: 'Total time',             value: <><M math="49.505~\mathrm{s}" /> (10 periods)</> },
+              { label: 'Total time',             value: <><M math="49.505~\mathrm{s}" /> (<M math="10" /> periods)</> },
               { label: 'Velocity / pressure URF', value: <M math="0.6\ /\ 0.4" /> },
-              { label: 'Outer iterations',       value: '1–20 per timestep' },
+              { label: 'Outer iterations',       value: <><M math="1" />–<M math="20" /> per timestep</> },
               { label: 'Pressure reference',     value: <>Pinned at <M math="(0.55,0,0)" /></> },
               { label: 'RMS target',             value: <M math="10^{-6}" /> },
             ]},
@@ -157,7 +157,7 @@ export function OscillatingCylinderContent() {
             ]},
             { heading: 'Output', rows: [
               { label: 'Force / moment monitor', value: <>Surface integral on <code>CYLINDER</code>, moment about origin, every timestep</> },
-              { label: 'Field output interval',  value: 'Every 10 timesteps (24 frames/period)' },
+              { label: 'Field output interval',  value: <>Every <M math="10" /> timesteps (<M math="24" /> frames/period)</> },
             ]},
           ]}
         />
@@ -186,9 +186,9 @@ export function OscillatingCylinderContent() {
             <M math="\mathit{KC} = 5" />, compared with the reference values of Dütsch et al. (1998).</>}
           headers={['Coefficient', 'OpenAccel', 'Ref. (Dütsch)', 'Diff (%)']}
           rows={[
-            [<M math="c_d" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>2.11</span>, <M math="2.10" />, <M math="+0.5" />],
-            [<M math="c_i" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>1.50</span>, <M math="1.45" />, <M math="+3.4" />],
-            [<M math="c_m" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>2.50</span>, <M math="2.45" />, <M math="+2.0" />],
+            [<M math="c_d" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="2.11" /></span>, <M math="2.10" />, <M math="+0.5" />],
+            [<M math="c_i" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="1.50" /></span>, <M math="1.45" />, <M math="+3.4" />],
+            [<M math="c_m" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="2.50" /></span>, <M math="2.45" />, <M math="+2.0" />],
           ]}
         />
       </section>
@@ -204,7 +204,7 @@ export function OscillatingCylinderContent() {
         <h3>Convergence to the periodic state</h3>
         <p>
           Figure 2 shows the computed in-line force per unit length <M math="F_1(t)" /> over the full
-          10-period run. The impulsive start at <M math="t = 0" /> produces a brief transient that
+          <M math="10" />-period run. The impulsive start at <M math="t = 0" /> produces a brief transient that
           decays within the first cycle; from roughly the second cycle onward the force history is
           periodic and indistinguishable from cycle to cycle within plotting resolution.
         </p>

@@ -69,7 +69,7 @@ export function PressurizedCylinderContent() {
             ]},
             { heading: 'Numerics', rows: [
               { label: 'Time mode',               value: 'Steady-state' },
-              { label: 'Maximum outer iters',     value: '200' },
+              { label: 'Maximum outer iters',     value: <M math="200" /> },
             ]},
             { heading: 'Linear solvers', rows: [
               { label: 'Displacement system',     value: <>PETSc / FGMRES + block-Jacobi (rel. tol. <M math="10^{-3}" />)</> },

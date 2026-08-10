@@ -96,7 +96,7 @@ export function AirfoilContent() {
               heading: 'Convergence',
               rows: [
                 { label: 'RMS residual target', value: <M math="10^{-6}" /> },
-                { label: 'Maximum outer iters', value: '1500' },
+                { label: 'Maximum outer iters', value: <M math="1500" /> },
               ],
             },
           ]}

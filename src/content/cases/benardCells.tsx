@@ -46,7 +46,7 @@ export function BenardCellsContent() {
           caption="Rayleigh–Bénard convection — complete case setup."
           groups={[
             { heading: 'Geometry and mesh', rows: [
-              { label: <>Aspect ratio <M math="L/H" /></>, value: '9:1' },
+              { label: <>Aspect ratio <M math="L/H" /></>, value: <M math="9\!:\!1" /> },
               { label: 'Mesh',               value: <><M math="180 \times 20 \times 1" /> (<M math="N_n = 7\,602" />, <M math="N_e = 3\,600" />)</> },
             ]},
             { heading: 'Fluid properties', rows: [
@@ -67,12 +67,12 @@ export function BenardCellsContent() {
             ]},
             { heading: 'Numerics', rows: [
               { label: 'Time integration',   value: 'First-order backward Euler' },
-              { label: 'Time step / end time', value: <><M math="\Delta t = 5~\mathrm{s}" />, <M math="t_{\mathrm{end}} = 1500~\mathrm{s}" /> (300 steps)</> },
+              { label: 'Time step / end time', value: <><M math="\Delta t = 5~\mathrm{s}" />, <M math="t_{\mathrm{end}} = 1500~\mathrm{s}" /> (<M math="300" /> steps)</> },
               { label: 'Advection',          value: 'First-order upwind' },
               { label: 'Under-relaxation',   value: <><M math="\lambda^v = 0.9" />, <M math="\lambda^p = 0.1" /></> },
             ]},
             { heading: 'Convergence', rows: [
-              { label: 'RMS target / outer iters', value: <><M math="10^{-5}" /> / up to 10 per step</> },
+              { label: 'RMS target / outer iters', value: <><M math="10^{-5}" /> / up to <M math="10" /> per step</> },
             ]},
           ]}
         />
@@ -97,15 +97,15 @@ export function BenardCellsContent() {
           caption={<>Nusselt number compared with the spectral benchmark of Clever &amp; Busse (1974).</>}
           headers={['Source', <M math="\mathit{Ra}" />, <M math="k" />, <M math="\mathit{Pr}" />, <M math="\mathit{Nu}" />]}
           rows={[
-            ['Clever & Busse (1974)', '10 000', '3.117', '0.71', '2.661'],
-            ['Present work', '9 810', '4.18', '1.0', <span className="font-semibold" style={{ color: 'var(--signal)' }}>2.67</span>],
+            ['Clever & Busse (1974)', <M math="10\,000" />, <M math="3.117" />, <M math="0.71" />, <M math="2.661" />],
+            ['Present work', <M math="9\,810" />, <M math="4.18" />, <M math="1.0" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="2.67" /></span>],
           ]}
         />
       </section>
 
       <Takeaway>
         <p>
-          The 0.34% agreement with the spectral benchmark of Clever &amp; Busse (1974) validates
+          The <M math="0.34\%" /> agreement with the spectral benchmark of Clever &amp; Busse (1974) validates
           both the Boussinesq buoyancy coupling and the thermal-energy advection. The mild
           differences in <M math="\mathit{Ra}" />, <M math="k" />, and <M math="\mathit{Pr}" />{' '}
           between the two configurations do not affect the comparison: at moderate Rayleigh numbers
@@ -117,7 +117,7 @@ export function BenardCellsContent() {
       <AcceptanceCriterion>
         <p>
           The time-averaged Nusselt number shall agree with the Clever &amp; Busse benchmark to
-          within 1% on the <M math="180 \times 20" /> mesh, and the steady-state flow shall develop
+          within <M math="1\%" /> on the <M math="180 \times 20" /> mesh, and the steady-state flow shall develop
           into a periodic array of counter-rotating convection rolls.
         </p>
       </AcceptanceCriterion>

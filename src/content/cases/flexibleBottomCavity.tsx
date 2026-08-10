@@ -97,21 +97,21 @@ export function FlexibleBottomCavityContent() {
               { label: 'Advection',              value: 'High-resolution' },
               { label: 'Velocity under-relaxation', value: <M math="0.6" /> },
               { label: 'Pressure under-relaxation', value: <M math="0.3" /> },
-              { label: 'Mesh stiffness',         value: 'Inverse-volume (exponent 2), reference = initial mesh' },
-              { label: 'Mesh smoothing',         value: 'up to 6 iterations per step' },
+              { label: 'Mesh stiffness',         value: <>Inverse-volume (exponent <M math="2" />), reference = initial mesh</> },
+              { label: 'Mesh smoothing',         value: <>up to <M math="6" /> iterations per step</> },
             ]},
             { heading: 'FSI coupling', rows: [
               { label: 'Interface type',         value: <>General-connection, search tol. <M math="5 \times 10^{-3}" /></> },
               { label: 'Acceleration',           value: <>Aitken <M math="\Delta^2" />, <M math="\omega_0 = 0.2" />, <M math="\omega \in [0.1,\,0.8]" /></> },
-              { label: 'Outer FSI iterations',   value: <>up to 20 per step, target <M math="10^{-7}" /> (RMS)</> },
-              { label: 'Inner sub-iterations',   value: '20 flow, 5 solid displacement' },
+              { label: 'Outer FSI iterations',   value: <>up to <M math="20" /> per step, target <M math="10^{-7}" /> (RMS)</> },
+              { label: 'Inner sub-iterations',   value: <><M math="20" /> flow, <M math="5" /> solid displacement</> },
             ]},
             { heading: 'Linear solvers', rows: [
-              { label: 'Default (momentum, solid, mesh)', value: <>Trilinos / Belos GMRES + ILU, rel. tol. <M math="10^{-4}" />, abs. tol. <M math="10^{-12}" />, 3–50 iterations</> },
-              { label: 'Pressure correction',    value: <>HYPRE / GMRES + BoomerAMG, rel. tol. <M math="10^{-4}" />, abs. tol. <M math="10^{-12}" />, 3–50 iterations</> },
+              { label: 'Default (momentum, solid, mesh)', value: <>Trilinos / Belos GMRES + ILU, rel. tol. <M math="10^{-4}" />, abs. tol. <M math="10^{-12}" />, <M math="3" />–<M math="50" /> iterations</> },
+              { label: 'Pressure correction',    value: <>HYPRE / GMRES + BoomerAMG, rel. tol. <M math="10^{-4}" />, abs. tol. <M math="10^{-12}" />, <M math="3" />–<M math="50" /> iterations</> },
             ]},
             { heading: 'Mesh', rows: [
-              { label: 'Fluid',                  value: <><M math="13\,320" /> cells, <M math="\Delta = 0.05~\mathrm{m}" /> (15-block topology with arc-edged fillets)</> },
+              { label: 'Fluid',                  value: <><M math="13\,320" /> cells, <M math="\Delta = 0.05~\mathrm{m}" /> (<M math="15" />-block topology with arc-edged fillets)</> },
               { label: 'Solid',                  value: <><M math="492" /> cells (<M math="82 \times 6" />), <M math="\Delta = 0.05~\mathrm{m}" /></> },
             ]},
           ]}
@@ -145,9 +145,9 @@ export function FlexibleBottomCavityContent() {
             FSI force on the cavity floor.</>}
           headers={['Quantity', 'OpenAccel (undamped)', 'OpenAccel (damped)', 'Reference']}
           rows={[
-            [<>Horizontal displacement <M math="u_{x,A}" /> [mm] (s4f coarse)</>, <M math="-0.00016" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>−0.00015</span>, <M math="-0.00018" />],
-            [<>Vertical displacement <M math="u_{y,A}" /> [mm] (Tuković et al.)</>, <M math="-0.253" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>−0.251</span>, <M math="-0.250" />],
-            [<>Interface force <M math="F_y" /> [N m<sup>−1</sup>] (s4f coarse)</>, <M math="-5.129" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}>−5.030</span>, <M math="-5.176" />],
+            [<>Horizontal displacement <M math="u_{x,A}" /> [mm] (s4f coarse)</>, <M math="-0.00016" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="-0.00015" /></span>, <M math="-0.00018" />],
+            [<>Vertical displacement <M math="u_{y,A}" /> [mm] (Tuković et al.)</>, <M math="-0.253" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="-0.251" /></span>, <M math="-0.250" />],
+            [<>Interface force <M math="F_y" /> [N m<sup>−1</sup>] (s4f coarse)</>, <M math="-5.129" />, <span className="font-semibold" style={{ color: 'var(--signal)' }}><M math="-5.030" /></span>, <M math="-5.176" />],
           ]}
         />
         <p className="text-xs text-[var(--text-dim)] -mt-4 mb-6 px-1">

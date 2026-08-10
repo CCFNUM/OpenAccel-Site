@@ -140,7 +140,7 @@ export function Support() {
             <h2 className="font-mono text-xs uppercase tracking-[0.1em] text-[var(--text-dim)] mb-6 border-b border-[var(--hairline)] pb-3">Funding</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="w-12 h-12 bg-[var(--surface-2)] rounded border border-[var(--hairline)] flex items-center justify-center text-xs text-[var(--text-dim)] font-mono font-bold shrink-0">SNSF</div>
+                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src="/figures/snsf_logo.png" alt="SNSF logo" className="h-16 w-auto object-contain" /></div>
                 <div>
                   <div className="font-display font-semibold leading-snug">Swiss National Science Foundation</div>
                   <div className="text-xs font-mono mt-1" style={{ color: 'var(--cold)' }}>Grant no. 215627</div>
@@ -150,7 +150,7 @@ export function Support() {
                 </div>
               </div>
               <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="w-12 h-12 bg-[var(--surface-2)] rounded border border-[var(--hairline)] flex items-center justify-center text-xs text-[var(--text-dim)] font-mono font-bold shrink-0">PASC</div>
+                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src="/figures/pasc_logo.jpg" alt="PASC logo" className="h-16 w-auto object-contain" /></div>
                 <div>
                   <div className="font-display font-semibold leading-snug">Platform for Advanced Scientific Computing</div>
                   <div className="text-xs font-mono mt-1" style={{ color: 'var(--cold)' }}>XSES-FSI</div>
@@ -167,14 +167,14 @@ export function Support() {
             <h2 className="font-mono text-xs uppercase tracking-[0.1em] text-[var(--text-dim)] mb-6 border-b border-[var(--hairline)] pb-3">Contributing Institutions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="w-12 h-12 bg-[var(--surface-2)] rounded border border-[var(--hairline)] flex items-center justify-center text-[8px] text-[var(--text-dim)] font-mono text-center leading-tight px-1 shrink-0">[TODO: logo]</div>
+                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src="/figures/hslu_logo.png" alt="HSLU logo" className="h-16 w-auto object-contain" /></div>
                 <div>
                   <div className="font-display font-semibold leading-snug">Lucerne University of Applied Sciences and Arts</div>
                   <div className="text-xs text-[var(--text-dim)] font-mono uppercase tracking-wider mt-1">Host Institution</div>
                 </div>
               </div>
               <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="w-12 h-12 bg-[var(--surface-2)] rounded border border-[var(--hairline)] flex items-center justify-center text-[8px] text-[var(--text-dim)] font-mono text-center leading-tight px-1 shrink-0">[TODO: logo]</div>
+                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src="/figures/aub_logo.png" alt="AUB logo" className="h-16 w-auto object-contain" /></div>
                 <div>
                   <div className="font-display font-semibold leading-snug">American University of Beirut</div>
                   <div className="text-xs text-[var(--text-dim)] font-mono uppercase tracking-wider mt-1">Supporting Institution</div>

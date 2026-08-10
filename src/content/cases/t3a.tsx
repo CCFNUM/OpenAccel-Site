@@ -55,7 +55,7 @@ export function T3AContent() {
         <h2 className="text-2xl font-display font-semibold mb-4 border-b border-[var(--hairline)] pb-2">3. Setup</h2>
         <p className="mb-4 text-sm text-[var(--text-dim)]">
           The inlet turbulence quantities are computed from the prescribed turbulence intensity{' '}
-          <M math="Tu = 3.3\%" /> and eddy-viscosity ratio of 12:
+          <M math="Tu = 3.3\%" /> and eddy-viscosity ratio of <M math="12" />:
         </p>
         <Equation
           math={String.raw`k = \tfrac{3}{2}(Tu \cdot U_\infty)^2 = 0.0476~\mathrm{m^2\,s^{-2}}, \qquad \omega = \frac{k^{1/2}}{C_\mu^{1/4}\,\ell_t} = 264.63~\mathrm{s^{-1}}`}
