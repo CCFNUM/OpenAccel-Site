@@ -4,11 +4,11 @@ import type { ReactNode, MouseEvent, CSSProperties } from 'react';
 /**
  * SpotlightCard — restrained cursor-follow spotlight for feature cards.
  * A soft radial glow in the card's own physics-accent token tracks the cursor;
- * on hover the card lifts a few ph, the accent border brightens, and a thin
+ * on hover the card lifts a few px, the accent border brightens, and a thin
  * accent line wipes across the bottom. Dependency-free (no motion library),
- * token-driven (no hardcoded colours), theme-aware, and fully disabled under
- * prefers-reduced-motion. Pass `href` for a whole-card wouter link, or omit it
- * to render a plain container whose own inner links stay clickable.
+ * token-driven (no hardcoded colours), theme-aware, disabled under
+ * prefers-reduced-motion. Render mode: `external` href -> new-tab <a>;
+ * internal `href` -> wouter <Link>; neither -> plain container.
  */
 
 const STYLE_ID = 'spotlight-card-styles';
@@ -73,13 +73,16 @@ ensureStyles();
 interface SpotlightCardProps {
   /** Physics-accent token, e.g. 'var(--cold)'. Drives glow, border, wipe. */
   accent: string;
-  /** Optional wouter route — makes the whole card a link. Omit for a container. */
+  /** Route (internal wouter) or URL (with `external`) — makes the whole card a link. */
   href?: string;
+  /** When true with `href`, opens in a new tab via a plain anchor. */
+  external?: boolean;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }
 
-export function SpotlightCard({ accent, href, className = '', children }: SpotlightCardProps) {
+export function SpotlightCard({ accent, href, external, className = '', style, children }: SpotlightCardProps) {
   const onMove = (e: MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const r = el.getBoundingClientRect();
@@ -87,7 +90,7 @@ export function SpotlightCard({ accent, href, className = '', children }: Spotli
     el.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
   };
 
-  const style = { '--card-accent': accent } as CSSProperties;
+  const mergedStyle = { '--card-accent': accent, ...(style || {}) } as CSSProperties;
   const cls = `spotlight-card ${className}`;
 
   const inner = (
@@ -98,15 +101,22 @@ export function SpotlightCard({ accent, href, className = '', children }: Spotli
     </>
   );
 
+  if (external && href) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={cls} style={mergedStyle} onMouseMove={onMove}>
+        {inner}
+      </a>
+    );
+  }
   if (href) {
     return (
-      <Link href={href} className={cls} style={style} onMouseMove={onMove}>
+      <Link href={href} className={cls} style={mergedStyle} onMouseMove={onMove}>
         {inner}
       </Link>
     );
   }
   return (
-    <div className={cls} style={style} onMouseMove={onMove}>
+    <div className={cls} style={mergedStyle} onMouseMove={onMove}>
       {inner}
     </div>
   );

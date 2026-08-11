@@ -2,6 +2,7 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
 import { SEO } from '@/components/SEO';
 import { Building2, Briefcase, Server, GraduationCap, Heart, ExternalLink, MessageSquare, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
+import { SpotlightCard } from '@/components/SpotlightCard';
 
 const TRACKS = [
   {
@@ -72,9 +73,10 @@ export function Support() {
             <h2 className="text-2xl font-display font-semibold mb-6 pb-2 border-b border-[var(--hairline)]">Support Tracks</h2>
             <div className="space-y-4">
               {TRACKS.map(track => (
-                <div
+                <SpotlightCard
                   key={track.id}
-                  className="p-5 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] transition-all"
+                  accent={track.accent}
+                  className="p-5 rounded-lg bg-[var(--surface)]"
                   style={{ borderTopColor: track.accent, borderTopWidth: 2 }}
                 >
                   <div className="flex items-start gap-4">
@@ -89,7 +91,7 @@ export function Support() {
                       )}
                     </div>
                   </div>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>

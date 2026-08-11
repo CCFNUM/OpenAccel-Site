@@ -4,6 +4,7 @@ import { CodeBlock } from '@/components/CodeBlock';
 import { DataFlow } from '@/components/DataFlow';
 import { ArrowRight, GitPullRequest, Settings, Terminal, FileText, CheckCircle2 } from 'lucide-react';
 import { Link } from 'wouter';
+import { SpotlightCard } from '@/components/SpotlightCard';
 
 const EXPERTISE_TILES = [
   { label: 'Trilinos / Kokkos',     desc: 'Kokkos threading, GPU back-ends',      accent: 'var(--cold)' },
@@ -100,13 +101,13 @@ export function Develop() {
               { dir: 'docs/theory/',   desc: 'LaTeX source for the Theory Guide (auto-built by CI)',             accent: 'var(--warm)' },
               { dir: 'external/',      desc: 'Bundled submodules: Eigen, ExprTk, nanoflann, gplotpp',           accent: 'var(--signal)' },
             ].map(item => (
-              <div key={item.dir} className="p-3 border border-[var(--hairline)] bg-[var(--surface)] rounded flex items-start gap-3">
+              <SpotlightCard key={item.dir} external href={`https://github.com/CCFNUM/OpenAccel/tree/main/${item.dir.replace(/\/$/, '')}`} accent={item.accent} className="p-3 bg-[var(--surface)] rounded flex items-start gap-3">
                 <FileText className="shrink-0 w-5 h-5 mt-0.5" style={{ color: item.accent }} />
                 <div>
                   <div className="font-mono text-sm text-[var(--text)]">{item.dir}</div>
                   <div className="text-xs text-[var(--text-dim)] mt-1">{item.desc}</div>
                 </div>
-              </div>
+              </SpotlightCard>
             ))}
           </div>
 

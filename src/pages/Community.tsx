@@ -3,6 +3,7 @@ import { SEO } from '@/components/SEO';
 import { communityConfig } from '@/config/community';
 import { Megaphone, Github, Users, HelpCircle, Lightbulb, ExternalLink, Tv, Megaphone as MegaphoneIcon } from 'lucide-react';
 import { Link } from 'wouter';
+import { SpotlightCard } from '@/components/SpotlightCard';
 
 function BugIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -85,17 +86,16 @@ export function Community() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 {DISCUSSION_CATEGORIES.map(cat => (
-                  <a key={cat.path}
+                  <SpotlightCard key={cat.path}
+                    external
                     href={`https://github.com/${communityConfig.githubOrg}/${communityConfig.githubRepo}/discussions/categories/${cat.path}`}
-                    target="_blank" rel="noreferrer"
-                    className="p-4 border border-[var(--hairline)] bg-[var(--ink)] rounded transition-all group"
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = cat.color}
-                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'var(--hairline)'}
+                    accent={cat.color}
+                    className="p-4 bg-[var(--ink)] rounded group"
                   >
                     <cat.icon size={20} className="mb-2 transition-transform group-hover:scale-110" style={{ color: cat.color }} />
                     <h3 className="font-medium mb-0.5" style={{ color: 'var(--text)' }} dangerouslySetInnerHTML={{ __html: cat.label }} />
                     <p className="text-xs text-[var(--text-dim)]">{cat.desc}</p>
-                  </a>
+                  </SpotlightCard>
                 ))}
               </div>
               <a href={`https://github.com/${communityConfig.githubOrg}/${communityConfig.githubRepo}/discussions/new`}
