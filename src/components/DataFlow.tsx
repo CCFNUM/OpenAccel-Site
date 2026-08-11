@@ -1,11 +1,17 @@
 /**
  * DataFlow — internal solver pipeline snake with stage icons.
  * SVG, theme-aware tokens, solid triangle arrows colored per source block.
+ *
+ * Motion (polish pass): a single luminous pulse threads through the pipeline in
+ * solver order, tracing each box perimeter and each connector as it advances,
+ * taking that stage's physics-accent colour. ~4s traversal, 3s still pause, loops.
+ * Fully removed under prefers-reduced-motion (static figure preserved).
  */
 export function DataFlow() {
   return (
     <div className="my-6 mx-auto" style={{ maxWidth: 720 }}>
       <svg viewBox="0 0 680 250" width="100%" role="img" aria-label="Internal solver data flow" style={{ fontFamily: 'var(--font-sans, sans-serif)' }}>
+        <style>{`@keyframes df1{0%{opacity:1;stroke-dashoffset:100}5.195%{opacity:1;stroke-dashoffset:0}5.205%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df2{0%,5.185%{opacity:0;stroke-dashoffset:100}5.195%{opacity:1;stroke-dashoffset:100}10.39%{opacity:1;stroke-dashoffset:0}10.4%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df3{0%,10.38%{opacity:0;stroke-dashoffset:100}10.39%{opacity:1;stroke-dashoffset:100}15.584%{opacity:1;stroke-dashoffset:0}15.594%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df4{0%,15.574%{opacity:0;stroke-dashoffset:100}15.584%{opacity:1;stroke-dashoffset:100}20.779%{opacity:1;stroke-dashoffset:0}20.789%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df5{0%,20.769%{opacity:0;stroke-dashoffset:100}20.779%{opacity:1;stroke-dashoffset:100}25.974%{opacity:1;stroke-dashoffset:0}25.984%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df6{0%,25.964%{opacity:0;stroke-dashoffset:100}25.974%{opacity:1;stroke-dashoffset:100}31.169%{opacity:1;stroke-dashoffset:0}31.179%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df7{0%,31.159%{opacity:0;stroke-dashoffset:100}31.169%{opacity:1;stroke-dashoffset:100}36.364%{opacity:1;stroke-dashoffset:0}36.374%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df8{0%,36.354%{opacity:0;stroke-dashoffset:100}36.364%{opacity:1;stroke-dashoffset:100}41.558%{opacity:1;stroke-dashoffset:0}41.568%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df9{0%,41.548%{opacity:0;stroke-dashoffset:100}41.558%{opacity:1;stroke-dashoffset:100}46.753%{opacity:1;stroke-dashoffset:0}46.763%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df10{0%,46.743%{opacity:0;stroke-dashoffset:100}46.753%{opacity:1;stroke-dashoffset:100}51.948%{opacity:1;stroke-dashoffset:0}51.958%,100%{opacity:0;stroke-dashoffset:0}}@keyframes df11{0%,51.938%{opacity:0;stroke-dashoffset:100}51.948%{opacity:1;stroke-dashoffset:100}57.143%{opacity:1;stroke-dashoffset:0}57.153%,100%{opacity:0;stroke-dashoffset:0}}.df-pulse{fill:none;stroke-width:2.5px;stroke-linecap:round;stroke-dasharray:12 88;opacity:0}@media (prefers-reduced-motion: reduce){.df-pulse{animation:none !important;opacity:0 !important}}`}</style>
         <defs>
           <marker id="a-cold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9Z" fill="var(--cold)" /></marker>
           <marker id="a-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9Z" fill="var(--violet)" /></marker>
@@ -57,6 +63,21 @@ export function DataFlow() {
           <rect x="20" y="148" width="162" height="54" rx="8" fill="var(--callout-warm-bg, rgba(217,90,48,0.1))" stroke="var(--warm)" strokeWidth="1.5" />
           <g stroke="var(--warm)" strokeWidth="1.5" fill="none"><polyline points="40,186 49,175 57,181 66,166"/><line x1="40" y1="162" x2="40" y2="188"/><line x1="40" y1="188" x2="66" y2="188"/></g>
           <text x="80" y="175" dominantBaseline="central" fill="var(--warm)" fontSize="12.5" fontWeight="600">Post-processing</text>
+        </g>
+
+        {/* ── Animated pulse overlay (polish pass) ─────────────────────────── */}
+        <g>
+          <path className="df-pulse" d="M28,30 H208 A8,8 0 0 1 216,38 V76 A8,8 0 0 1 208,84 H28 A8,8 0 0 1 20,76 V38 A8,8 0 0 1 28,30 Z" pathLength={100} stroke="var(--cold)" style={{ animation: "df1 7s linear infinite", filter: "drop-shadow(0 0 3px var(--cold))" }} />
+          <path className="df-pulse" d="M218,57 L256,57" pathLength={100} stroke="var(--cold)" style={{ animation: "df2 7s linear infinite", filter: "drop-shadow(0 0 3px var(--cold))" }} />
+          <path className="df-pulse" d="M266,30 H390 A8,8 0 0 1 398,38 V76 A8,8 0 0 1 390,84 H266 A8,8 0 0 1 258,76 V38 A8,8 0 0 1 266,30 Z" pathLength={100} stroke="var(--violet)" style={{ animation: "df3 7s linear infinite", filter: "drop-shadow(0 0 3px var(--violet))" }} />
+          <path className="df-pulse" d="M400,57 L448,57" pathLength={100} stroke="var(--violet)" style={{ animation: "df4 7s linear infinite", filter: "drop-shadow(0 0 3px var(--violet))" }} />
+          <path className="df-pulse" d="M458,30 H592 A8,8 0 0 1 600,38 V76 A8,8 0 0 1 592,84 H458 A8,8 0 0 1 450,76 V38 A8,8 0 0 1 458,30 Z" pathLength={100} stroke="var(--key-frame)" style={{ animation: "df5 7s linear infinite", filter: "drop-shadow(0 0 3px var(--key-frame))" }} />
+          <path className="df-pulse" d="M525,86 L525,146" pathLength={100} stroke="var(--key-frame)" style={{ animation: "df6 7s linear infinite", filter: "drop-shadow(0 0 3px var(--key-frame))" }} />
+          <path className="df-pulse" d="M454,148 H596 A8,8 0 0 1 604,156 V194 A8,8 0 0 1 596,202 H454 A8,8 0 0 1 446,194 V156 A8,8 0 0 1 454,148 Z" pathLength={100} stroke="var(--key-frame)" style={{ animation: "df7 7s linear infinite", filter: "drop-shadow(0 0 3px var(--key-frame))" }} />
+          <path className="df-pulse" d="M444,175 L410,175" pathLength={100} stroke="var(--key-frame)" style={{ animation: "df8 7s linear infinite", filter: "drop-shadow(0 0 3px var(--key-frame))" }} />
+          <path className="df-pulse" d="M220,148 H400 A8,8 0 0 1 408,156 V194 A8,8 0 0 1 400,202 H220 A8,8 0 0 1 212,194 V156 A8,8 0 0 1 220,148 Z" pathLength={100} stroke="var(--hot)" style={{ animation: "df9 7s linear infinite", filter: "drop-shadow(0 0 3px var(--hot))" }} />
+          <path className="df-pulse" d="M210,175 L184,175" pathLength={100} stroke="var(--hot)" style={{ animation: "df10 7s linear infinite", filter: "drop-shadow(0 0 3px var(--hot))" }} />
+          <path className="df-pulse" d="M28,148 H174 A8,8 0 0 1 182,156 V194 A8,8 0 0 1 174,202 H28 A8,8 0 0 1 20,194 V156 A8,8 0 0 1 28,148 Z" pathLength={100} stroke="var(--warm)" style={{ animation: "df11 7s linear infinite", filter: "drop-shadow(0 0 3px var(--warm))" }} />
         </g>
       </svg>
     </div>
