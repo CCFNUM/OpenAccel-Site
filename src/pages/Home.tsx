@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { SpotlightCard } from '@/components/SpotlightCard';
 import { FluidCanvas } from '@/components/FluidCanvas';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { useEffect, useState } from 'react';
@@ -88,18 +89,16 @@ export function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {CAPABILITIES.map((cap) => (
-              <Link
+              <SpotlightCard
                 key={cap.title}
                 href={cap.link}
-                className="group p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-all"
-                style={{ borderTopColor: 'transparent' }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderTopColor = cap.accent}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderTopColor = 'transparent'}
+                accent={cap.accent}
+                className="group p-6 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-2)]"
               >
                 <cap.icon className="w-8 h-8 mb-4 opacity-80 group-hover:opacity-100 transition-opacity" style={{ color: cap.accent }} />
                 <h3 className="font-display text-lg mb-2">{cap.title}</h3>
                 <p className="text-sm text-[var(--text-dim)]">{cap.desc}</p>
-              </Link>
+              </SpotlightCard>
             ))}
           </div>
         </div>
@@ -163,30 +162,30 @@ export function Home() {
       <section className="py-24 bg-[var(--surface)] border-t border-[var(--hairline)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-lg border border-[var(--hairline)] bg-[var(--ink)] flex flex-col">
+            <SpotlightCard accent="var(--cold)" className="p-8 rounded-lg bg-[var(--ink)] flex flex-col">
               <BookOpen className="w-8 h-8 text-[var(--cold)] mb-6" />
               <h3 className="font-display text-2xl mb-4">Use it</h3>
               <p className="text-[var(--text-dim)] mb-8 flex-grow">Run standard CFD benchmarks, evaluate different turbulence models, or couple fluids and solids. The tutorials walk you through everything.</p>
               <Link href="/tutorials" className="text-[var(--cold)] hover:text-white font-medium flex items-center group">
                 Browse tutorials <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
-            <div className="p-8 rounded-lg border border-[var(--hairline)] bg-[var(--ink)] flex flex-col">
+            </SpotlightCard>
+            <SpotlightCard accent="var(--hot)" className="p-8 rounded-lg bg-[var(--ink)] flex flex-col">
               <Code2 className="w-8 h-8 text-[var(--hot)] mb-6" />
               <h3 className="font-display text-2xl mb-4">Extend it</h3>
               <p className="text-[var(--text-dim)] mb-8 flex-grow">A modular C++20 architecture designed for researchers to implement new physics models without rewriting the solver core.</p>
               <Link href="/develop" className="text-[var(--hot)] hover:text-white font-medium flex items-center group">
                 Developer guide <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
-            <div className="p-8 rounded-lg border border-[var(--hairline)] bg-[var(--ink)] flex flex-col">
+            </SpotlightCard>
+            <SpotlightCard accent="var(--signal)" className="p-8 rounded-lg bg-[var(--ink)] flex flex-col">
               <Heart className="w-8 h-8 text-[var(--signal)] mb-6" />
               <h3 className="font-display text-2xl mb-4">Fund it</h3>
               <p className="text-[var(--text-dim)] mb-8 flex-grow">Partner with the core team to accelerate feature development, secure dedicated support, or sponsor a PhD thesis.</p>
               <Link href="/support" className="text-[var(--signal)] hover:text-white font-medium flex items-center group">
                 Support options <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
       </section>
