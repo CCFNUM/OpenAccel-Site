@@ -3,6 +3,7 @@ import { SEO } from '@/components/SEO';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { FluidCanvas } from '@/components/FluidCanvas';
 import { FluidSim } from '@/components/FluidSim';
+import { FlipCard } from '@/components/FlipCard';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { useEffect, useState } from 'react';
 import { getRepoStats, getContributors } from '@/lib/github';
@@ -78,7 +79,66 @@ export function Home() {
         </div>
       </section>
 
-      {/* 2. Capability grid */}
+      {/* 2. Supported By (moved below hero) */}
+      <section className="py-24 border-b border-[var(--hairline)] bg-[var(--ink)]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-2xl md:text-3xl font-display font-bold text-[var(--text)] tracking-tight mb-12 text-center">Supported By</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h2 className="font-mono text-sm uppercase tracking-[0.1em] font-bold text-[var(--text)] mb-2">Funding</h2>
+              <div className="w-full mb-6" style={{ height: 2, background: 'linear-gradient(to right, var(--cold), var(--hot))' }} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <FlipCard
+                  brand="snsf"
+                  logo={`${import.meta.env.BASE_URL}figures/snsf_logo.png`}
+                  alt="SNSF logo"
+                  name="Swiss National Science Foundation"
+                  href="https://www.snf.ch/en"
+                  meta="Grant no. 215627"
+                  detail={'"Immersed Methods for Fluid-Structure-Contact-Interaction Simulations and Complex Geometries"'}
+                  blurb="Switzerland's national agency funding basic and applied research across all disciplines."
+                />
+                <FlipCard
+                  brand="pasc"
+                  logo={`${import.meta.env.BASE_URL}figures/pasc_logo.jpg`}
+                  alt="PASC logo"
+                  name="Platform for Advanced Scientific Computing"
+                  href="https://pasc-ch.org/index.html"
+                  meta="XSES-FSI"
+                  detail={'"XSES-FSI: towards eXtreme Scale Semi-Structured discretizations for Fluid-Structure Interaction"'}
+                  blurb="A Swiss initiative advancing high-performance computing and computational science."
+                />
+              </div>
+            </div>
+            <div>
+              <h2 className="font-mono text-sm uppercase tracking-[0.1em] font-bold text-[var(--text)] mb-2">Contributing Institutions</h2>
+              <div className="w-full mb-6" style={{ height: 2, background: 'linear-gradient(to right, var(--cold), var(--hot))' }} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <FlipCard
+                  brand="hslu"
+                  logo={`${import.meta.env.BASE_URL}figures/hslu_logo.png`}
+                  alt="HSLU logo"
+                  name="Lucerne University of Applied Sciences and Arts"
+                  href="https://www.hslu.ch/en/"
+                  meta="Host Institution"
+                  blurb="The project's host institution and CFD research base in Lucerne, Switzerland."
+                />
+                <FlipCard
+                  brand="aub"
+                  logo={`${import.meta.env.BASE_URL}figures/aub_logo.png`}
+                  alt="AUB logo"
+                  name="American University of Beirut"
+                  href="https://www.aub.edu.lb/"
+                  meta="Supporting Institution"
+                  blurb="A leading research university in Beirut contributing to OpenAccel's development."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Capability grid */}
       <section className="py-24 border-y border-[var(--hairline)] bg-[var(--ink)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
@@ -105,7 +165,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 3. Live repo stats */}
+      {/* 4. Live repo stats */}
       <section className="py-24 bg-[var(--ink)] relative overflow-hidden">
         <FluidSim className="absolute inset-0 w-full h-full" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -160,7 +220,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 4. Three-card row */}
+      {/* 5. Three-card row */}
       <section className="py-24 bg-[var(--surface)] border-t border-[var(--hairline)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -192,54 +252,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* 5. Supported By */}
-      <section className="py-24 border-t border-[var(--hairline)] bg-[var(--ink)]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-mono text-[var(--text-dim)] uppercase tracking-[0.15em] mb-16 text-center">Supported By</p>
-
-          <div className="mb-16">
-            <h2 className="font-mono text-xs uppercase tracking-[0.1em] text-[var(--text-dim)] mb-8 border-b border-[var(--hairline)] pb-3">Funding</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src={`${import.meta.env.BASE_URL}figures/snsf_logo.png`} alt="SNSF logo" className="h-16 w-auto object-contain" /></div>
-                <div>
-                  <div className="font-display font-semibold text-[var(--text)] leading-snug">Swiss National Science Foundation</div>
-                  <div className="text-xs font-mono text-[var(--cold)] mt-1">Grant no. 215627</div>
-                  <div className="text-sm text-[var(--text-dim)] mt-2 leading-relaxed italic">"Immersed Methods for Fluid-Structure-Contact-Interaction Simulations and Complex Geometries"</div>
-                </div>
-              </div>
-              <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src={`${import.meta.env.BASE_URL}figures/pasc_logo.jpg`} alt="PASC logo" className="h-16 w-auto object-contain" /></div>
-                <div>
-                  <div className="font-display font-semibold text-[var(--text)] leading-snug">Platform for Advanced Scientific Computing</div>
-                  <div className="text-xs font-mono text-[var(--cold)] mt-1">XSES-FSI</div>
-                  <div className="text-sm text-[var(--text-dim)] mt-2 leading-relaxed italic">"XSES-FSI: towards eXtreme Scale Semi-Structured discretizations for Fluid-Structure Interaction"</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h2 className="font-mono text-xs uppercase tracking-[0.1em] text-[var(--text-dim)] mb-8 border-b border-[var(--hairline)] pb-3">Contributing Institutions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src={`${import.meta.env.BASE_URL}figures/hslu_logo.png`} alt="HSLU logo" className="h-16 w-auto object-contain" /></div>
-                <div>
-                  <div className="font-display font-semibold text-[var(--text)] leading-snug">Lucerne University of Applied Sciences and Arts</div>
-                  <div className="text-xs text-[var(--text-dim)] mt-1 uppercase tracking-wider font-mono">Host Institution</div>
-                </div>
-              </div>
-              <div className="p-6 rounded-lg border border-[var(--hairline)] bg-[var(--surface)] flex flex-col gap-3">
-                <div className="rounded-lg bg-white border border-[var(--hairline)] shrink-0 p-2 inline-flex"><img src={`${import.meta.env.BASE_URL}figures/aub_logo.png`} alt="AUB logo" className="h-16 w-auto object-contain" /></div>
-                <div>
-                  <div className="font-display font-semibold text-[var(--text)] leading-snug">American University of Beirut</div>
-                  <div className="text-xs text-[var(--text-dim)] mt-1 uppercase tracking-wider font-mono">Supporting Institution</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

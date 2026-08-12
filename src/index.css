@@ -64,6 +64,13 @@
 
   /* Physics-semantic accent colours */
   --cold:      #3B82F6;   /* incompressible flow */
+  --brand-aub:  #C13B6E;
+  --brand-aub-fill:  rgba(122,0,60,0.22);
+  --brand-hslu: #6E92C4;
+  --brand-hslu-fill: rgba(31,58,95,0.30);
+  --brand-pasc: #14C7AC;
+  --brand-pasc-fill: rgba(1,165,141,0.16);
+  --brand-snsf-fill: rgba(59,130,246,0.16);
   --violet:    #A78BFA;   /* compressible flow, turbulence */
   --flux:      #06B6D4;   /* multiphase, VOF, free surface */
   --hot:       #F97316;   /* FSI, ALE, moving mesh */
@@ -168,6 +175,13 @@
 
   /* Physics accents — darker for legibility on white */
   --cold:      #1D4ED8;
+  --brand-aub:  #7A003C;
+  --brand-aub-fill:  #F5E6ED;
+  --brand-hslu: #1F3A5F;
+  --brand-hslu-fill: #E7ECF3;
+  --brand-pasc: #01A58D;
+  --brand-pasc-fill: #E0F5F1;
+  --brand-snsf-fill: #E6EEFB;
   --violet:    #6D28D9;
   --flux:      #0E7490;
   --hot:       #C2410C;
