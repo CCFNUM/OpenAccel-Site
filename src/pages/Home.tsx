@@ -15,7 +15,7 @@ const CAPABILITIES = [
   { icon: Zap,      title: 'Conjugate heat transfer',     desc: 'Coupled fluid-solid diffusion',          link: '/tutorials/slab',              accent: 'var(--warm)' },
   { icon: Beaker,   title: 'RANS turbulence',             desc: 'k-ε, k-ω SST, Transition SST',          link: '/tutorials/pitzDaily',         accent: 'var(--violet)' },
   { icon: Disc,     title: 'Solid mechanics',             desc: 'Linear elasticity & stress analysis',    link: '/tutorials/plateHole',         accent: 'var(--signal)' },
-  { icon: Terminal, title: 'Multi-domain / non-conformal',desc: 'Interpolation across interfaces',        link: '/tutorials/airfoil',           accent: 'var(--cold)' },
+  { icon: Terminal, title: 'Multi-domain / non-conformal',desc: 'Interpolation across interfaces',        link: '/tutorials/rotatingCylinder',           accent: 'var(--cold)' },
   { icon: Cpu,      title: 'Compressible flow',           desc: 'Pressure-based solver formulations',     link: '/tutorials/circularArc',       accent: 'var(--violet)' },
 ];
 
