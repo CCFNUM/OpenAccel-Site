@@ -16,7 +16,7 @@
  *   6. DPR capped at 2.
  *   7. Frame rate capped at 60 fps via timestamp delta.
  */
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 // ── GLSL sources ────────────────────────────────────────────────────────────
 
@@ -300,12 +300,24 @@ function startFluid(gl: WebGL2RenderingContext, canvas: HTMLCanvasElement): () =
 
 export function FluidCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
+  // Live motion preference: seeded by the inline script, flipped by the header toggle.
+  const [reduced, setReduced] = useState(() =>
+    typeof document !== 'undefined' &&
+    document.documentElement.getAttribute('data-reduce-motion') === 'true'
+  );
+
+  useEffect(() => {
+    const obs = new MutationObserver(() =>
+      setReduced(document.documentElement.getAttribute('data-reduce-motion') === 'true')
+    );
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-reduce-motion'] });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mobile  = window.innerWidth < 768;
 
     if (reduced || mobile) {
@@ -323,10 +335,11 @@ export function FluidCanvas() {
       drawStatic(canvas);
     }
     return () => cleanup?.();
-  }, []);
+  }, [reduced]);
 
   return (
     <canvas
+      key={reduced ? 'static' : 'fluid'}
       ref={ref}
       className="absolute inset-0 w-full h-full"
       aria-hidden="true"

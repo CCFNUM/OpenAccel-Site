@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Github, Menu, X, Sun, Moon } from 'lucide-react';
+import { Github, Menu, X, Sun, Moon, Waves } from 'lucide-react';
 import { getRepoStats } from '@/lib/github';
 import { BackToTop } from '@/components/BackToTop';
 import { useTheme } from '@/hooks/use-theme';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 // Nav order: Get Started · Tutorials · Theory Manual · Develop · Publications · Community · Support
 const NAV_LINKS = [
@@ -27,6 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [starCount, setStarCount] = useState<number | null>(null);
   const { theme, toggle } = useTheme();
+  const { reduced, toggle: toggleMotion } = useReducedMotion();
 
   useEffect(() => {
     getRepoStats().then(stats => {
@@ -57,6 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const isDark = theme === 'dark';
   const toggleLabel = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+  const motionLabel = reduced ? 'Enable animations' : 'Reduce motion';
 
   return (
     <div className="min-h-[100dvh] flex flex-col bg-[var(--ink)] text-[var(--text)]">
@@ -106,6 +109,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 style={{ minWidth: 44, minHeight: 44 }}
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+              <button
+                onClick={toggleMotion}
+                aria-label={motionLabel}
+                title={motionLabel}
+                className="relative flex items-center justify-center rounded-md text-[var(--text-dim)] hover:text-[var(--text)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cold)]"
+                style={{ minWidth: 44, minHeight: 44 }}
+              >
+                <Waves size={18} />
+                {reduced && <span aria-hidden="true" className="absolute w-[26px] h-[2px] bg-current rotate-45 rounded-full" />}
               </button>
 
               <a
@@ -198,6 +211,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
             >
               <span>{isDark ? 'Light theme' : 'Dark theme'}</span>
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              onClick={toggleMotion}
+              aria-label={motionLabel}
+              className="flex items-center justify-between w-full px-2 py-4 text-lg font-medium text-[var(--text)] hover:text-[var(--cold)] transition-colors border-b border-[var(--hairline)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cold)] focus-visible:ring-inset"
+              style={{ minHeight: 44 }}
+            >
+              <span>{reduced ? 'Enable animations' : 'Reduce motion'}</span>
+              <span className="relative flex items-center justify-center">
+                <Waves size={20} />
+                {reduced && <span aria-hidden="true" className="absolute w-[28px] h-[2px] bg-current rotate-45 rounded-full" />}
+              </span>
             </button>
           </nav>
         </div>

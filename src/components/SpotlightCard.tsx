@@ -58,6 +58,10 @@ const CSS = `
   .spotlight-card__glow{display:none;}
   .spotlight-card__wipe{transition:none;}
 }
+html[data-reduce-motion="true"] .spotlight-card{transition:border-color .2s ease;}
+html[data-reduce-motion="true"] .spotlight-card:hover{transform:none;}
+html[data-reduce-motion="true"] .spotlight-card__glow{display:none;}
+html[data-reduce-motion="true"] .spotlight-card__wipe{transition:none;}
 `;
 
 function ensureStyles() {

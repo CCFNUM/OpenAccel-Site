@@ -10,6 +10,7 @@
          Default is "dark". Keep this as the very first script in <head>. -->
     <script>
       (function(){try{var t=localStorage.getItem('openaccel-theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+      (function(){try{var m=localStorage.getItem('openaccel-motion');var r=m!==null?m==='true':window.matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-reduce-motion',r?'true':'false');}catch(e){}})();
     </script>
 
     <!-- Tells the browser both colour schemes are supported;

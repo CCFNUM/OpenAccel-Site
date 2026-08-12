@@ -21,7 +21,7 @@
  *   6. DPR capped at 2, sim/dye resolutions capped, 20 pressure iters.
  *   7. Colours read from --cold / --hot (no hardcoded palette).
  */
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const SIM_RESOLUTION = 128;
 const DYE_RESOLUTION = 512;
@@ -458,10 +458,20 @@ function start(gl: WebGL2RenderingContext, canvas: HTMLCanvasElement): () => voi
 
 export function FluidSim({ className = '' }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const [reduced, setReduced] = useState(() =>
+    typeof document !== 'undefined' &&
+    document.documentElement.getAttribute('data-reduce-motion') === 'true'
+  );
+  useEffect(() => {
+    const obs = new MutationObserver(() =>
+      setReduced(document.documentElement.getAttribute('data-reduce-motion') === 'true')
+    );
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-reduce-motion'] });
+    return () => obs.disconnect();
+  }, []);
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced || window.innerWidth < 768) return;
     let cleanup: (() => void) | undefined;
     try {
@@ -472,6 +482,6 @@ export function FluidSim({ className = '' }: { className?: string }) {
       console.warn('[FluidSim] disabled:', err);
     }
     return () => cleanup?.();
-  }, []);
-  return <canvas ref={ref} className={`pointer-events-none ${className}`} aria-hidden="true" />;
+  }, [reduced]);
+  return <canvas key={reduced ? 'off' : 'on'} ref={ref} className={`pointer-events-none ${className}`} aria-hidden="true" />;
 }

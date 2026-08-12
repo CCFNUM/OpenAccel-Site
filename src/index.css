@@ -283,6 +283,10 @@
     transition: none !important;
   }
 }
+html[data-reduce-motion="true"] [data-theme-transitioning],
+html[data-reduce-motion="true"] [data-theme-transitioning] * {
+  transition: none !important;
+}
 
 .dark {
   /* Site no longer uses this class; kept to avoid import errors from shadcn components */

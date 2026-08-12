@@ -59,6 +59,14 @@ const CSS = `
   .flip-card:focus .flip-card__back,
   .flip-card:focus-within .flip-card__back{ opacity: 1; }
 }
+html[data-reduce-motion="true"] .flip-card__face{ transition: opacity .01s linear; transform: none !important; }
+html[data-reduce-motion="true"] .flip-card__back{ opacity: 0; }
+html[data-reduce-motion="true"] .flip-card:hover .flip-card__front,
+html[data-reduce-motion="true"] .flip-card:focus .flip-card__front,
+html[data-reduce-motion="true"] .flip-card:focus-within .flip-card__front{ opacity: 0; }
+html[data-reduce-motion="true"] .flip-card:hover .flip-card__back,
+html[data-reduce-motion="true"] .flip-card:focus .flip-card__back,
+html[data-reduce-motion="true"] .flip-card:focus-within .flip-card__back{ opacity: 1; }
 `;
 
 function ensureStyles() {
