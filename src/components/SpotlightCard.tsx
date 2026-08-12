@@ -1,6 +1,5 @@
 import { Link } from 'wouter';
 import type { ReactNode, MouseEvent, CSSProperties } from 'react';
-
 /**
  * SpotlightCard — restrained cursor-follow spotlight for feature cards.
  * A soft radial glow in the card's own physics-accent token tracks the cursor;
@@ -10,7 +9,6 @@ import type { ReactNode, MouseEvent, CSSProperties } from 'react';
  * prefers-reduced-motion. Render mode: `external` href -> new-tab <a>;
  * internal `href` -> wouter <Link>; neither -> plain container.
  */
-
 const STYLE_ID = 'spotlight-card-styles';
 const CSS = `
 .spotlight-card{
@@ -62,8 +60,25 @@ html[data-reduce-motion="true"] .spotlight-card{transition:border-color .2s ease
 html[data-reduce-motion="true"] .spotlight-card:hover{transform:none;}
 html[data-reduce-motion="true"] .spotlight-card__glow{display:none;}
 html[data-reduce-motion="true"] .spotlight-card__wipe{transition:none;}
-`;
 
+/* Opt-in: magnetic 3D tilt (Physics Capabilities grid) */
+.spotlight-card--tilt{
+  transform-style:preserve-3d;
+  transition:transform .18s ease, border-color .25s ease, background-color .25s ease, opacity .3s ease;
+}
+.spotlight-card--tilt:hover{
+  transform:perspective(900px) rotateX(var(--tiltX,0deg)) rotateY(var(--tiltY,0deg)) translateZ(6px);
+}
+/* Opt-in: focus-dim siblings (dull, not dark) */
+.spotlight-card--dim{
+  opacity:.5;
+  transform:scale(.97);
+}
+@media (prefers-reduced-motion: reduce){
+  .spotlight-card--tilt:hover{transform:none;}
+}
+html[data-reduce-motion="true"] .spotlight-card--tilt:hover{transform:none;}
+`;
 function ensureStyles() {
   if (typeof document === 'undefined') return;
   if (document.getElementById(STYLE_ID)) return;
@@ -73,7 +88,6 @@ function ensureStyles() {
   document.head.appendChild(el);
 }
 ensureStyles();
-
 interface SpotlightCardProps {
   /** Physics-accent token, e.g. 'var(--cold)'. Drives glow, border, wipe. */
   accent: string;
@@ -84,19 +98,37 @@ interface SpotlightCardProps {
   className?: string;
   style?: CSSProperties;
   children: ReactNode;
+  /** Opt-in: magnetic 3D tilt toward the cursor (Physics Capabilities grid). */
+  tilt?: boolean;
+  /** Opt-in: when true, this card recedes (dulls) while a sibling is hovered. */
+  dimmed?: boolean;
+  /** Fires on hover enter/leave so a parent grid can track the active card. */
+  onHoverChange?: (hovering: boolean) => void;
 }
-
-export function SpotlightCard({ accent, href, external, className = '', style, children }: SpotlightCardProps) {
+export function SpotlightCard({ accent, href, external, className = '', style, children, tilt = false, dimmed = false, onHoverChange }: SpotlightCardProps) {
+  const TILT_MAX = 6; // degrees
   const onMove = (e: MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const r = el.getBoundingClientRect();
-    el.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
-    el.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    el.style.setProperty('--mx', `${px * 100}%`);
+    el.style.setProperty('--my', `${py * 100}%`);
+    if (tilt) {
+      el.style.setProperty('--tiltX', `${(0.5 - py) * 2 * TILT_MAX}deg`);
+      el.style.setProperty('--tiltY', `${(px - 0.5) * 2 * TILT_MAX}deg`);
+    }
   };
-
+  const onEnter = () => onHoverChange?.(true);
+  const onLeave = (e: MouseEvent<HTMLElement>) => {
+    onHoverChange?.(false);
+    if (tilt) {
+      e.currentTarget.style.setProperty('--tiltX', '0deg');
+      e.currentTarget.style.setProperty('--tiltY', '0deg');
+    }
+  };
   const mergedStyle = { '--card-accent': accent, ...(style || {}) } as CSSProperties;
-  const cls = `spotlight-card ${className}`;
-
+  const cls = `spotlight-card ${tilt ? 'spotlight-card--tilt ' : ''}${dimmed ? 'spotlight-card--dim ' : ''}${className}`;
   const inner = (
     <>
       <span aria-hidden="true" className="spotlight-card__glow" />
@@ -104,23 +136,22 @@ export function SpotlightCard({ accent, href, external, className = '', style, c
       <span aria-hidden="true" className="spotlight-card__wipe" />
     </>
   );
-
   if (external && href) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className={cls} style={mergedStyle} onMouseMove={onMove}>
+      <a href={href} target="_blank" rel="noreferrer" className={cls} style={mergedStyle} onMouseMove={onMove} onMouseEnter={onEnter} onMouseLeave={onLeave}>
         {inner}
       </a>
     );
   }
   if (href) {
     return (
-      <Link href={href} className={cls} style={mergedStyle} onMouseMove={onMove}>
+      <Link href={href} className={cls} style={mergedStyle} onMouseMove={onMove} onMouseEnter={onEnter} onMouseLeave={onLeave}>
         {inner}
       </Link>
     );
   }
   return (
-    <div className={cls} style={mergedStyle} onMouseMove={onMove}>
+    <div className={cls} style={mergedStyle} onMouseMove={onMove} onMouseEnter={onEnter} onMouseLeave={onLeave}>
       {inner}
     </div>
   );

@@ -24,6 +24,7 @@ export function Home() {
   useDocumentTitle('Home');
   const [stats, setStats] = useState<any>(null);
   const [contributors, setContributors] = useState<any[]>([]);
+  const [hoveredCap, setHoveredCap] = useState<number | null>(null);
 
   useEffect(() => {
     getRepoStats().then(setStats);
@@ -149,11 +150,14 @@ export function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {CAPABILITIES.map((cap) => (
+            {CAPABILITIES.map((cap, i) => (
               <SpotlightCard
                 key={cap.title}
                 href={cap.link}
                 accent={cap.accent}
+                tilt
+                dimmed={hoveredCap !== null && hoveredCap !== i}
+                onHoverChange={(h) => setHoveredCap(h ? i : null)}
                 className="group p-6 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-2)]"
               >
                 <cap.icon className="w-8 h-8 mb-4 opacity-80 group-hover:opacity-100 transition-opacity" style={{ color: cap.accent }} />
