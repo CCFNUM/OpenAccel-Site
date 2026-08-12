@@ -2,6 +2,7 @@ import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { FluidCanvas } from '@/components/FluidCanvas';
+import { FluidSim } from '@/components/FluidSim';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { useEffect, useState } from 'react';
 import { getRepoStats, getContributors } from '@/lib/github';
@@ -105,8 +106,9 @@ export function Home() {
       </section>
 
       {/* 3. Live repo stats */}
-      <section className="py-24 bg-[var(--ink)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-[var(--ink)] relative overflow-hidden">
+        <FluidSim className="absolute inset-0 w-full h-full" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
             <div className="lg:w-1/3">
               <h2 className="font-display text-3xl mb-4">Open Development</h2>
