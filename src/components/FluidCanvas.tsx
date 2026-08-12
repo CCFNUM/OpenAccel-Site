@@ -63,7 +63,7 @@ void main(){
   // Cursor perturbation (aspect-correct distance)
   vec2 d = uv - uMouse;
   d.x *= uAspect;
-  vel += uMouseVel * exp(-dot(d,d)/.008) * .4;
+  vel += uMouseVel * exp(-dot(d,d)/.008) * .55;
 
   // Semi-Lagrangian trace-back
   float px = fract(uv.x - vel.x*uDt + 1.); // wrap x
@@ -93,7 +93,7 @@ void main(){
   vec3 cold = vec3(.231,.510,.965);
   vec3 hot  = vec3(.976,.451,.086);
   vec3 base = vec3(.039,.039,.051);
-  vec3 col  = mix(base, mix(cold,hot,t*t), t*.38);
+  vec3 col  = mix(base, mix(cold,hot,t*t), t*.5);
   frag = vec4(col, 1.);
 }`;
 
@@ -249,7 +249,7 @@ function startFluid(gl: WebGL2RenderingContext, canvas: HTMLCanvasElement): () =
     const asp = canvas.width / canvas.height;
 
     // Decay cursor velocity
-    mouseVel = [mouseVel[0] * 0.82, mouseVel[1] * 0.82];
+    mouseVel = [mouseVel[0] * 0.86, mouseVel[1] * 0.86];
 
     // ── Advect pass ──────────────────────────────────────────────
     gl.bindFramebuffer(gl.FRAMEBUFFER, fboB);
